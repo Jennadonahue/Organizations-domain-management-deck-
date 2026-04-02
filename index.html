@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Klaviyo Organizations Strategy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Inter', -apple-system, sans-serif; }
+
+    :root {
+      /* ── Main palette ── */
+      --charcoal: #232121;
+      --cotton:   #FFFCF9;
+      --poppy:    #F96353;
+      --stone:    #23302C;
+      /* ── Accent palette ── */
+      --eggplant: #744A6E;
+      --violet:   #9176D1;
+      --lemon:    #FCFC7E;
+      --pink:     #F1C0F2;
+      --sky:      #A6CFEB;
+      --orange:   #FFA43E;
+      /* ── Semantic aliases ── */
+      --navy:  var(--charcoal);
+      --bg:    var(--cotton);
+      --coral: var(--poppy);
+      --green: var(--poppy);
+    }
+
+    /* ── Deck & Slides ── */
+    #deck { position: fixed; inset: 0; }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 62px 80px 88px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      overflow-y: auto;
+    }
+    .slide.active { opacity: 1; pointer-events: all; z-index: 10; }
+
+    /* ── Navigation pill ── */
+    #nav {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 10px;
+      background: rgba(35,33,33,0.82);
+      backdrop-filter: blur(14px);
+      border-radius: 40px;
+      z-index: 200;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    }
+
+    .nav-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.85);
+      padding: 6px 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.2s;
+      letter-spacing: 0.3px;
+    }
+    .nav-btn:hover:not(:disabled) { background: rgba(255,255,255,0.2); color: white; }
+    .nav-btn:disabled { opacity: 0.28; cursor: not-allowed; }
+
+    #counter { color: rgba(255,255,255,0.65); font-size: 12px; font-weight: 500; min-width: 40px; text-align: center; }
+
+    /* ── Progress dots ── */
+    #dots {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 7px;
+      z-index: 200;
+    }
+    .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(35,33,33,0.22);
+      border: 1.5px solid rgba(35,33,33,0.15);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .dot.active { background: var(--green); border-color: var(--green); transform: scale(1.35); }
+    #dots.dark-dots .dot { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.15); }
+    #dots.dark-dots .dot.active { background: var(--green); border-color: var(--green); }
+
+    /* ── Shared ── */
+    .slide-hdr { width: 100%; max-width: 1060px; margin-bottom: 22px; }
+    .slide-hdr h2 { font-size: clamp(20px, 2.6vw, 33px); font-weight: 800; letter-spacing: -0.3px; color: var(--navy); }
+    .slide-hdr.light h2 { color: white; }
+
+    /* ════════════════════════════════
+       SLIDE 1 — Title
+    ════════════════════════════════ */
+    #s1 { background: var(--poppy); }
+
+    .s1-tag {
+      display: inline-block;
+      background: var(--green);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 4px;
+      margin-bottom: 32px;
+    }
+
+    #s1 h1 {
+      font-size: clamp(26px, 3.8vw, 50px);
+      font-weight: 800;
+      color: white;
+      line-height: 1.17;
+      letter-spacing: -0.5px;
+      max-width: 740px;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    #s1 h1 .hl { color: var(--green); }
+
+    #s1 .sub {
+      font-size: clamp(14px, 1.6vw, 18px);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      max-width: 500px;
+      line-height: 1.65;
+      margin-bottom: 46px;
+    }
+
+    /* ── Slide 1 hierarchy diagram ── */
+    .s1-hierarchy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 14px;
+      width: 100%;
+      max-width: 540px;
+    }
+    .s1-org-node {
+      background: var(--charcoal);
+      color: white;
+      border-radius: 10px;
+      padding: 11px 30px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      box-shadow: 0 4px 18px rgba(35,33,33,0.35);
+    }
+    .s1-svg { width: 100%; display: block; overflow: visible; }
+    .s1-brand-row { width: 100%; display: flex; }
+    .s1-brand-col  { flex: 1; display: flex; justify-content: center; }
+    .bpill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.11);
+      border-radius: 6px;
+      padding: 8px 15px;
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+    .bpill.center {
+      background: var(--green);
+      border-color: var(--green);
+      color: white;
+      padding: 10px 20px;
+      font-size: 11px;
+    }
+    .barr { color: rgba(255,255,255,0.18); font-size: 13px; margin: 0 9px; }
+
+    /* ════════════════════════════════
+       SLIDE 2 — Customer Quotes
+    ════════════════════════════════ */
+    #s2 { background: var(--bg); justify-content: flex-start; padding-top: 56px; }
+
+    .quote-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+      max-width: 1060px;
+    }
+
+    .qcard {
+      background: white;
+      border: 1px solid rgba(35,33,33,0.08);
+      border-left: 4px solid #F86455;
+      border-radius: 8px;
+      padding: 24px 24px 18px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .qmark {
+      position: absolute;
+      top: 8px; left: 14px;
+      font-size: 28px;
+      line-height: 1;
+      color: #F86455;
+      opacity: 0.35;
+      font-family: Georgia, serif;
+      user-select: none;
+      pointer-events: none;
+    }
+    .qtext {
+      font-style: italic;
+      font-size: 14px;
+      line-height: 1.65;
+      color: #444444;
+      padding-top: 16px;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+    .qcontext {
+      font-style: italic;
+      font-size: 11px;
+      color: rgba(35,33,33,0.4);
+      margin-top: 6px;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .qfooter { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .qco { font-weight: 700; font-size: 11.5px; color: var(--charcoal); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60%; }
+    .mbadge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .mbadge.email { background: rgba(249,99,83,0.11); color: var(--green); border: 1px solid rgba(249,99,83,0.25); }
+    .mbadge.total { background: var(--green); color: white; }
+
+    .mrr-bar {
+      width: 100%;
+      max-width: 1060px;
+      text-align: center;
+      font-size: clamp(13px, 1.3vw, 15px);
+      font-weight: 700;
+      color: var(--navy);
+      background: rgba(249,99,83,0.09);
+      border: 2px solid var(--green);
+      border-radius: 8px;
+      padding: 10px 24px;
+      margin-top: 13px;
+    }
+
+    /* ════════════════════════════════
+       SLIDE 3 — Real Need
+    ════════════════════════════════ */
+    #s3 { background: var(--poppy); justify-content: flex-start; padding-top: 56px; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      width: 100%;
+      max-width: 1060px;
+      margin-bottom: 18px;
+    }
+    .tcol {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+    .tcol.left { border-top: 3px solid rgba(255,255,255,0.2); }
+    .tcol.right { border-top: 3px solid var(--green); }
+
+    .tcol h3 {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+      color: rgba(255,255,255,0.4);
+    }
+    .tcol.right h3 { color: var(--green); }
+
+    .tcol ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .tcol ul li {
+      font-size: clamp(12px, 1.1vw, 14px);
+      line-height: 1.55;
+      padding-left: 18px;
+      position: relative;
+      color: rgba(255,255,255,0.78);
+    }
+    .tcol.left li::before { content: '\00b7'; position: absolute; left: 5px; top: -1px; color: rgba(255,255,255,0.3); font-size: 18px; }
+    .tcol.right li::before { content: '\2713'; position: absolute; left: 0; color: var(--green); font-size: 12px; font-weight: 700; top: 1px; }
+
+    .callout-box {
+      width: 100%;
+      max-width: 1060px;
+      background: rgba(249,99,83,0.09);
+      border: 1px solid rgba(249,99,83,0.32);
+      border-left: 4px solid var(--coral);
+      border-radius: 8px;
+      padding: 14px 22px;
+      font-size: clamp(12px, 1.15vw, 14px);
+      font-style: italic;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.65;
+    }
+
+    /* ════════════════════════════════
+       SLIDE 4 — Why Not One Account
+    ════════════════════════════════ */
+    #s4 { background: var(--bg); justify-content: flex-start; padding-top: 56px; }
+
+    .bquote {
+      max-width: 1060px;
+      width: 100%;
+      background: white;
+      border: 1px solid rgba(35,33,33,0.08);
+      border-left: 5px solid var(--green);
+      border-radius: 8px;
+      padding: 20px 26px;
+      font-size: clamp(12px, 1.15vw, 14px);
+      line-height: 1.82;
+      color: var(--stone);
+      font-style: italic;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      max-width: 1060px;
+      width: 100%;
+    }
+    .rcard {
+      background: white;
+      border: 1px solid rgba(35,33,33,0.08);
+      border-radius: 10px;
+      padding: 22px 14px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+    .ricon { font-size: 28px; display: block; margin-bottom: 9px; }
+    .rlabel { font-size: clamp(11px, 1vw, 12.5px); font-weight: 600; color: var(--navy); line-height: 1.45; }
+
+    /* ════════════════════════════════
+       SLIDE 5 — Introducing Orgs
+    ════════════════════════════════ */
+    #s5 { background: var(--poppy); justify-content: flex-start; padding-top: 56px; }
+    #s5 .slide-hdr h2 { color: white; }
+    .s5-sub { font-size: clamp(12px, 1.3vw, 15px); color: rgba(255,255,255,0.48); margin-top: 3px; }
+
+    .org-diagram { width: 100%; max-width: 880px; margin: 0 auto 22px; }
+    .org-top {
+      background: var(--green);
+      border-radius: 10px;
+      padding: 13px 28px;
+      text-align: center;
+      font-weight: 700;
+      font-size: clamp(14px, 1.5vw, 17px);
+      color: white;
+      box-shadow: 0 4px 20px rgba(249,99,83,0.35);
+    }
+    .org-lines { display: block; width: 100%; }
+
+    .org-accounts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .abox {
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      font-size: clamp(12px, 1.2vw, 14px);
+      font-weight: 600;
+      color: rgba(255,255,255,0.82);
+    }
+    .abox .aico { font-size: 20px; display: block; margin-bottom: 7px; }
+
+    .vprops {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      width: 100%;
+      max-width: 880px;
+    }
+    .vprop {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .vprop .vico { font-size: 22px; display: block; margin-bottom: 8px; }
+    .vprop p { font-size: clamp(11px, 1.05vw, 13px); line-height: 1.55; color: rgba(255,255,255,0.72); }
+
+    /* ════════════════════════════════
+       SLIDE 6 — Needs Table
+    ════════════════════════════════ */
+    #s6 { background: var(--bg); justify-content: flex-start; padding-top: 56px; }
+
+    .needs-tbl {
+      width: 100%;
+      max-width: 1060px;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: clamp(11px, 1.05vw, 13px);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 18px rgba(0,0,0,0.07);
+    }
+    .needs-tbl thead th {
+      background: var(--navy);
+      color: white;
+      padding: 11px 14px;
+      text-align: left;
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    .needs-tbl tbody tr { background: white; }
+    .needs-tbl tbody tr:nth-child(even) { background: rgba(255,252,249,0.9); }
+    .needs-tbl tbody td {
+      padding: 9px 14px;
+      border-bottom: 1px solid rgba(35,33,33,0.07);
+      line-height: 1.45;
+      color: var(--stone);
+      vertical-align: middle;
+    }
+    .needs-tbl tbody tr:last-child td { border-bottom: none; }
+
+    .sbadge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .sbadge.m1  { background: rgba(249,99,83,0.1);  color: #0d5e39; border: 1px solid rgba(249,99,83,0.28); }
+    .sbadge.m1c { background: rgba(249,99,83,0.2);  color: #083e26; border: 1px solid rgba(249,99,83,0.45); }
+    .sbadge.m12 { background: rgba(249,99,83,0.1);  color: #0d5e39; border: 1px solid rgba(249,99,83,0.28); }
+    .sbadge.m2  { background: rgba(245,158,11,0.12); color: #92400e; border: 1px solid rgba(245,158,11,0.38); }
+
+    /* ════════════════════════════════
+       SLIDE 7 — Real-World Impact
+    ════════════════════════════════ */
+    #s7 { background: var(--cotton); justify-content: flex-start; padding-top: 56px; }
+    #s7 .slide-hdr h2 { color: var(--charcoal); }
+
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      width: 100%;
+      max-width: 1060px;
+    }
+    .sccard {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-top: 4px solid var(--green);
+      border-radius: 12px;
+      padding: 22px 22px 20px;
+    }
+    .sccard h3 { font-size: clamp(15px, 1.5vw, 19px); font-weight: 800; color: white; margin-bottom: 3px; }
+    .sccard .bcount { font-size: 11.5px; font-weight: 600; color: var(--green); margin-bottom: 16px; }
+
+    .scsec { margin-bottom: 13px; }
+    .scsec label { display: block; font-size: 9.5px; text-transform: uppercase; letter-spacing: 1.3px; font-weight: 700; margin-bottom: 5px; }
+    .scsec.today label { color: rgba(255,255,255,0.33); }
+    .scsec.with label { color: var(--green); }
+    .scsec p { font-size: clamp(11.5px, 1.1vw, 13px); line-height: 1.55; }
+    .scsec.today p { color: rgba(255,255,255,0.58); }
+    .scsec.with p { color: rgba(255,255,255,0.88); }
+
+    /* ════════════════════════════════
+       SLIDE 8 — Summary / CTA
+    ════════════════════════════════ */
+    #s8 { background: var(--bg); }
+
+    .cta-wrap { max-width: 800px; width: 100%; }
+    .cta-wrap .slide-hdr { margin-bottom: 24px; }
+
+    .npoints { display: flex; flex-direction: column; gap: 16px; margin-bottom: 26px; }
+    .npt { display: flex; gap: 16px; align-items: flex-start; }
+    .nnum {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--green);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 800;
+    }
+    .nptext h3 { font-size: clamp(13px, 1.35vw, 16px); font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+    .nptext p { font-size: clamp(12px, 1.1vw, 14px); line-height: 1.6; color: var(--stone); }
+
+    .closing {
+      background: var(--navy);
+      color: rgba(255,255,255,0.82);
+      border-radius: 10px;
+      padding: 16px 24px;
+      font-size: clamp(13px, 1.25vw, 15px);
+      line-height: 1.6;
+      text-align: center;
+    }
+    .closing strong { color: var(--green); font-weight: 700; }
+
+    /* ════════════════════════════════════════════
+       POPPY BACKGROUND FIXES (slides 1, 3, 5)
+    ════════════════════════════════════════════ */
+
+    /* Slide 1 — tag & center pill: Charcoal so they don't vanish on Poppy */
+    .s1-tag { background: var(--charcoal); color: white; }
+    .bpill.center { background: var(--charcoal); border-color: var(--charcoal); }
+
+    /* Slide 3 — translation table */
+    .s3-table {
+      width: 100%;
+      max-width: 1060px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 20px;
+    }
+    .s3-thead {
+      display: grid;
+      grid-template-columns: 1fr 52px 1fr;
+      padding: 0 0 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      margin-bottom: 4px;
+    }
+    .s3-col-hdr {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .s3-col-hdr-need { color: var(--lemon); }
+    .s3-row {
+      display: grid;
+      grid-template-columns: 1fr 52px 1fr;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .s3-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: clamp(13px, 1.3vw, 16px);
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .s3-ask { color: rgba(255,255,255,0.75); }
+    .s3-need { color: white; }
+    .s3ri { font-size: 22px; flex-shrink: 0; }
+    .s3-arrow {
+      text-align: center;
+      font-size: 18px;
+      color: rgba(255,255,255,0.3);
+      font-weight: 300;
+    }
+    #s3 .callout-box {
+      background: var(--charcoal);
+      border: none;
+      border-left: 4px solid var(--lemon);
+      color: rgba(255,255,255,0.92);
+    }
+
+    /* Slide 5 — org diagram & value props on Poppy bg */
+    #s5 .org-top { background: var(--charcoal); box-shadow: 0 4px 20px rgba(35,33,33,0.4); }
+    #s5 .org-lines line { stroke: rgba(255,255,255,0.4); }
+    #s5 .abox { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.3); color: white; }
+    #s5 .vprop { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.2); }
+    #s5 .vprop p { color: rgba(255,255,255,0.9); }
+    #s5 .s5-sub { color: rgba(255,255,255,0.7); }
+    #s5 .vprops .vprop:nth-child(1) { border-left-color: var(--lemon); }
+    #s5 .vprops .vprop:nth-child(2) { border-left-color: var(--lemon); }
+    #s5 .vprops .vprop:nth-child(3) { border-left-color: var(--lemon); }
+
+    /* ════════════════════════════════════════════
+       SLIDE 7 — now Cotton/light background
+    ════════════════════════════════════════════ */
+    #s7 .sccard {
+      background: white;
+      border-color: rgba(35,33,33,0.1);
+    }
+    #s7 .sccard h3 { color: var(--charcoal); }
+    #s7 .sccard .bcount { color: var(--poppy); }
+    #s7 .scsec.today label { color: rgba(35,33,33,0.38); }
+    #s7 .scsec.today p    { color: rgba(35,33,33,0.55); }
+    #s7 .scsec.with  label { color: var(--poppy); }
+    #s7 .scsec.with  p    { color: var(--stone); }
+    /* Keep accent top borders on the cards */
+    #s7 .scenario-grid .sccard:nth-child(1) { border-top-color: var(--violet); }
+    #s7 .scenario-grid .sccard:nth-child(2) { border-top-color: var(--eggplant); }
+    #s7 .scenario-grid .sccard:nth-child(1) .bcount { color: var(--violet); }
+    #s7 .scenario-grid .sccard:nth-child(2) .bcount { color: var(--eggplant); }
+
+    /* ════════════════════════════════════════════
+       ACCENT COLOR OVERRIDES
+    ════════════════════════════════════════════ */
+
+    /* Slide 1 — Lemon headline highlight */
+    #s1 h1 .hl { color: var(--lemon); }
+
+    /* Slide 2 — subtitle */
+    .s2-sub {
+      font-size: 13px;
+      color: rgba(35,33,33,0.45);
+      margin-top: 4px;
+      font-weight: 400;
+    }
+
+    /* Slide 2 — all cards same #F86455 border + qmark */
+    .quote-grid { align-items: stretch; }
+    .quote-grid .qcard { border-left-color: #F86455; height: 100%; box-sizing: border-box; }
+    .quote-grid .qcard .qmark { color: #F86455; }
+
+    /* Slide 2 — MRR badge */
+    .mbadge.total { background: var(--poppy); color: white; border: none; }
+
+    /* Slide 3 — "What they actually need" column: Lemon */
+    .tcol.right { border-top-color: var(--lemon); }
+    .tcol.right h3 { color: var(--lemon); }
+    .tcol.right li::before { color: var(--lemon); }
+
+    /* Slide 4 — Why one account can't work */
+    .s4-sub {
+      font-size: clamp(12px, 1.1vw, 14px);
+      color: rgba(35,33,33,0.5);
+      margin-top: 6px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .s4-setup {
+      font-size: clamp(13px, 1.2vw, 15px);
+      color: rgba(35,33,33,0.55);
+      max-width: 1060px;
+      width: 100%;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .s4-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      width: 100%;
+      max-width: 1060px;
+    }
+    .s4-card {
+      background: white;
+      border-radius: 12px;
+      border: 1px solid rgba(35,33,33,0.08);
+      border-top: 4px solid var(--poppy);
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .s4-c1 { border-top-color: var(--eggplant); }
+    .s4-c2 { border-top-color: var(--violet); }
+    .s4-c3 { border-top-color: var(--sky); }
+    .s4-c4 { border-top-color: var(--orange); }
+    .s4-ico { font-size: 26px; }
+    .s4-card strong {
+      font-size: clamp(14px, 1.3vw, 16px);
+      font-weight: 800;
+      color: var(--charcoal);
+      line-height: 1.2;
+    }
+    .s4-card p {
+      font-size: clamp(12px, 1vw, 13px);
+      color: rgba(35,33,33,0.55);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* Slide 4 — Block quote: Violet accent */
+    .bquote { border-left-color: var(--violet); }
+
+    /* Slide 4 — Risk cards: per-card top border */
+    .risk-grid .rcard:nth-child(1) { border-top: 3px solid var(--eggplant); }
+    .risk-grid .rcard:nth-child(2) { border-top: 3px solid var(--violet); }
+    .risk-grid .rcard:nth-child(3) { border-top: 3px solid var(--sky); }
+    .risk-grid .rcard:nth-child(4) { border-top: 3px solid var(--orange); }
+
+    /* Slide 5 — Org layer box: Violet */
+    .org-top { background: var(--violet); box-shadow: 0 4px 20px rgba(145,118,209,0.4); }
+
+    /* Slide 5 — Value prop left-border accents */
+    .vprops .vprop:nth-child(1) { border-left: 3px solid var(--eggplant); }
+    .vprops .vprop:nth-child(2) { border-left: 3px solid var(--pink); }
+    .vprops .vprop:nth-child(3) { border-left: 3px solid var(--sky); }
+
+    /* Slide 6 — Status badge recolors */
+    .sbadge.m1  { background: rgba(166,207,235,0.18); color: #1a5f80; border-color: rgba(166,207,235,0.7); }
+    .sbadge.m1c { background: rgba(145,118,209,0.16); color: #4d3594; border-color: rgba(145,118,209,0.5); }
+    .sbadge.m12 { background: rgba(116,74,110,0.12);  color: var(--eggplant); border-color: rgba(116,74,110,0.4); }
+    .sbadge.m2  { background: rgba(255,164,62,0.14);  color: #8a4500; border-color: rgba(255,164,62,0.5); }
+
+    /* Slide 7 — Scenario cards: Violet / Pink top border */
+    .scenario-grid .sccard:nth-child(1) { border-top-color: var(--violet); }
+    .scenario-grid .sccard:nth-child(1) .bcount { color: var(--violet); }
+    .scenario-grid .sccard:nth-child(2) { border-top-color: var(--pink); }
+    .scenario-grid .sccard:nth-child(2) .bcount { color: var(--pink); }
+
+    /* Slide 7 — "With Organizations" label: Lemon */
+    .scsec.with label { color: var(--lemon); }
+
+    /* Slide 8 — Numbered circles: Poppy / Violet / Eggplant */
+    .npoints .npt:nth-child(1) .nnum { background: var(--poppy); }
+    .npoints .npt:nth-child(2) .nnum { background: var(--violet); }
+    .npoints .npt:nth-child(3) .nnum { background: var(--eggplant); }
+
+    /* Slide 8 — Closing box: Lemon strong text on Charcoal */
+    .closing strong { color: var(--lemon); }
+
+    /* ── Mobile ── */
+    @media (max-width: 600px) {
+      .slide { padding: 50px 18px 84px; }
+      .quote-grid, .two-col, .scenario-grid, .vprops, .org-accounts { grid-template-columns: 1fr; }
+      .risk-grid { grid-template-columns: repeat(2, 1fr); }
+      .needs-tbl { font-size: 10px; }
+      .needs-tbl thead th, .needs-tbl tbody td { padding: 7px 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="deck">
+
+  <!-- SLIDE 1 — Title -->
+  <div class="slide active" id="s1" data-theme="dark">
+    <div style="text-align:center;max-width:760px;display:flex;flex-direction:column;align-items:center">
+      <span class="s1-tag">Internal Strategy Brief</span>
+      <h1>Multiple Sending Domains in One Account:<br><span class="hl">The Real Problem Behind the Ask</span></h1>
+      <p class="sub">How Klaviyo Organizations solves what customers actually need</p>
+      <div class="s1-hierarchy">
+        <!-- Top node -->
+        <div class="s1-org-node">&#127963;&nbsp; One Organization</div>
+        <!-- Connector lines: vertical down from center, horizontal bar, 4 verticals to brands -->
+        <svg class="s1-svg" viewBox="0 0 400 36" height="36" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="200" y1="0"  x2="200" y2="18" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+          <line x1="50"  y1="18" x2="350" y2="18" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+          <line x1="50"  y1="18" x2="50"  y2="36" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+          <line x1="150" y1="18" x2="150" y2="36" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+          <line x1="250" y1="18" x2="250" y2="36" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+          <line x1="350" y1="18" x2="350" y2="36" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <!-- 4 brand pills, each centred in its quarter of the row -->
+        <div class="s1-brand-row">
+          <div class="s1-brand-col"><span class="bpill">Brand A</span></div>
+          <div class="s1-brand-col"><span class="bpill">Brand B</span></div>
+          <div class="s1-brand-col"><span class="bpill">Brand C</span></div>
+          <div class="s1-brand-col"><span class="bpill">Brand D</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 — Customer Quotes -->
+  <div class="slide" id="s2" data-theme="light">
+    <div class="slide-hdr">
+      <h2>We Keep Hearing the Same Request</h2>
+      <p class="s2-sub">Representing $77,563 in monthly recurring revenue</p>
+    </div>
+    <div class="quote-grid">
+      <div class="qcard">
+        <span class="qmark">&ldquo;</span>
+        <p class="qtext">Prefers a multi-domain set-up in one account.</p>
+        <p class="qcontext">Context: Single team managing multiple brands, seeking to avoid account switching</p>
+        <div class="qfooter">
+          <span class="qco">Lucky Strike / Bowlero</span>
+          <span class="mbadge total">$28,820 MRR</span>
+        </div>
+      </div>
+      <div class="qcard">
+        <span class="qmark">&ldquo;</span>
+        <p class="qtext">In a perfect world, we'd send from one account and choose from seven different sending domains per brand.</p>
+        <div class="qfooter">
+          <span class="qco">Modern Lifestyle Shop</span>
+          <span class="mbadge total">$23,403 MRR</span>
+        </div>
+      </div>
+      <div class="qcard">
+        <span class="qmark">&ldquo;</span>
+        <p class="qtext">We require different sending domains per brand — right now that's a full stop. We have to separate into multiple accounts.</p>
+        <div class="qfooter">
+          <span class="qco">Holley</span>
+          <span class="mbadge total">$12,990 MRR</span>
+        </div>
+      </div>
+      <div class="qcard">
+        <span class="qmark">&ldquo;</span>
+        <p class="qtext">It would be very important to have a second sending domain. I would love to do it with Klaviyo and not use different software.</p>
+        <div class="qfooter">
+          <span class="qco">Creamy Fabrics</span>
+          <span class="mbadge total">$12,350 MRR</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 — Real Need -->
+  <div class="slide" id="s3" data-theme="dark">
+    <div class="slide-hdr light">
+      <h2>The Request is a Proxy. The Real Need is Centralization.</h2>
+    </div>
+
+    <div class="s3-table">
+      <!-- Column headers -->
+      <div class="s3-thead">
+        <span class="s3-col-hdr">What they say they want</span>
+        <span></span>
+        <span class="s3-col-hdr s3-col-hdr-need">What they actually need</span>
+      </div>
+      <!-- Row 1 -->
+      <div class="s3-row">
+        <div class="s3-cell s3-ask"><span class="s3ri">🔑</span><span>No more switching between accounts</span></div>
+        <div class="s3-arrow">→</div>
+        <div class="s3-cell s3-need"><span class="s3ri">🏛️</span><span>Central command center across all accounts</span></div>
+      </div>
+      <!-- Row 2 -->
+      <div class="s3-row">
+        <div class="s3-cell s3-ask"><span class="s3ri">📧</span><span>Different domain per brand — without juggling multiple accounts</span></div>
+        <div class="s3-arrow">→</div>
+        <div class="s3-cell s3-need"><span class="s3ri">📤</span><span>One place to manage every brand&rsquo;s sending domain</span></div>
+      </div>
+      <!-- Row 3 -->
+      <div class="s3-row">
+        <div class="s3-cell s3-ask"><span class="s3ri">👥</span><span>One profile view, separate consent per brand</span></div>
+        <div class="s3-arrow">→</div>
+        <div class="s3-cell s3-need"><span class="s3ri">🧩</span><span>Unified profiles across all brands — with consent unique to each</span></div>
+      </div>
+      <!-- Row 4 -->
+      <div class="s3-row">
+        <div class="s3-cell s3-ask"><span class="s3ri">🏗️</span><span>One place to create, build &amp; send</span></div>
+        <div class="s3-arrow">→</div>
+        <div class="s3-cell s3-need"><span class="s3ri">📦</span><span>Centralized asset library &amp; ability to send to multiple brands in one view</span></div>
+      </div>
+    </div>
+
+    <div class="callout-box">
+      &ldquo;The ask for &lsquo;one account, many domains&rsquo; is really an ask for reduced operational friction and centralized control &mdash; not a technical architecture preference.&rdquo;
+    </div>
+  </div>
+
+  <!-- SLIDE 4 — Why Not One Account -->
+  <div class="slide" id="s4" data-theme="light">
+    <div class="slide-hdr">
+      <h2>One Account, Multiple Brands: Four Problems That Don&rsquo;t Go Away</h2>
+      <p class="s4-sub">Forcing multiple brands into one account creates four compounding problems &mdash; none of which go away with more features.</p>
+    </div>
+    <div class="s4-grid">
+      <div class="s4-card s4-c1">
+        <span class="s4-ico">🔒</span>
+        <strong>Consent gets crossed</strong>
+        <p>One unsubscribe silences a customer across every brand &mdash; even ones they never opted out of.</p>
+      </div>
+      <div class="s4-card s4-c2">
+        <span class="s4-ico">📬</span>
+        <strong>Reputation bleeds between brands</strong>
+        <p>One brand&rsquo;s spam complaints hurt deliverability for every other brand in the account.</p>
+      </div>
+      <div class="s4-card s4-c3">
+        <span class="s4-ico">📊</span>
+        <strong>Metrics become meaningless</strong>
+        <p>Revenue and engagement blend together &mdash; you can&rsquo;t tell which brand is winning or losing.</p>
+      </div>
+      <div class="s4-card s4-c4">
+        <span class="s4-ico">⚙️</span>
+        <strong>Config can&rsquo;t scale per brand</strong>
+        <p>Every brand shares the same domains, phone numbers, and settings &mdash; there&rsquo;s no way to configure them independently.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 — Introducing Organizations -->
+  <div class="slide" id="s5" data-theme="dark">
+    <div class="slide-hdr" style="max-width:880px;width:100%">
+      <h2 style="color:white">The Right Solution: Klaviyo Organizations</h2>
+      <p class="s5-sub">Clean separation where it matters. Central control where it counts.</p>
+    </div>
+    <div class="org-diagram">
+      <div class="org-top">&#127963;&nbsp;&nbsp;Organization Layer</div>
+      <!-- 4-column connector: viewBox 880px wide, col-width≈209.5px, gap=14px
+           Centers: col1=105, col2=328, col3=551, col4=774 -->
+      <svg class="org-lines" height="36" viewBox="0 0 880 36" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="440" y1="0"  x2="440" y2="18" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
+        <line x1="105" y1="18" x2="774" y2="18" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
+        <line x1="105" y1="18" x2="105" y2="36" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
+        <line x1="328" y1="18" x2="328" y2="36" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
+        <line x1="551" y1="18" x2="551" y2="36" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
+        <line x1="774" y1="18" x2="774" y2="36" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
+      </svg>
+      <div class="org-accounts">
+        <div class="abox"><span class="aico">&#127978;</span>Brand A</div>
+        <div class="abox"><span class="aico">&#127978;</span>Brand B</div>
+        <div class="abox"><span class="aico">&#127978;</span>Brand C</div>
+        <div class="abox"><span class="aico">&#127978;</span>Brand D</div>
+      </div>
+    </div>
+    <div class="vprops">
+      <div class="vprop">
+        <span class="vico">&#127962;</span>
+        <p>One place to manage users, permissions, and security across all accounts</p>
+      </div>
+      <div class="vprop">
+        <span class="vico">&#128230;</span>
+        <p>Centralized asset library &mdash; build once, deploy across brands</p>
+      </div>
+      <div class="vprop">
+        <span class="vico">&#128100;</span>
+        <p>Unified profile intelligence &mdash; see and act on customers across your entire portfolio</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6 — Needs to Solutions Table -->
+  <div class="slide" id="s6" data-theme="light">
+    <div class="slide-hdr">
+      <h2>Organizations Directly Addresses What Customers Actually Need</h2>
+    </div>
+    <table class="needs-tbl">
+      <thead>
+        <tr>
+          <th style="width:34%">Customer Need</th>
+          <th style="width:42%">Organizations Solution</th>
+          <th style="width:24%">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Stop switching between accounts to do work</td>
+          <td>Org-level UI: manage all accounts from one pane</td>
+          <td><span class="sbadge m1">Milestone 1</span></td>
+        </tr>
+        <tr>
+          <td>Send campaigns/flows across brands at once</td>
+          <td>Multi-Brand Campaign Deployment</td>
+          <td><span class="sbadge m2">Milestone 2</span></td>
+        </tr>
+        <tr>
+          <td>Unified view of all customer profiles across brands</td>
+          <td>Cross-Brand Identity Resolution (Global Profile)</td>
+          <td><span class="sbadge m2">Milestone 2</span></td>
+        </tr>
+        <tr>
+          <td>Centralized domain &amp; channel settings</td>
+          <td>Centralized Channel Settings Management</td>
+          <td><span class="sbadge m2">Milestone 2</span></td>
+        </tr>
+        <tr>
+          <td>Manage users &amp; permissions once, apply everywhere</td>
+          <td>Enterprise Grade Permissions</td>
+          <td><span class="sbadge m1c">Milestone 1 &ndash; Committed</span></td>
+        </tr>
+        <tr>
+          <td>Single billing view across accounts</td>
+          <td>Cross Brand Billing Views</td>
+          <td><span class="sbadge m1c">Milestone 1 &ndash; Committed</span></td>
+        </tr>
+        <tr>
+          <td>Cross-brand segmentation &amp; cross-sell</td>
+          <td>Cross Brand Activation + Reporting</td>
+          <td><span class="sbadge m12">Milestone 1&ndash;2</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SLIDE 7 — Real-World Impact -->
+  <div class="slide" id="s7" data-theme="light">
+    <div class="slide-hdr light">
+      <h2>What This Looks Like for Real Customers</h2>
+    </div>
+    <div class="scenario-grid">
+      <div class="sccard">
+        <h3>ABG &mdash; Authentic Brands Group</h3>
+        <p class="bcount">20+ brands &middot; Forever21, Champion &amp; more</p>
+        <div class="scsec today">
+          <label>Today</label>
+          <p>Manually aggregating data across accounts via custom APIs into a &ldquo;membership account&rdquo; &mdash; a fragile, resource-intensive workaround that requires ongoing engineering investment.</p>
+        </div>
+        <div class="scsec with">
+          <label>With Organizations</label>
+          <p>Global Profile merges customers across all brands automatically &rarr; powers cross-sell at scale with zero custom engineering overhead.</p>
+        </div>
+      </div>
+      <div class="sccard">
+        <h3>COTY</h3>
+        <p class="bcount">50+ accounts &middot; Calvin Klein, Burberry, Gucci &amp; more</p>
+        <div class="scsec today">
+          <label>Today</label>
+          <p>Logging into every account one-by-one to audit health, update users, and manage security settings &mdash; an unsustainable operational burden at 50+ accounts.</p>
+        </div>
+        <div class="scsec with">
+          <label>With Organizations</label>
+          <p>Single command center for CRM health, user management, billing, and security across all 50+ accounts simultaneously.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8 — Summary / CTA -->
+  <div class="slide" id="s8" data-theme="light">
+    <div class="cta-wrap">
+      <div class="slide-hdr">
+        <h2>The Path Forward</h2>
+      </div>
+      <div class="npoints">
+        <div class="npt">
+          <div class="nnum">1</div>
+          <div class="nptext">
+            <h3>Reframe the conversation</h3>
+            <p>When customers ask for multi-domain in one account, help them articulate the underlying need: centralization and reduced friction.</p>
+          </div>
+        </div>
+        <div class="npt">
+          <div class="nnum">2</div>
+          <div class="nptext">
+            <h3>Point to the roadmap</h3>
+            <p>Organizations Milestone 1 (end of Q2 2026) directly addresses admin overhead, permissions, billing visibility, and cross-brand reporting foundations.</p>
+          </div>
+        </div>
+        <div class="npt">
+          <div class="nnum">3</div>
+          <div class="nptext">
+            <h3>Set expectations on Milestone 2</h3>
+            <p>Cross-brand asset deployment, profile unification, and channel settings management are on the roadmap and coming.</p>
+          </div>
+        </div>
+      </div>
+      <div class="closing">
+        <strong>Organizations isn&rsquo;t a workaround.</strong> It&rsquo;s the right architecture &mdash; built to scale with every channel and product Klaviyo offers.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- Navigation pill -->
+<div id="nav">
+  <button class="nav-btn" id="prevBtn">&#8592; Prev</button>
+  <span id="counter">1 / 8</span>
+  <button class="nav-btn" id="nextBtn">Next &#8594;</button>
+</div>
+
+<!-- Progress dots -->
+<div id="dots"></div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let cur = 0;
+
+  const dotsEl   = document.getElementById('dots');
+  const prevBtn  = document.getElementById('prevBtn');
+  const nextBtn  = document.getElementById('nextBtn');
+  const counterEl = document.getElementById('counter');
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot';
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[cur].classList.remove('active');
+    dotsEl.children[cur].classList.remove('active');
+    cur = Math.max(0, Math.min(total - 1, n));
+    slides[cur].classList.add('active');
+    dotsEl.children[cur].classList.add('active');
+    counterEl.textContent = (cur + 1) + ' / ' + total;
+    prevBtn.disabled = cur === 0;
+    nextBtn.disabled = cur === total - 1;
+    // Adapt dot colours for slide background
+    dotsEl.className = slides[cur].dataset.theme === 'dark' ? 'dark-dots' : '';
+  }
+
+  prevBtn.addEventListener('click', () => goTo(cur - 1));
+  nextBtn.addEventListener('click', () => goTo(cur + 1));
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(cur + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(cur - 1);
+  });
+
+  // Touch/swipe support
+  let tx = 0;
+  document.addEventListener('touchstart', e => { tx = e.changedTouches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50) goTo(cur + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  // Init
+  goTo(0);
+</script>
+
+</body>
+</html>
