@@ -831,15 +831,16 @@
     .needs-tbl tbody td { padding: 12px 14px; }
     .sbadge         { font-size: clamp(10px, 0.9vw, 12px); padding: 4px 10px; }
 
-    /* ── S8 (CTA): vertically centered ── */
-    #s8             { justify-content: center; }
-    .cta-wrap       { max-width: 900px; }
-    .npoint         { gap: 16px; margin-bottom: 24px; }
-    .nnum           { width: 44px; height: 44px; font-size: 18px; flex-shrink: 0; }
-    .nptext h3      { font-size: clamp(15px, 1.6vw, 18px); font-weight: 700; margin-bottom: 6px; }
-    .nptext p       { font-size: clamp(12px, 1.2vw, 14px); line-height: 1.6; }
-    .closing        { padding: 22px 28px; font-size: clamp(13px, 1.3vw, 15px);
-                      line-height: 1.65; margin-top: 24px; }
+    /* ── S8 (CTA): top-aligned, compact spacing for 4 items ── */
+    #s8             { justify-content: flex-start; }
+    .cta-wrap       { max-width: 1000px; }
+    .npoints        { gap: 10px; margin-bottom: 14px; }
+    .npt            { gap: 14px; align-items: flex-start; }
+    .nnum           { width: 38px; height: 38px; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .nptext h3      { font-size: clamp(14px, 1.4vw, 17px); font-weight: 700; margin-bottom: 3px; }
+    .nptext p       { font-size: clamp(11px, 1.05vw, 13px); line-height: 1.55; }
+    .closing        { padding: 16px 24px; font-size: clamp(12px, 1.1vw, 14px);
+                      line-height: 1.6; margin-top: 14px; }
 
     /* ════════════════════════════════════════════════════
        FILL-HEIGHT — content stretches to fill full screen
@@ -1123,26 +1124,33 @@
           <div class="nnum">1</div>
           <div class="nptext">
             <h3>Reframe the conversation</h3>
-            <p>When customers ask for multi-domain in one account, help them articulate the underlying need: centralization and reduced friction.</p>
+            <p>When customers ask for multiple sending domains in one account, the real ask is centralization and reduced operational friction. Help them see that one account per brand is the right architecture &mdash; and that Organizations solves the management overhead they&rsquo;re actually complaining about.</p>
           </div>
         </div>
         <div class="npt">
           <div class="nnum">2</div>
           <div class="nptext">
-            <h3>Point to the roadmap</h3>
-            <p>Organizations Milestone 1 (end of Q2 2026) directly addresses admin overhead, permissions, billing visibility, and cross-brand reporting foundations.</p>
+            <h3>Point to Milestone 1 &mdash; end of Q2 2026</h3>
+            <p>Organizations M1 directly addresses the most common pain points: a single place to manage all accounts, enterprise-grade permissions, cross-brand billing visibility, and the data foundations needed for cross-brand reporting. This is committed and shipping end of Q2 2026.</p>
           </div>
         </div>
         <div class="npt">
           <div class="nnum">3</div>
           <div class="nptext">
-            <h3>Set expectations on Milestone 2</h3>
-            <p>Cross-brand asset deployment, profile unification, and channel settings management are on the roadmap and coming.</p>
+            <h3>Set expectations on Milestone 2 &mdash; late 2026 / early 2027</h3>
+            <p>M2 delivers the deeper capabilities customers are asking for: cross-brand campaign deployment, unified customer profiles across brands, and centralized domain and channel settings management. This is planned for late 2026 / early 2027.</p>
+          </div>
+        </div>
+        <div class="npt">
+          <div class="nnum">4</div>
+          <div class="nptext">
+            <h3>Offer Organizations as the solution today</h3>
+            <p>For customers threatening churn or blocked on this issue, position Organizations as the strategic answer. Share the roadmap, get them on the M1 beta list, and anchor the conversation around what&rsquo;s coming &mdash; not what&rsquo;s missing today.</p>
           </div>
         </div>
       </div>
       <div class="closing">
-        <strong>Organizations isn&rsquo;t a workaround.</strong> It&rsquo;s the right architecture &mdash; built to scale with every channel and product Klaviyo offers.
+        <strong>Organizations isn&rsquo;t a workaround.</strong> It&rsquo;s the right architecture &mdash; built to eliminate the silo tax and scale across every channel and product Klaviyo offers.
       </div>
     </div>
   </div>
