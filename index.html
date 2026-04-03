@@ -384,13 +384,13 @@
     #s5 .slide-hdr h2 { color: #232122; }
     .s5-sub { font-size: clamp(12px, 1.3vw, 15px); color: #999999; margin-top: 3px; }
 
-    /* Browser shell */
+    /* ── Browser shell ── */
     .browser-wrap {
-      flex: 1; width: 100%; max-width: 900px; margin: 14px auto 0;
+      flex: 1; width: 100%; max-width: 960px; margin: 10px auto 0;
       display: flex; flex-direction: column; min-height: 0;
     }
     .browser-chrome {
-      height: 30px; background: #E0E0E0; border-radius: 10px 10px 0 0;
+      height: 28px; background: #E0E0E0; border-radius: 10px 10px 0 0;
       display: flex; align-items: center; padding: 0 12px; gap: 6px; flex-shrink: 0;
     }
     .bc-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
@@ -401,207 +401,202 @@
     .browser-body {
       flex: 1; display: flex; flex-direction: column;
       border: 1px solid #E5E5E5; border-top: none;
-      border-radius: 0 0 10px 10px; overflow: hidden; min-height: 0;
-      background: #fff;
+      border-radius: 0 0 10px 10px; overflow: hidden; min-height: 0; background: #fff;
     }
-    .browser-topnav {
-      height: 36px; background: #fff; border-bottom: 1px solid #E5E5E5;
-      flex-shrink: 0; display: flex; align-items: center; padding: 0 14px; gap: 12px;
+    /* Top dark org bar */
+    .acct-switcher {
+      background: #232122; color: #fff; height: 28px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 14px;
     }
-    .bk-logo { font-size: 12px; font-weight: 800; color: #232122; letter-spacing: -0.5px; }
-    .bk-search {
-      flex: 1; max-width: 260px; background: #F5F5F5; border: 1px solid #E5E5E5;
-      border-radius: 6px; padding: 4px 10px; display: flex; align-items: center;
-      font-size: 11px; color: #aaa; gap: 6px;
+    .acct-left { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; }
+    .acct-badge {
+      background: #F86455; color: #fff; font-size: 9px; font-weight: 700;
+      padding: 1px 7px; border-radius: 8px; letter-spacing: 0.3px; text-transform: uppercase;
     }
-    .bk-search-ph { flex: 1; }
-    .bk-cmd { font-size: 10px; background: #E8E8E8; border-radius: 3px; padding: 1px 4px; color: #888; }
+    .acct-right {
+      font-size: 10px; color: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.2); border-radius: 5px; padding: 2px 8px; cursor: default;
+    }
     .browser-main { flex: 1; display: flex; overflow: hidden; min-height: 0; }
 
-    /* Sidebar */
+    /* ── Sidebar ── */
     .browser-sidebar {
-      width: 164px; background: #F7F7F7; border-right: 1px solid #E5E5E5;
+      width: 172px; background: #F7F7F7; border-right: 1px solid #E5E5E5;
       padding: 8px 6px; flex-shrink: 0; overflow: hidden;
+      display: flex; flex-direction: column;
     }
     .sb-item {
       font-size: 11px; color: #232122; padding: 5px 8px; border-radius: 5px;
-      margin-bottom: 1px; display: flex; align-items: center; gap: 6px; cursor: default;
+      margin-bottom: 1px; cursor: default;
     }
-    .sb-item.active { background: #F86455; color: white; font-weight: 700; }
-    .sb-sub { font-size: 10px; color: #666; padding: 3px 8px 3px 26px; }
+    .sb-item.active { background: #232122; color: white; font-weight: 700; }
+    .sb-sec-hdr {
+      font-size: 9px; font-weight: 700; color: #aaa; text-transform: uppercase;
+      letter-spacing: 1px; padding: 7px 8px 3px;
+    }
+    .sb-sub {
+      font-size: 11px; color: #555; padding: 4px 8px 4px 20px;
+      border-radius: 5px; margin-bottom: 1px; cursor: default;
+    }
+    .sb-sub.active { background: #232122; color: white; font-weight: 700; }
     .sb-divider { border: none; border-top: 1px solid #E5E5E5; margin: 6px 0; }
+    .sb-footer {
+      font-size: 9px; color: #bbb; padding: 4px 8px; margin-top: auto;
+      border-top: 1px solid #E5E5E5; padding-top: 7px;
+    }
 
-    /* Scene container */
+    /* ── Step container ── */
     .browser-content { flex: 1; position: relative; overflow: hidden; background: #fff; }
-    .scene {
-      position: absolute; inset: 0; padding: 12px 14px 28px;
-      opacity: 0; transition: opacity 0.5s ease; pointer-events: none; overflow: hidden;
+    .step {
+      position: absolute; inset: 0; padding: 12px 14px 10px;
+      opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
+      overflow-y: auto; overflow-x: hidden;
     }
-    .scene.active { opacity: 1; }
-    .scene-overlay {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: rgba(35,33,34,0.84); color: #fff;
-      font-size: 11px; font-weight: 600; padding: 6px 14px;
-      text-align: center; letter-spacing: 0.2px;
-    }
-    .sc-header { font-size: 13px; font-weight: 700; color: #232122; margin-bottom: 10px; }
-    .sc-label { font-size: 10px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .step.active { opacity: 1; pointer-events: auto; }
+    .sc-header { font-size: 14px; font-weight: 800; color: #232122; margin-bottom: 2px; }
+    .sc-subtitle { font-size: 10px; color: #999; margin-bottom: 9px; }
 
-    /* Scene 1 — brand cards */
-    .brand-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; }
-    .brand-card {
-      background: #fff; border: 1px solid #E5E5E5; border-radius: 7px;
-      padding: 9px 11px; opacity: 0;
-      animation: fadeInCard 0.4s forwards;
+    /* ── Demo nav (below browser) ── */
+    .demo-nav {
+      display: flex; align-items: center; justify-content: center;
+      gap: 20px; padding: 7px 0 0; flex-shrink: 0;
     }
-    @keyframes fadeInCard {
-      from { opacity: 0; transform: translateY(6px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .demo-nav-btn {
+      background: none; border: none; color: #F86455; font-size: 12px; font-weight: 700;
+      cursor: pointer; padding: 4px 12px; font-family: inherit;
+      border: 1.5px solid #F86455; border-radius: 14px;
     }
-    .bc-name { font-size: 11px; font-weight: 700; color: #232122; margin-bottom: 3px; }
-    .bc-status { font-size: 10px; color: #666; margin-bottom: 2px; }
-    .bc-dot-green { color: #2D9E6B; font-size: 9px; }
-    .bc-count { font-size: 10px; color: #999; }
+    .demo-nav-btn:disabled { opacity: 0.3; cursor: default; }
+    .demo-step-lbl { font-size: 11px; color: #aaa; min-width: 80px; text-align: center; }
 
-    /* Scene 2 — campaign form */
-    .cb-row {
-      display: flex; align-items: center; gap: 8px;
-      padding: 7px 10px; border: 1px solid #E5E5E5; border-radius: 6px;
-      background: #F9F9F9; margin-bottom: 5px; font-size: 11px; color: #232122;
+    /* ── Shared table ── */
+    .demo-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    .demo-table th {
+      text-align: left; font-size: 9px; font-weight: 700; color: #aaa;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      padding: 4px 8px 6px; border-bottom: 1px solid #E5E5E5;
     }
-    .cb-box {
-      width: 14px; height: 14px; border: 2px solid #ccc; border-radius: 3px;
-      flex-shrink: 0; display: inline-block; position: relative;
-      transition: background 0.2s, border-color 0.2s;
+    .demo-table td { padding: 6px 8px; border-bottom: 1px solid #F5F5F5; color: #232122; font-size: 11px; }
+    .trow { opacity: 0; }
+    .trow.loaded { animation: fadeInRow 0.3s forwards; }
+    #s3-detail .trow { opacity: 1; animation: none; }
+    @keyframes fadeInRow { to { opacity: 1; } }
+    .trow.highlighted { background: #FEF0EE; }
+    .td-muted { color: #999; font-size: 10px; }
+    .pill-green {
+      background: #EDFBF4; color: #2D9E6B; font-size: 9px; font-weight: 700;
+      padding: 2px 7px; border-radius: 8px; white-space: nowrap;
     }
-    .cb-box.checked { background: #232122; border-color: #232122; }
-    .cb-box.checked::after { content: '✓'; color: white; font-size: 9px; position: absolute; top: -1px; left: 1px; }
-    .cb-brand { flex: 1; font-size: 11px; }
-    .domain-chip {
-      font-size: 10px; background: #F0F0F0; color: #666; padding: 2px 8px;
-      border-radius: 10px; opacity: 0; transition: opacity 0.3s;
+    .pill-red {
+      background: #FEF0EE; color: #F86455; font-size: 9px; font-weight: 700;
+      padding: 2px 7px; border-radius: 8px; white-space: nowrap;
     }
-    .domain-chip.visible { opacity: 1; }
-    .sc-cta {
-      display: block; width: 100%; margin-top: 10px; padding: 8px 14px;
+    .pill-gray {
+      background: #F5F5F5; color: #888; font-size: 9px; font-weight: 700;
+      padding: 2px 7px; border-radius: 8px; white-space: nowrap;
+    }
+    .brand-tag-sm {
+      background: #F5F5F5; color: #232122; font-size: 9px; font-weight: 600;
+      padding: 1px 6px; border-radius: 8px;
+    }
+
+    /* ── Step 2: Templates ── */
+    .tmpl-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+    .tmpl-card { border: 1px solid #E5E5E5; border-radius: 8px; padding: 10px; }
+    .tmpl-thumb { height: 44px; background: #F0F0F0; border-radius: 5px; margin-bottom: 7px; }
+    .tmpl-name { font-size: 11px; font-weight: 700; color: #232122; margin-bottom: 3px; }
+    .tmpl-used { font-size: 9px; color: #999; margin-bottom: 8px; }
+    .tmpl-deploy-btn {
+      width: 100%; background: #232122; color: white; border: none; border-radius: 5px;
+      padding: 5px; font-size: 10px; font-weight: 600; font-family: inherit; cursor: default;
+    }
+    .deploy-modal {
+      position: absolute; top: 50px; right: 14px; width: 190px;
+      background: white; border: 1px solid #E5E5E5; border-radius: 9px;
+      padding: 12px; box-shadow: 0 8px 28px rgba(0,0,0,0.14); z-index: 10;
+      opacity: 0; transform: translateY(6px);
+      transition: opacity 0.25s ease, transform 0.25s ease; pointer-events: none;
+    }
+    .deploy-modal.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .modal-hdr { font-size: 12px; font-weight: 700; color: #232122; margin-bottom: 8px; padding-bottom: 7px; border-bottom: 1px solid #F0F0F0; }
+    .modal-cb-row { display: flex; align-items: center; gap: 7px; font-size: 10px; color: #232122; padding: 4px 0; }
+    .modal-cb {
+      width: 13px; height: 13px; border: 2px solid #ddd; border-radius: 3px;
+      display: inline-block; position: relative; flex-shrink: 0; transition: all 0.2s;
+    }
+    .modal-cb.checked { background: #232122; border-color: #232122; }
+    .modal-cb.checked::after { content: '✓'; color: white; font-size: 9px; position: absolute; top: -1px; left: 1px; }
+    .modal-deploy-btn {
+      display: block; width: 100%; margin-top: 10px; padding: 7px;
       background: #232122; color: white; border: none; border-radius: 6px;
-      font-size: 11px; font-weight: 600; font-family: inherit; cursor: default;
+      font-size: 11px; font-weight: 700; font-family: inherit; cursor: default;
     }
+    .deploy-toast {
+      position: absolute; top: 10px; right: 10px; z-index: 20;
+      background: #232122; color: white; font-size: 10px; font-weight: 600;
+      padding: 7px 12px; border-radius: 6px; border-left: 3px solid #2D9E6B;
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .deploy-toast.visible { opacity: 1; }
 
-    /* Scene 3 — profiles */
-    .sc-search {
-      font-size: 11px; color: #aaa; background: #F5F5F5; border: 1px solid #E5E5E5;
-      border-radius: 6px; padding: 5px 10px; margin-bottom: 10px;
+    /* ── Step 3: Profiles ── */
+    .back-btn {
+      display: inline-block; background: #232122; color: white; border: none;
+      border-radius: 12px; padding: 4px 10px; font-size: 10px; font-weight: 600;
+      font-family: inherit; cursor: default; margin-bottom: 9px;
     }
-    .profile-row {
-      display: flex; align-items: center; gap: 9px;
-      padding: 8px 4px; border-bottom: 1px solid #F0F0F0;
-      transform: translateX(-16px); opacity: 0; transition: all 0.4s ease;
+    .phdr-card {
+      display: flex; align-items: flex-start; gap: 10px;
+      background: #F9F9F9; border: 1px solid #E5E5E5; border-radius: 8px;
+      padding: 10px; margin-bottom: 8px;
     }
-    .profile-row.visible { transform: translateX(0); opacity: 1; }
-    .avatar {
-      width: 30px; height: 30px; border-radius: 50%; background: #E5E5E5;
+    .phdr-avatar {
+      width: 36px; height: 36px; border-radius: 50%; background: #DDD;
       color: #555; font-size: 11px; font-weight: 700;
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .pr-info { flex: 1; min-width: 0; }
-    .pr-name { font-size: 11px; font-weight: 700; color: #232122; }
-    .pr-email { font-size: 10px; color: #999; }
-    .pr-tags { display: flex; gap: 4px; flex-wrap: wrap; }
-    .pr-tag {
-      font-size: 10px; background: #F5F5F5; color: #232122;
-      padding: 2px 6px; border-radius: 8px;
+    .phdr-info { flex: 1; }
+    .phdr-name { font-size: 13px; font-weight: 800; color: #232122; }
+    .phdr-meta { font-size: 10px; color: #888; line-height: 1.5; }
+    .merge-btn {
+      background: none; border: 1px solid #E5E5E5; border-radius: 5px;
+      padding: 4px 9px; font-size: 10px; color: #555; font-family: inherit; cursor: default;
     }
-    .pr-ltv { font-size: 10px; color: #999; white-space: nowrap; }
+    .stat-row3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; margin-bottom: 9px; }
+    .stat-box { border: 1px solid #E5E5E5; border-radius: 7px; padding: 8px; text-align: center; }
+    .stat-box-val { font-size: 15px; font-weight: 800; color: #232122; }
+    .stat-box-lbl { font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.3px; }
+    .detail-sec { margin-bottom: 9px; }
+    .detail-sec-hdr {
+      font-size: 9px; font-weight: 700; color: #aaa; text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 5px;
+    }
+    .assoc-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 0; border-bottom: 1px solid #F5F5F5; font-size: 11px;
+    }
+    .assoc-name { font-weight: 700; color: #232122; flex: 1; }
+    .assoc-rev { font-size: 10px; color: #999; }
+    .tl-item {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 5px 0; border-bottom: 1px solid #F5F5F5;
+    }
+    .tl-icon { font-size: 13px; flex-shrink: 0; line-height: 1.4; }
+    .tl-body { flex: 1; }
+    .tl-title { font-size: 11px; font-weight: 700; color: #232122; }
+    .tl-date { font-size: 9px; color: #999; }
+    .tl-meta { font-size: 10px; color: #555; }
 
-    /* Account switcher bar */
-    .acct-switcher {
-      background: #232122; color: #fff; height: 30px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 14px; font-size: 11px;
+    /* ── Cursor ── */
+    .demo-cursor {
+      position: absolute; width: 20px; height: 20px; pointer-events: none;
+      z-index: 30; opacity: 0; font-size: 16px; line-height: 1;
+      transition: left 0.45s cubic-bezier(0.25,0.46,0.45,0.94),
+                  top  0.45s cubic-bezier(0.25,0.46,0.45,0.94);
     }
-    .acct-left { display: flex; align-items: center; gap: 6px; }
-    .acct-badge {
-      background: #F86455; color: #fff; font-size: 9px; font-weight: 700;
-      padding: 1px 6px; border-radius: 8px; letter-spacing: 0.3px; text-transform: uppercase;
-    }
-    .acct-right { font-size: 10px; color: rgba(255,255,255,0.55); cursor: default; }
-
-    /* Scene transition overlay */
-    .scene-transition {
-      position: absolute; inset: 0; z-index: 20;
-      background: rgba(35,33,34,0.92); color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 600; text-align: center; padding: 0 20px;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
-    .scene-transition.active { opacity: 1; }
-
-    /* Stats bar */
-    .stats-bar {
-      display: flex; align-items: center; gap: 0;
-      background: #F7F7F7; border: 1px solid #E5E5E5; border-radius: 7px;
-      padding: 8px 0; margin-bottom: 9px;
-    }
-    .stat-item { flex: 1; text-align: center; }
-    .stat-val { font-size: 14px; font-weight: 800; color: #232122; line-height: 1; }
-    .stat-lbl { font-size: 9px; color: #999; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .stat-sep { width: 1px; background: #E5E5E5; align-self: stretch; }
-
-    /* Scene 2 updates */
-    .sc-header-bold {
-      font-size: 12px; font-weight: 700; color: #232122; margin-bottom: 8px;
-      padding-bottom: 7px; border-bottom: 1px solid #E5E5E5;
-    }
-    .sc-ready {
-      font-size: 11px; font-weight: 600; color: #2D9E6B;
-      background: #F0FBF6; border: 1px solid #B8EDD4; border-radius: 6px;
-      padding: 5px 10px; margin-bottom: 6px;
-      opacity: 0; transition: opacity 0.4s ease;
-    }
-    .sc-ready.visible { opacity: 1; }
-
-    /* Scene 3 — unified profile card */
-    .pcard-header {
-      display: flex; align-items: center; gap: 10px;
-      padding-bottom: 9px; border-bottom: 1px solid #E5E5E5; margin-bottom: 9px;
-    }
-    .pcard-avatar {
-      width: 36px; height: 36px; border-radius: 50%; background: #E5E5E5;
-      color: #555; font-size: 14px; font-weight: 700;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
-    .pcard-info { flex: 1; }
-    .pcard-name { font-size: 13px; font-weight: 700; color: #232122; }
-    .pcard-email { font-size: 10px; color: #999; }
-    .pcard-badge {
-      background: #FEF0EE; color: #F86455; font-size: 9px; font-weight: 700;
-      padding: 3px 8px; border-radius: 10px; white-space: nowrap; border: 1px solid #F9C4BE;
-    }
-    .brand-cols { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-bottom: 9px; }
-    .brand-col {
-      background: #F9F9F9; border: 1px solid #E5E5E5; border-radius: 7px;
-      padding: 8px 9px; opacity: 0; transform: translateY(6px);
-      transition: opacity 0.35s ease, transform 0.35s ease;
-    }
-    .brand-col.visible { opacity: 1; transform: translateY(0); }
-    .bcol-hdr {
-      font-size: 10px; font-weight: 700; color: #232122; text-transform: uppercase;
-      letter-spacing: 0.5px; margin-bottom: 6px; padding-bottom: 4px;
-      border-bottom: 2px solid #F86455;
-    }
-    .bcol-row { display: flex; flex-direction: column; margin-bottom: 5px; }
-    .bcol-lbl { font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.4px; }
-    .bcol-val { font-size: 10px; color: #232122; font-weight: 600; }
-    .ltv-bar {
-      font-size: 11px; font-weight: 700; color: #232122; text-align: center;
-      padding: 6px 10px; border-radius: 6px; background: #FEF0EE;
-      border-bottom: 2px solid #F86455;
-      opacity: 0; transition: opacity 0.4s ease;
-    }
-    .ltv-bar.visible { opacity: 1; }
-    .ltv-val { color: #F86455; }
+    .demo-cursor.visible { opacity: 1; }
+    @keyframes cursorClick { 0%,100% { transform: scale(1); } 50% { transform: scale(0.65); } }
+    .demo-cursor.clicking { animation: cursorClick 0.28s ease; }
 
     /* ════════════════════════════════
        SLIDE 6 — Milestone Columns
@@ -1076,7 +1071,7 @@
 
     /* ── S5: browser demo ── */
     #s5 .s5-sub     { font-size: clamp(13px, 1.4vw, 16px); color: #999999; margin-bottom: 4px; }
-    #s5             { justify-content: flex-start; }
+    #s5             { justify-content: flex-start; padding-bottom: 80px; }
 
     /* ── S6: milestone columns ── */
     #s6             { padding-bottom: 80px; }
@@ -1320,161 +1315,170 @@
     </div>
     <!-- Browser mockup -->
     <div class="browser-wrap">
-      <!-- Chrome bar -->
       <div class="browser-chrome">
         <span class="bc-dot" style="background:#FF5F57"></span>
         <span class="bc-dot" style="background:#FFBD2E"></span>
         <span class="bc-dot" style="background:#28C840"></span>
         <span class="bc-url">app.klaviyo.com</span>
       </div>
-      <!-- Browser body -->
       <div class="browser-body">
-        <!-- Account switcher bar -->
+        <!-- Org top bar -->
         <div class="acct-switcher">
-          <span class="acct-left">🏢 <strong>Wayfair Inc</strong> ▾ &nbsp;<span class="acct-badge">Organization</span></span>
+          <span class="acct-left">🏢 <strong>Wayfair Inc.</strong>&nbsp; <span class="acct-badge">Organization</span></span>
           <span class="acct-right">Switch to Brand Account ▾</span>
         </div>
-        <!-- Top nav -->
-        <div class="browser-topnav">
-          <span class="bk-logo">Klaviyo</span>
-          <div class="bk-search"><span class="bk-search-ph">Search</span><span class="bk-cmd">⌘K</span></div>
-        </div>
-        <!-- Main: sidebar + content -->
         <div class="browser-main">
-          <!-- Sidebar (Organization account nav) -->
+          <!-- Sidebar -->
           <div class="browser-sidebar">
-            <div class="sb-item active">🏢 Brands</div>
-            <div class="sb-item">👥 Users &amp; Permissions</div>
-            <div class="sb-item">📊 Analytics</div>
-            <div class="sb-item">💳 Billing</div>
-            <hr class="sb-divider">
-            <div class="sb-item">⚙️ Settings</div>
+            <div class="sb-item" id="sb-home">🏠 Home</div>
+            <div class="sb-item" id="sb-campaigns">📣 Campaigns</div>
+            <div class="sb-item" id="sb-flows">⚡ Flows</div>
+            <div class="sb-sec-hdr">Manage</div>
+            <div class="sb-sub" id="sb-accounts">Accounts</div>
+            <div class="sb-sub" id="sb-usermgmt">User Management</div>
+            <div class="sb-sub" id="sb-profiles">👤 Profiles</div>
+            <div class="sb-sub" id="sb-segments">Segments</div>
+            <div class="sb-sub" id="sb-insights">Audience Insights</div>
+            <div class="sb-sub" id="sb-billing">Billing</div>
+            <div class="sb-sub" id="sb-settings">Settings</div>
+            <div class="sb-item" id="sb-metrics">📊 Metrics</div>
+            <div class="sb-item" id="sb-templates">📄 Templates</div>
+            <div class="sb-footer">WI · Wayfair Inc. Organization</div>
           </div>
-          <!-- Scene container -->
+          <!-- Steps -->
           <div class="browser-content">
+            <div class="demo-cursor" id="demo-cursor">🖱</div>
 
-            <!-- Scene transition label overlay -->
-            <div class="scene-transition" id="scene-transition"></div>
-
-            <!-- SCENE 1: All brands overview -->
-            <div class="scene active" id="scene1">
-              <div class="sc-header">Wayfair Inc &mdash; All Brands</div>
-              <!-- Stats bar -->
-              <div class="stats-bar">
-                <div class="stat-item">
-                  <div class="stat-val" id="stat0">0</div>
-                  <div class="stat-lbl">Total Profiles</div>
-                </div>
-                <div class="stat-sep"></div>
-                <div class="stat-item">
-                  <div class="stat-val" id="stat1">0</div>
-                  <div class="stat-lbl">Active Brands</div>
-                </div>
-                <div class="stat-sep"></div>
-                <div class="stat-item">
-                  <div class="stat-val" id="stat2">0</div>
-                  <div class="stat-lbl">Total Campaigns Sent</div>
-                </div>
-              </div>
-              <div class="brand-grid">
-                <div class="brand-card">
-                  <div class="bc-name">Wayfair</div>
-                  <div class="bc-status"><span class="bc-dot-green">●</span> Active</div>
-                  <div class="bc-count">2,400,000 profiles</div>
-                </div>
-                <div class="brand-card">
-                  <div class="bc-name">Joss &amp; Main</div>
-                  <div class="bc-status"><span class="bc-dot-green">●</span> Active</div>
-                  <div class="bc-count">380,000 profiles</div>
-                </div>
-                <div class="brand-card">
-                  <div class="bc-name">AllModern</div>
-                  <div class="bc-status"><span class="bc-dot-green">●</span> Active</div>
-                  <div class="bc-count">290,000 profiles</div>
-                </div>
-                <div class="brand-card">
-                  <div class="bc-name">Birch Lane</div>
-                  <div class="bc-status"><span class="bc-dot-green">●</span> Active</div>
-                  <div class="bc-count">210,000 profiles</div>
-                </div>
-                <div class="brand-card">
-                  <div class="bc-name">Perigold</div>
-                  <div class="bc-status"><span class="bc-dot-green">●</span> Active</div>
-                  <div class="bc-count">95,000 profiles</div>
-                </div>
-                <div class="brand-card">
-                  <div class="bc-name">Wayfair Professional</div>
-                  <div class="bc-status"><span class="bc-dot-green">●</span> Active</div>
-                  <div class="bc-count">140,000 profiles</div>
-                </div>
-              </div>
-              <div class="scene-overlay">All your brands. One view.</div>
+            <!-- STEP 1: Accounts -->
+            <div class="step active" id="step1">
+              <div class="sc-header">Accounts</div>
+              <div class="sc-subtitle">Manage all brands under Wayfair Inc. Organization</div>
+              <table class="demo-table">
+                <thead><tr>
+                  <th>Brand Name</th><th>Status</th><th>Profiles</th><th>Last Active</th>
+                </tr></thead>
+                <tbody id="acct-tbody">
+                  <tr class="trow"><td>Wayfair</td><td><span class="pill-green">Active</span></td><td>2,400,000</td><td class="td-muted">Today</td></tr>
+                  <tr class="trow"><td>Joss &amp; Main</td><td><span class="pill-green">Active</span></td><td>380,000</td><td class="td-muted">Today</td></tr>
+                  <tr class="trow"><td>AllModern</td><td><span class="pill-green">Active</span></td><td>290,000</td><td class="td-muted">2 days ago</td></tr>
+                  <tr class="trow"><td>Birch Lane</td><td><span class="pill-green">Active</span></td><td>210,000</td><td class="td-muted">Today</td></tr>
+                  <tr class="trow"><td>Perigold</td><td><span class="pill-green">Active</span></td><td>95,000</td><td class="td-muted">3 days ago</td></tr>
+                  <tr class="trow"><td>Wayfair Professional</td><td><span class="pill-green">Active</span></td><td>140,000</td><td class="td-muted">Today</td></tr>
+                </tbody>
+              </table>
             </div>
 
-            <!-- SCENE 2: Campaign creation -->
-            <div class="scene" id="scene2">
-              <div class="sc-header-bold">New Campaign &mdash; Sending from Organization level</div>
-              <div class="sc-label">Select brands</div>
-              <div class="cb-row">
-                <span class="cb-box" id="cb0"></span>
-                <span class="cb-brand">🏬 Wayfair</span>
-                <span class="domain-chip" id="dc0">wayfair.com</span>
+            <!-- STEP 2: Templates -->
+            <div class="step" id="step2">
+              <div class="sc-header">Templates</div>
+              <div class="sc-subtitle">Create once, deploy across any brand</div>
+              <div class="tmpl-grid">
+                <div class="tmpl-card">
+                  <div class="tmpl-thumb"></div>
+                  <div class="tmpl-name">Summer Sale Banner</div>
+                  <div class="tmpl-used">Used by: Wayfair, AllModern</div>
+                  <button class="tmpl-deploy-btn" id="tmpl-deploy-btn">Deploy to brands</button>
+                </div>
+                <div class="tmpl-card">
+                  <div class="tmpl-thumb"></div>
+                  <div class="tmpl-name">Welcome Series</div>
+                  <div class="tmpl-used">Used by: All 6 brands</div>
+                  <button class="tmpl-deploy-btn">Deploy to brands</button>
+                </div>
+                <div class="tmpl-card">
+                  <div class="tmpl-thumb"></div>
+                  <div class="tmpl-name">Abandoned Cart</div>
+                  <div class="tmpl-used">Used by: Joss &amp; Main, Birch Lane</div>
+                  <button class="tmpl-deploy-btn">Deploy to brands</button>
+                </div>
               </div>
-              <div class="cb-row">
-                <span class="cb-box" id="cb1"></span>
-                <span class="cb-brand">🏬 Joss &amp; Main</span>
-                <span class="domain-chip" id="dc1">jossandmain.com</span>
+              <!-- Deploy modal -->
+              <div class="deploy-modal" id="deploy-modal">
+                <div class="modal-hdr">Deploy to brands</div>
+                <div class="modal-cb-row"><span class="modal-cb" id="mcb0"></span>Wayfair</div>
+                <div class="modal-cb-row"><span class="modal-cb" id="mcb1"></span>Joss &amp; Main</div>
+                <div class="modal-cb-row"><span class="modal-cb" id="mcb2"></span>AllModern</div>
+                <div class="modal-cb-row"><span class="modal-cb" id="mcb3"></span>Birch Lane</div>
+                <div class="modal-cb-row"><span class="modal-cb" id="mcb4"></span>Perigold</div>
+                <div class="modal-cb-row"><span class="modal-cb" id="mcb5"></span>Wayfair Professional</div>
+                <button class="modal-deploy-btn" id="modal-deploy-btn">Deploy to 3 brands</button>
               </div>
-              <div class="cb-row">
-                <span class="cb-box" id="cb2"></span>
-                <span class="cb-brand">🏬 AllModern</span>
-                <span class="domain-chip" id="dc2">allmodern.com</span>
-              </div>
-              <div class="sc-ready" id="sc-ready">✓ Ready to send to 3 brands</div>
-              <button class="sc-cta">Send to selected brands</button>
-              <div class="scene-overlay">One campaign. Every brand. Each with its own domain.</div>
+              <!-- Toast -->
+              <div class="deploy-toast" id="deploy-toast">✓ Deployed successfully to 3 brands</div>
             </div>
 
-            <!-- SCENE 3: Unified Profile Card -->
-            <div class="scene" id="scene3">
-              <div class="pcard-header">
-                <div class="pcard-avatar">P</div>
-                <div class="pcard-info">
-                  <div class="pcard-name">Priya K.</div>
-                  <div class="pcard-email">priya.k@email.com</div>
-                </div>
-                <span class="pcard-badge">Cross-Brand Customer</span>
+            <!-- STEP 3: Profiles -->
+            <div class="step" id="step3">
+              <!-- View A: list -->
+              <div id="s3-list">
+                <div class="sc-header">Profiles</div>
+                <div class="sc-subtitle">Manage customer profiles across all accounts in your portfolio</div>
+                <table class="demo-table">
+                  <thead><tr>
+                    <th>Name</th><th>Email</th><th># Accounts</th><th>Associated Accounts</th>
+                  </tr></thead>
+                  <tbody>
+                    <tr class="trow loaded"><td>Amy Compton</td><td class="td-muted">amy.compton@wayfair-demo.com</td><td>3</td><td class="td-muted">Wayfair, AllModern, Joss &amp; Main</td></tr>
+                    <tr class="trow loaded"><td>Julia Shea</td><td class="td-muted">julia.shea@wayfair-demo.com</td><td>2</td><td class="td-muted">AllModern, Birch Lane</td></tr>
+                    <tr class="trow loaded" id="row-mary"><td><strong>Mary Bates</strong></td><td class="td-muted">mary.bates@wayfair-demo.com</td><td>2</td><td class="td-muted">Birch Lane, Wayfair</td></tr>
+                    <tr class="trow loaded"><td>Kathryn Dennis</td><td class="td-muted">kathryn.dennis@wayfair-demo.com</td><td>3</td><td class="td-muted">Joss &amp; Main, Perigold, Wayfair</td></tr>
+                    <tr class="trow loaded"><td>Jordan Pham</td><td class="td-muted">jordan.pham@wayfair-demo.com</td><td>3</td><td class="td-muted">Wayfair, Wayfair Professional, Birch Lane</td></tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="brand-cols">
-                <div class="brand-col" id="bcol0">
-                  <div class="bcol-hdr">Wayfair</div>
-                  <div class="bcol-row"><span class="bcol-lbl">Last purchase</span><span class="bcol-val">Sofa — $899</span></div>
-                  <div class="bcol-row"><span class="bcol-lbl">Last email open</span><span class="bcol-val">2 days ago</span></div>
-                  <div class="bcol-row"><span class="bcol-lbl">Subscription</span><span class="bcol-val">Subscribed</span></div>
+              <!-- View B: profile detail -->
+              <div id="s3-detail" style="display:none; overflow-y:auto;">
+                <button class="back-btn">← Back to Profiles</button>
+                <div class="phdr-card">
+                  <div class="phdr-avatar">MB</div>
+                  <div class="phdr-info">
+                    <div class="phdr-name">Mary Bates</div>
+                    <div class="phdr-meta">mary.bates@wayfair-demo.com · +1 (972) 347-2922</div>
+                    <div class="phdr-meta">Johnfort, TX, United States</div>
+                  </div>
+                  <button class="merge-btn">Merge Profile</button>
                 </div>
-                <div class="brand-col" id="bcol1">
-                  <div class="bcol-hdr">Perigold</div>
-                  <div class="bcol-row"><span class="bcol-lbl">Last purchase</span><span class="bcol-val">Lamp — $340</span></div>
-                  <div class="bcol-row"><span class="bcol-lbl">Last email open</span><span class="bcol-val">5 days ago</span></div>
-                  <div class="bcol-row"><span class="bcol-lbl">Subscription</span><span class="bcol-val">Subscribed</span></div>
+                <div class="stat-row3">
+                  <div class="stat-box"><div class="stat-box-val">8</div><div class="stat-box-lbl">Total Orders</div></div>
+                  <div class="stat-box"><div class="stat-box-val">$500.50</div><div class="stat-box-lbl">Total Spent</div></div>
+                  <div class="stat-box"><div class="stat-box-val">2</div><div class="stat-box-lbl">Associated Accounts</div></div>
                 </div>
-                <div class="brand-col" id="bcol2">
-                  <div class="bcol-hdr">Wayfair Professional</div>
-                  <div class="bcol-row"><span class="bcol-lbl">Last purchase</span><span class="bcol-val">Desk — $1,200</span></div>
-                  <div class="bcol-row"><span class="bcol-lbl">Last email open</span><span class="bcol-val">1 day ago</span></div>
-                  <div class="bcol-row"><span class="bcol-lbl">Subscription</span><span class="bcol-val">Subscribed</span></div>
+                <div class="detail-sec">
+                  <div class="detail-sec-hdr">Associated Child Accounts</div>
+                  <div class="assoc-row"><span class="assoc-name">Wayfair</span><span class="pill-green">Active</span><span class="assoc-rev">$140,000 Total Revenue</span></div>
+                  <div class="assoc-row"><span class="assoc-name">Birch Lane</span><span class="pill-green">Active</span><span class="assoc-rev">$80,000 Total Revenue</span></div>
+                </div>
+                <div class="detail-sec">
+                  <div class="detail-sec-hdr">Consent</div>
+                  <table class="demo-table">
+                    <thead><tr><th>Account</th><th>Email</th><th>SMS Transactional</th><th>SMS Marketing</th></tr></thead>
+                    <tbody>
+                      <tr class="trow loaded"><td>Wayfair</td><td><span class="pill-green">Subscribed</span></td><td><span class="pill-green">Subscribed</span></td><td><span class="pill-red">Unsubscribed</span></td></tr>
+                      <tr class="trow loaded"><td>Birch Lane</td><td><span class="pill-green">Subscribed</span></td><td><span class="pill-gray">Never Subscribed</span></td><td><span class="pill-gray">Never Subscribed</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="detail-sec">
+                  <div class="detail-sec-hdr">Timeline</div>
+                  <div class="tl-item"><span class="tl-icon">🛒</span><div class="tl-body"><div class="tl-title">Placed Order</div><div class="tl-date">Jul 16, 2025 · Order Value: $120.50</div></div><span class="brand-tag-sm">Wayfair</span></div>
+                  <div class="tl-item"><span class="tl-icon">👁</span><div class="tl-body"><div class="tl-title">Viewed Product</div><div class="tl-date">Jul 16, 2025 · Women's Ski Jacket</div></div><span class="brand-tag-sm">Birch Lane</span></div>
+                  <div class="tl-item"><span class="tl-icon">⚡</span><div class="tl-body"><div class="tl-title">Active on Site</div><div class="tl-date">Jul 16, 2025</div></div><span class="brand-tag-sm">Birch Lane</span></div>
+                  <div class="tl-item"><span class="tl-icon">✉️</span><div class="tl-body"><div class="tl-title">Received Email</div><div class="tl-date">Jul 15, 2025 · "Summer Sale Starts Now!"</div></div><span class="brand-tag-sm">Wayfair</span></div>
                 </div>
               </div>
-              <div class="ltv-bar" id="ltv-bar">
-                Total LTV across all brands: <span class="ltv-val" id="ltv-val">$0</span>
-              </div>
-              <div class="scene-overlay">One customer. Every brand. All in one place.</div>
             </div>
 
           </div><!-- /browser-content -->
         </div><!-- /browser-main -->
       </div><!-- /browser-body -->
     </div><!-- /browser-wrap -->
+
+    <!-- Demo navigation -->
+    <div class="demo-nav">
+      <button class="demo-nav-btn" id="demo-back" onclick="demoPrev()" disabled>← Back</button>
+      <span class="demo-step-lbl" id="demo-step-lbl">Step 1 of 3</span>
+      <button class="demo-nav-btn" id="demo-next" onclick="demoNext()">Next →</button>
+    </div>
   </div>
 
   <!-- SLIDE 6 — Milestone Columns -->
@@ -1619,108 +1623,175 @@
     if (Math.abs(dx) > 50) goTo(cur + (dx < 0 ? 1 : -1));
   }, { passive: true });
 
-  // ── Slide 5: browser demo scene cycling ──
-  let s5SceneIdx = 0;
-  let s5Timer = null;
-  const s5SceneEls = document.querySelectorAll('#s5 .scene');
-  const S5_TRANSITION_LABELS = [
-    'Managing all brands from the Organization account',
-    'Creating a campaign across multiple brands',
-    'Viewing a unified customer profile'
-  ];
+  // ── Slide 5: click-through demo walkthrough ──
+  let demoStep = 0;
+  let demoAutoTimer = null;
+  let s3InDetail = false;
 
-  function s5CountUp(el, target, duration, prefix) {
-    if (!el) return;
-    const start = Date.now();
-    const fmt = v => (prefix || '') + v.toLocaleString();
-    const step = () => {
-      const p = Math.min((Date.now() - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - p, 3);
-      el.textContent = fmt(Math.floor(ease * target));
-      if (p < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
+  const DEMO_STEP_LABELS = ['Step 1 of 3', 'Step 2 of 3', 'Step 3 of 3'];
+  const DEMO_SIDEBAR_ACTIVE = ['sb-usermgmt', 'sb-templates', 'sb-profiles'];
+
+  function demoUpdateUI() {
+    const backBtn = document.getElementById('demo-back');
+    const nextBtn = document.getElementById('demo-next');
+    const lbl     = document.getElementById('demo-step-lbl');
+    if (backBtn) backBtn.disabled = (demoStep === 0 && !s3InDetail);
+    if (nextBtn) {
+      nextBtn.disabled = false;
+      nextBtn.textContent = (demoStep === 2 && s3InDetail) ? 'Done ✓' : 'Next →';
+      if (demoStep === 2 && s3InDetail) nextBtn.disabled = true;
+    }
+    if (lbl) lbl.textContent = DEMO_STEP_LABELS[demoStep];
+    // Update sidebar active
+    document.querySelectorAll('#s5 .sb-item, #s5 .sb-sub').forEach(el => el.classList.remove('active'));
+    const sbEl = document.getElementById(DEMO_SIDEBAR_ACTIVE[demoStep]);
+    if (sbEl) sbEl.classList.add('active');
   }
 
-  function s5ShowTransition(label, cb) {
-    const t = document.getElementById('scene-transition');
-    if (!t) { cb(); return; }
-    t.textContent = label;
-    t.classList.add('active');
+  function demoGoTo(n) {
+    const oldEl = document.getElementById('step' + (demoStep + 1));
+    if (oldEl) oldEl.classList.remove('active');
+    demoStep = Math.max(0, Math.min(2, n));
+    const newEl = document.getElementById('step' + (demoStep + 1));
+    if (newEl) newEl.classList.add('active');
+    s3InDetail = false;
+    demoUpdateUI();
+    clearTimeout(demoAutoTimer);
+    if (demoStep === 0) demoInitStep1();
+    if (demoStep === 1) demoInitStep2();
+    if (demoStep === 2) demoInitStep3();
+  }
+
+  function demoNext() {
+    if (demoStep < 2) {
+      // Animate cursor clicking next sidebar item before advancing
+      const nextSbId = DEMO_SIDEBAR_ACTIVE[demoStep + 1];
+      const nextSbEl = document.getElementById(nextSbId);
+      demoMoveCursor(nextSbEl, () => demoGoTo(demoStep + 1));
+    }
+  }
+
+  function demoPrev() {
+    if (s3InDetail) {
+      s3ShowList();
+    } else if (demoStep > 0) {
+      demoGoTo(demoStep - 1);
+    }
+  }
+
+  // ── Step 1: Accounts table ──
+  function demoInitStep1() {
+    const rows = document.querySelectorAll('#step1 .trow');
+    rows.forEach((r, i) => {
+      r.classList.remove('loaded');
+      r.style.animationDelay = '';
+      void r.offsetHeight;
+      setTimeout(() => r.classList.add('loaded'), i * 120);
+    });
+  }
+
+  // ── Step 2: Templates + deploy modal ──
+  function demoInitStep2() {
+    // Reset state
+    const modal = document.getElementById('deploy-modal');
+    const toast = document.getElementById('deploy-toast');
+    document.querySelectorAll('#deploy-modal .modal-cb').forEach(cb => cb.classList.remove('checked'));
+    if (modal) modal.classList.remove('open');
+    if (toast) toast.classList.remove('visible');
+    // After 800ms: cursor clicks deploy button
+    demoAutoTimer = setTimeout(() => {
+      const deployBtn = document.getElementById('tmpl-deploy-btn');
+      demoMoveCursor(deployBtn, () => {
+        if (modal) modal.classList.add('open');
+        // Check brands one at a time: Wayfair(0), Perigold(4), Wayfair Pro(5)
+        [[0,800],[4,1500],[5,2200]].forEach(([idx, delay]) => {
+          setTimeout(() => {
+            const cb = document.getElementById('mcb' + idx);
+            if (cb) cb.classList.add('checked');
+          }, delay);
+        });
+        // Cursor clicks deploy button after all checked
+        setTimeout(() => {
+          const mBtn = document.getElementById('modal-deploy-btn');
+          demoMoveCursor(mBtn, () => {
+            if (modal) modal.classList.remove('open');
+            if (toast) { toast.classList.add('visible'); setTimeout(() => toast.classList.remove('visible'), 2200); }
+          });
+        }, 3000);
+      });
+    }, 800);
+  }
+
+  // ── Step 3: Profiles ──
+  function demoInitStep3() {
+    s3ShowList();
+    // After 1200ms: cursor clicks Mary Bates row
+    demoAutoTimer = setTimeout(() => {
+      const maryRow = document.getElementById('row-mary');
+      demoMoveCursor(maryRow, () => {
+        if (maryRow) maryRow.classList.add('highlighted');
+        setTimeout(() => s3ShowDetail(), 350);
+      });
+    }, 1200);
+  }
+
+  function s3ShowList() {
+    s3InDetail = false;
+    const list   = document.getElementById('s3-list');
+    const detail = document.getElementById('s3-detail');
+    if (list)   list.style.display   = '';
+    if (detail) detail.style.display = 'none';
+    const maryRow = document.getElementById('row-mary');
+    if (maryRow) maryRow.classList.remove('highlighted');
+    demoUpdateUI();
+  }
+
+  function s3ShowDetail() {
+    s3InDetail = true;
+    const list   = document.getElementById('s3-list');
+    const detail = document.getElementById('s3-detail');
+    if (list)   list.style.display   = 'none';
+    if (detail) detail.style.display = '';
+    demoUpdateUI();
+  }
+
+  // ── Cursor helper ──
+  function demoMoveCursor(targetEl, cb) {
+    const cursor  = document.getElementById('demo-cursor');
+    const content = document.querySelector('#s5 .browser-content');
+    if (!cursor || !targetEl || !content) { if (cb) cb(); return; }
+    const cr = content.getBoundingClientRect();
+    const tr = targetEl.getBoundingClientRect();
+    const left = tr.left - cr.left + tr.width / 2 - 8;
+    const top  = tr.top  - cr.top  + tr.height / 2 - 4;
+    cursor.style.left = (left - 30) + 'px'; // start offset for natural feel
+    cursor.style.top  = (top  - 20) + 'px';
+    cursor.classList.add('visible');
+    // Move to target
     setTimeout(() => {
-      t.classList.remove('active');
-      setTimeout(cb, 280);
-    }, 700);
-  }
-
-  function s5RunScene(n) {
-    s5SceneEls.forEach(s => s.classList.remove('active'));
-    s5SceneEls[n].classList.add('active');
-    if (n === 0) s5AnimScene1();
-    if (n === 1) s5AnimScene2();
-    if (n === 2) s5AnimScene3();
-  }
-
-  function s5AdvanceScene(n) {
-    s5ShowTransition(S5_TRANSITION_LABELS[n], () => s5RunScene(n));
+      cursor.style.left = left + 'px';
+      cursor.style.top  = top  + 'px';
+      // Click after arriving
+      setTimeout(() => {
+        cursor.classList.add('clicking');
+        setTimeout(() => {
+          cursor.classList.remove('clicking');
+          cursor.classList.remove('visible');
+          if (cb) cb();
+        }, 320);
+      }, 500);
+    }, 30);
   }
 
   function s5Start() {
-    s5SceneIdx = 0;
-    s5RunScene(0); // first scene plays immediately, no transition label
-    clearInterval(s5Timer);
-    s5Timer = setInterval(() => {
-      s5SceneIdx = (s5SceneIdx + 1) % 3;
-      s5AdvanceScene(s5SceneIdx);
-    }, 4500);
+    demoStep = 0;
+    s3InDetail = false;
+    demoGoTo(0);
   }
-  function s5Stop() { clearInterval(s5Timer); }
-
-  function s5AnimScene1() {
-    // Reset + replay card animations
-    document.querySelectorAll('#scene1 .brand-card').forEach((c, i) => {
-      c.style.animation = 'none';
-      void c.offsetHeight;
-      c.style.animation = 'fadeInCard 0.4s ' + (i * 0.15) + 's forwards';
-    });
-    // Count-up stats
-    setTimeout(() => {
-      s5CountUp(document.getElementById('stat0'), 3515000, 900);
-      s5CountUp(document.getElementById('stat1'), 6, 600);
-      s5CountUp(document.getElementById('stat2'), 1240, 800);
-    }, 200);
-  }
-
-  function s5AnimScene2() {
-    const boxes = [document.getElementById('cb0'), document.getElementById('cb1'), document.getElementById('cb2')];
-    const chips = [document.getElementById('dc0'), document.getElementById('dc1'), document.getElementById('dc2')];
-    const ready = document.getElementById('sc-ready');
-    boxes.forEach(b => { if(b) b.classList.remove('checked'); });
-    chips.forEach(c => { if(c) c.classList.remove('visible'); });
-    if(ready) ready.classList.remove('visible');
-    [0,1,2].forEach(i => {
-      setTimeout(() => {
-        if(boxes[i]) boxes[i].classList.add('checked');
-        if(chips[i]) chips[i].classList.add('visible');
-        if(i === 2) setTimeout(() => { if(ready) ready.classList.add('visible'); }, 300);
-      }, 600 + i * 700);
-    });
-  }
-
-  function s5AnimScene3() {
-    const cols = [document.getElementById('bcol0'), document.getElementById('bcol1'), document.getElementById('bcol2')];
-    const ltvBar = document.getElementById('ltv-bar');
-    const ltvVal = document.getElementById('ltv-val');
-    cols.forEach(c => { if(c) c.classList.remove('visible'); });
-    if(ltvBar) ltvBar.classList.remove('visible');
-    cols.forEach((c, i) => {
-      setTimeout(() => { if(c) c.classList.add('visible'); }, 300 + i * 350);
-    });
-    // LTV count-up after all cols load
-    setTimeout(() => {
-      if(ltvBar) ltvBar.classList.add('visible');
-      s5CountUp(ltvVal, 2439, 700, '$');
-    }, 300 + 3 * 350 + 200);
+  function s5Stop() {
+    clearTimeout(demoAutoTimer);
+    const c = document.getElementById('demo-cursor');
+    if (c) c.classList.remove('visible');
   }
 
   // Init
