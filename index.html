@@ -378,57 +378,141 @@
     .rlabel { font-size: clamp(11px, 1vw, 12.5px); font-weight: 600; color: var(--navy); line-height: 1.45; }
 
     /* ════════════════════════════════
-       SLIDE 5 — Introducing Orgs
+       SLIDE 5 — Browser Demo
     ════════════════════════════════ */
-    #s5 { background: #FAF8F5; justify-content: flex-start; padding-top: 56px; }
+    #s5 { background: #FAF8F5; justify-content: flex-start; padding-top: 40px; }
     #s5 .slide-hdr h2 { color: #232122; }
     .s5-sub { font-size: clamp(12px, 1.3vw, 15px); color: #999999; margin-top: 3px; }
 
-    .org-diagram { width: 100%; max-width: 880px; margin: 0 auto 22px; }
-    .org-top {
-      background: var(--green);
-      border-radius: 10px;
-      padding: 13px 28px;
-      text-align: center;
-      font-weight: 700;
-      font-size: clamp(14px, 1.5vw, 17px);
-      color: white;
-      box-shadow: 0 4px 20px rgba(249,99,83,0.35);
+    /* Browser shell */
+    .browser-wrap {
+      flex: 1; width: 100%; max-width: 900px; margin: 14px auto 0;
+      display: flex; flex-direction: column; min-height: 0;
     }
-    .org-lines { display: block; width: 100%; }
+    .browser-chrome {
+      height: 30px; background: #E0E0E0; border-radius: 10px 10px 0 0;
+      display: flex; align-items: center; padding: 0 12px; gap: 6px; flex-shrink: 0;
+    }
+    .bc-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .bc-url {
+      flex: 1; text-align: center; font-size: 10px; color: #888;
+      background: #fff; border-radius: 5px; padding: 2px 10px; margin: 0 40px;
+    }
+    .browser-body {
+      flex: 1; display: flex; flex-direction: column;
+      border: 1px solid #E5E5E5; border-top: none;
+      border-radius: 0 0 10px 10px; overflow: hidden; min-height: 0;
+      background: #fff;
+    }
+    .browser-topnav {
+      height: 36px; background: #fff; border-bottom: 1px solid #E5E5E5;
+      flex-shrink: 0; display: flex; align-items: center; padding: 0 14px; gap: 12px;
+    }
+    .bk-logo { font-size: 12px; font-weight: 800; color: #232122; letter-spacing: -0.5px; }
+    .bk-search {
+      flex: 1; max-width: 260px; background: #F5F5F5; border: 1px solid #E5E5E5;
+      border-radius: 6px; padding: 4px 10px; display: flex; align-items: center;
+      font-size: 11px; color: #aaa; gap: 6px;
+    }
+    .bk-search-ph { flex: 1; }
+    .bk-cmd { font-size: 10px; background: #E8E8E8; border-radius: 3px; padding: 1px 4px; color: #888; }
+    .browser-main { flex: 1; display: flex; overflow: hidden; min-height: 0; }
 
-    .org-accounts {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+    /* Sidebar */
+    .browser-sidebar {
+      width: 164px; background: #F7F7F7; border-right: 1px solid #E5E5E5;
+      padding: 8px 6px; flex-shrink: 0; overflow: hidden;
     }
-    .abox {
-      background: rgba(255,255,255,0.055);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 10px;
-      padding: 16px;
-      text-align: center;
-      font-size: clamp(12px, 1.2vw, 14px);
-      font-weight: 600;
-      color: rgba(255,255,255,0.82);
+    .sb-item {
+      font-size: 11px; color: #232122; padding: 5px 8px; border-radius: 5px;
+      margin-bottom: 1px; display: flex; align-items: center; gap: 6px; cursor: default;
     }
-    .abox .aico { font-size: 20px; display: block; margin-bottom: 7px; }
+    .sb-item.active { background: #F86455; color: white; font-weight: 700; }
+    .sb-sub { font-size: 10px; color: #666; padding: 3px 8px 3px 26px; }
+    .sb-divider { border: none; border-top: 1px solid #E5E5E5; margin: 6px 0; }
 
-    .vprops {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      width: 100%;
-      max-width: 880px;
+    /* Scene container */
+    .browser-content { flex: 1; position: relative; overflow: hidden; background: #fff; }
+    .scene {
+      position: absolute; inset: 0; padding: 12px 14px 28px;
+      opacity: 0; transition: opacity 0.5s ease; pointer-events: none; overflow: hidden;
     }
-    .vprop {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 10px;
-      padding: 16px 18px;
+    .scene.active { opacity: 1; }
+    .scene-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: rgba(35,33,34,0.84); color: #fff;
+      font-size: 11px; font-weight: 600; padding: 6px 14px;
+      text-align: center; letter-spacing: 0.2px;
     }
-    .vprop .vico { font-size: 22px; display: block; margin-bottom: 8px; }
-    .vprop p { font-size: clamp(11px, 1.05vw, 13px); line-height: 1.55; color: rgba(255,255,255,0.72); }
+    .sc-header { font-size: 13px; font-weight: 700; color: #232122; margin-bottom: 10px; }
+    .sc-label { font-size: 10px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+
+    /* Scene 1 — brand cards */
+    .brand-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; }
+    .brand-card {
+      background: #fff; border: 1px solid #E5E5E5; border-radius: 7px;
+      padding: 9px 11px; opacity: 0;
+      animation: fadeInCard 0.4s forwards;
+    }
+    @keyframes fadeInCard {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .bc-name { font-size: 11px; font-weight: 700; color: #232122; margin-bottom: 3px; }
+    .bc-status { font-size: 10px; color: #666; margin-bottom: 2px; }
+    .bc-dot-green { color: #2D9E6B; font-size: 9px; }
+    .bc-count { font-size: 10px; color: #999; }
+
+    /* Scene 2 — campaign form */
+    .cb-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; border: 1px solid #E5E5E5; border-radius: 6px;
+      background: #F9F9F9; margin-bottom: 5px; font-size: 11px; color: #232122;
+    }
+    .cb-box {
+      width: 14px; height: 14px; border: 2px solid #ccc; border-radius: 3px;
+      flex-shrink: 0; display: inline-block; position: relative;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .cb-box.checked { background: #232122; border-color: #232122; }
+    .cb-box.checked::after { content: '✓'; color: white; font-size: 9px; position: absolute; top: -1px; left: 1px; }
+    .cb-brand { flex: 1; font-size: 11px; }
+    .domain-chip {
+      font-size: 10px; background: #F0F0F0; color: #666; padding: 2px 8px;
+      border-radius: 10px; opacity: 0; transition: opacity 0.3s;
+    }
+    .domain-chip.visible { opacity: 1; }
+    .sc-cta {
+      display: block; width: 100%; margin-top: 10px; padding: 8px 14px;
+      background: #232122; color: white; border: none; border-radius: 6px;
+      font-size: 11px; font-weight: 600; font-family: inherit; cursor: default;
+    }
+
+    /* Scene 3 — profiles */
+    .sc-search {
+      font-size: 11px; color: #aaa; background: #F5F5F5; border: 1px solid #E5E5E5;
+      border-radius: 6px; padding: 5px 10px; margin-bottom: 10px;
+    }
+    .profile-row {
+      display: flex; align-items: center; gap: 9px;
+      padding: 8px 4px; border-bottom: 1px solid #F0F0F0;
+      transform: translateX(-16px); opacity: 0; transition: all 0.4s ease;
+    }
+    .profile-row.visible { transform: translateX(0); opacity: 1; }
+    .avatar {
+      width: 30px; height: 30px; border-radius: 50%; background: #E5E5E5;
+      color: #555; font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .pr-info { flex: 1; min-width: 0; }
+    .pr-name { font-size: 11px; font-weight: 700; color: #232122; }
+    .pr-email { font-size: 10px; color: #999; }
+    .pr-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+    .pr-tag {
+      font-size: 10px; background: #F5F5F5; color: #232122;
+      padding: 2px 6px; border-radius: 8px;
+    }
+    .pr-ltv { font-size: 10px; color: #999; white-space: nowrap; }
 
     /* ════════════════════════════════
        SLIDE 6 — Milestone Columns
@@ -661,15 +745,7 @@
       line-height: 1.6;
     }
 
-    /* Slide 5 — org diagram & value props on off-white bg */
-    #s5 .org-top { background: #232122; box-shadow: 0 4px 16px rgba(35,33,33,0.15); }
-    #s5 .abox { background: #FFFFFF; border-color: #E8E8E8; color: #232122; }
-    #s5 .vprop { background: #FFFFFF; border-color: #E8E8E8; }
-    #s5 .vprop p { color: #232122; }
-    #s5 .s5-sub { color: #999999; }
-    #s5 .vprops .vprop:nth-child(1) { border-left-color: #F86455; }
-    #s5 .vprops .vprop:nth-child(2) { border-left-color: #F86455; }
-    #s5 .vprops .vprop:nth-child(3) { border-left-color: #F86455; }
+    /* Slide 5 — browser mockup (no overrides needed, all inline above) */
 
     /* ════════════════════════════════════════════
        SLIDE 7 — now Cotton/light background
@@ -909,20 +985,9 @@
     /* ── S4: expandable cards ── */
     #s4 .s4-setup   { font-size: clamp(13px, 1.4vw, 16px); color: rgba(35,33,33,0.6); margin-bottom: 16px; }
 
-    /* ── S5: org diagram + value props ── */
-    #s5 .s5-sub     { font-size: clamp(13px, 1.4vw, 16px); color: #999999;
-                      margin-bottom: 16px; }
-    #s5 .org-diagram { margin-bottom: 16px; }
-    .org-top        { padding: 16px 28px; font-size: clamp(15px, 1.6vw, 19px); }
-    .org-lines      { height: 44px; }
-    .org-accounts   { gap: 12px; }
-    .abox           { height: auto; padding: 20px 12px; min-height: 0;
-                      font-size: clamp(13px, 1.3vw, 15px); }
-    .aico           { font-size: 26px; margin-bottom: 8px; }
-    #s5 .vprops     { gap: 14px; margin-top: 14px; }
-    #s5 .vprop      { height: auto; padding: 24px; }
-    .vico           { font-size: 24px; margin-bottom: 10px; }
-    #s5 .vprop p    { font-size: clamp(13px, 1.3vw, 15px); line-height: 1.5; }
+    /* ── S5: browser demo ── */
+    #s5 .s5-sub     { font-size: clamp(13px, 1.4vw, 16px); color: #999999; margin-bottom: 4px; }
+    #s5             { justify-content: flex-start; }
 
     /* ── S6: milestone columns ── */
     #s6             { padding-bottom: 80px; }
@@ -949,9 +1014,6 @@
       align-content: stretch;
     }
 
-
-    /* S5: evenly distribute header / org-diagram / value-props */
-    #s5 { justify-content: space-between; }
 
     /* S6: columns fill height, bullets stay evenly spaced at 16px */
     #s6 .ms-cols { flex: 1; align-items: stretch; }
@@ -1167,39 +1229,148 @@
       <h2>The Right Solution: Klaviyo Organizations</h2>
       <p class="s5-sub">Clean separation where it matters. Central control where it counts.</p>
     </div>
-    <div class="org-diagram">
-      <div class="org-top">&#127963;&nbsp;&nbsp;Organization Layer</div>
-      <!-- 4-column connector: viewBox 880px wide, col-width≈209.5px, gap=14px
-           Centers: col1=105, col2=328, col3=551, col4=774 -->
-      <svg class="org-lines" height="36" viewBox="0 0 880 36" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="440" y1="0"  x2="440" y2="18" stroke="#CCCCCC" stroke-width="1.5"/>
-        <line x1="105" y1="18" x2="774" y2="18" stroke="#CCCCCC" stroke-width="1.5"/>
-        <line x1="105" y1="18" x2="105" y2="36" stroke="#CCCCCC" stroke-width="1.5"/>
-        <line x1="328" y1="18" x2="328" y2="36" stroke="#CCCCCC" stroke-width="1.5"/>
-        <line x1="551" y1="18" x2="551" y2="36" stroke="#CCCCCC" stroke-width="1.5"/>
-        <line x1="774" y1="18" x2="774" y2="36" stroke="#CCCCCC" stroke-width="1.5"/>
-      </svg>
-      <div class="org-accounts">
-        <div class="abox"><span class="aico">&#127978;</span>Brand A</div>
-        <div class="abox"><span class="aico">&#127978;</span>Brand B</div>
-        <div class="abox"><span class="aico">&#127978;</span>Brand C</div>
-        <div class="abox"><span class="aico">&#127978;</span>Brand D</div>
+    <!-- Browser mockup -->
+    <div class="browser-wrap">
+      <!-- Chrome bar -->
+      <div class="browser-chrome">
+        <span class="bc-dot" style="background:#FF5F57"></span>
+        <span class="bc-dot" style="background:#FFBD2E"></span>
+        <span class="bc-dot" style="background:#28C840"></span>
+        <span class="bc-url">app.klaviyo.com</span>
       </div>
-    </div>
-    <div class="vprops">
-      <div class="vprop">
-        <span class="vico">&#127962;</span>
-        <p>One place to manage users, permissions, and security across all accounts</p>
-      </div>
-      <div class="vprop">
-        <span class="vico">&#128230;</span>
-        <p>Centralized asset library &mdash; build once, deploy across brands</p>
-      </div>
-      <div class="vprop">
-        <span class="vico">&#128100;</span>
-        <p>Unified profile intelligence &mdash; see and act on customers across your entire portfolio</p>
-      </div>
-    </div>
+      <!-- Browser body -->
+      <div class="browser-body">
+        <!-- Top nav -->
+        <div class="browser-topnav">
+          <span class="bk-logo">Klaviyo</span>
+          <div class="bk-search"><span class="bk-search-ph">Search</span><span class="bk-cmd">⌘K</span></div>
+        </div>
+        <!-- Main: sidebar + content -->
+        <div class="browser-main">
+          <!-- Sidebar -->
+          <div class="browser-sidebar">
+            <div class="sb-item">🏠 Home</div>
+            <div class="sb-item">📣 Campaigns</div>
+            <div class="sb-item">⚡ Flows</div>
+            <div class="sb-item">👤 Audience</div>
+            <div class="sb-sub">Profiles</div>
+            <div class="sb-sub">Lists &amp; Segments</div>
+            <div class="sb-item">📊 Analytics</div>
+            <hr class="sb-divider">
+            <div class="sb-item active">🏢 Organization</div>
+          </div>
+          <!-- Scene container -->
+          <div class="browser-content">
+
+            <!-- SCENE 1: All brands overview -->
+            <div class="scene active" id="scene1">
+              <div class="sc-header">Wayfair Inc &mdash; All Brands</div>
+              <div class="brand-grid">
+                <div class="brand-card">
+                  <div class="bc-name">Wayfair</div>
+                  <div class="bc-status"><span class="bc-dot-green">●</span> Active</div>
+                  <div class="bc-count">2,400,000 profiles</div>
+                </div>
+                <div class="brand-card">
+                  <div class="bc-name">Joss &amp; Main</div>
+                  <div class="bc-status"><span class="bc-dot-green">●</span> Active</div>
+                  <div class="bc-count">380,000 profiles</div>
+                </div>
+                <div class="brand-card">
+                  <div class="bc-name">AllModern</div>
+                  <div class="bc-status"><span class="bc-dot-green">●</span> Active</div>
+                  <div class="bc-count">290,000 profiles</div>
+                </div>
+                <div class="brand-card">
+                  <div class="bc-name">Birch Lane</div>
+                  <div class="bc-status"><span class="bc-dot-green">●</span> Active</div>
+                  <div class="bc-count">210,000 profiles</div>
+                </div>
+                <div class="brand-card">
+                  <div class="bc-name">Perigold</div>
+                  <div class="bc-status"><span class="bc-dot-green">●</span> Active</div>
+                  <div class="bc-count">95,000 profiles</div>
+                </div>
+                <div class="brand-card">
+                  <div class="bc-name">Wayfair Professional</div>
+                  <div class="bc-status"><span class="bc-dot-green">●</span> Active</div>
+                  <div class="bc-count">140,000 profiles</div>
+                </div>
+              </div>
+              <div class="scene-overlay">All your brands. One view.</div>
+            </div>
+
+            <!-- SCENE 2: Campaign creation -->
+            <div class="scene" id="scene2">
+              <div class="sc-header">Create Campaign</div>
+              <div class="sc-label">Select brands</div>
+              <div class="cb-row">
+                <span class="cb-box" id="cb0"></span>
+                <span class="cb-brand">🏬 Wayfair</span>
+                <span class="domain-chip" id="dc0">wayfair.com</span>
+              </div>
+              <div class="cb-row">
+                <span class="cb-box" id="cb1"></span>
+                <span class="cb-brand">🏬 Joss &amp; Main</span>
+                <span class="domain-chip" id="dc1">jossandmain.com</span>
+              </div>
+              <div class="cb-row">
+                <span class="cb-box" id="cb2"></span>
+                <span class="cb-brand">🏬 AllModern</span>
+                <span class="domain-chip" id="dc2">allmodern.com</span>
+              </div>
+              <button class="sc-cta">Send to selected brands</button>
+              <div class="scene-overlay">One campaign. Every brand. Each with its own domain.</div>
+            </div>
+
+            <!-- SCENE 3: Profiles -->
+            <div class="scene" id="scene3">
+              <div class="sc-header">Profiles</div>
+              <div class="sc-search">🔍 Search profiles...</div>
+              <div class="profile-row" id="pr0">
+                <div class="avatar">S</div>
+                <div class="pr-info">
+                  <div class="pr-name">Sarah M.</div>
+                  <div class="pr-email">sarah.m@email.com</div>
+                </div>
+                <div class="pr-tags">
+                  <span class="pr-tag">Wayfair</span>
+                  <span class="pr-tag">Joss &amp; Main</span>
+                </div>
+                <div class="pr-ltv">Cross-brand customer</div>
+              </div>
+              <div class="profile-row" id="pr1">
+                <div class="avatar">J</div>
+                <div class="pr-info">
+                  <div class="pr-name">James T.</div>
+                  <div class="pr-email">james.t@email.com</div>
+                </div>
+                <div class="pr-tags">
+                  <span class="pr-tag">AllModern</span>
+                  <span class="pr-tag">Birch Lane</span>
+                </div>
+                <div class="pr-ltv">$1,240 LTV</div>
+              </div>
+              <div class="profile-row" id="pr2">
+                <div class="avatar">P</div>
+                <div class="pr-info">
+                  <div class="pr-name">Priya K.</div>
+                  <div class="pr-email">priya.k@email.com</div>
+                </div>
+                <div class="pr-tags">
+                  <span class="pr-tag">Wayfair</span>
+                  <span class="pr-tag">Perigold</span>
+                  <span class="pr-tag">Wayfair Pro</span>
+                </div>
+                <div class="pr-ltv">High value · 3 brands</div>
+              </div>
+              <div class="scene-overlay">One customer. Recognized across every brand.</div>
+            </div>
+
+          </div><!-- /browser-content -->
+        </div><!-- /browser-main -->
+      </div><!-- /browser-body -->
+    </div><!-- /browser-wrap -->
   </div>
 
   <!-- SLIDE 6 — Milestone Columns -->
@@ -1322,6 +1493,9 @@
     nextBtn.disabled = cur === total - 1;
     // Adapt dot colours for slide background
     dotsEl.className = slides[cur].dataset.theme === 'dark' ? 'dark-dots' : '';
+    // Start/stop slide 5 browser demo
+    const S5_IDX = slides.findIndex(s => s.id === 's5');
+    if (cur === S5_IDX) s5Start(); else s5Stop();
   }
 
   prevBtn.addEventListener('click', () => goTo(cur - 1));
@@ -1340,6 +1514,54 @@
     const dx = e.changedTouches[0].clientX - tx;
     if (Math.abs(dx) > 50) goTo(cur + (dx < 0 ? 1 : -1));
   }, { passive: true });
+
+  // ── Slide 5: browser demo scene cycling ──
+  let s5SceneIdx = 0;
+  let s5Timer = null;
+  const s5SceneEls = document.querySelectorAll('#s5 .scene');
+
+  function s5RunScene(n) {
+    s5SceneEls.forEach(s => s.classList.remove('active'));
+    s5SceneEls[n].classList.add('active');
+    if (n === 0) s5AnimScene1();
+    if (n === 1) s5AnimScene2();
+    if (n === 2) s5AnimScene3();
+  }
+  function s5Start() {
+    s5SceneIdx = 0;
+    s5RunScene(0);
+    clearInterval(s5Timer);
+    s5Timer = setInterval(() => {
+      s5SceneIdx = (s5SceneIdx + 1) % 3;
+      s5RunScene(s5SceneIdx);
+    }, 4500);
+  }
+  function s5Stop() { clearInterval(s5Timer); }
+
+  function s5AnimScene1() {
+    document.querySelectorAll('#scene1 .brand-card').forEach((c, i) => {
+      c.style.animation = 'none';
+      void c.offsetHeight;
+      c.style.animation = 'fadeInCard 0.4s ' + (i * 0.15) + 's forwards';
+    });
+  }
+  function s5AnimScene2() {
+    const boxes = [document.getElementById('cb0'), document.getElementById('cb1'), document.getElementById('cb2')];
+    const chips = [document.getElementById('dc0'), document.getElementById('dc1'), document.getElementById('dc2')];
+    boxes.forEach(b => { if(b) b.classList.remove('checked'); });
+    chips.forEach(c => { if(c) c.classList.remove('visible'); });
+    [0,1,2].forEach(i => {
+      setTimeout(() => {
+        if(boxes[i]) boxes[i].classList.add('checked');
+        if(chips[i]) chips[i].classList.add('visible');
+      }, 700 + i * 750);
+    });
+  }
+  function s5AnimScene3() {
+    const rows = [document.getElementById('pr0'), document.getElementById('pr1'), document.getElementById('pr2')];
+    rows.forEach(r => { if(r) r.classList.remove('visible'); });
+    rows.forEach((r, i) => setTimeout(() => { if(r) r.classList.add('visible'); }, 300 + i * 450));
+  }
 
   // Init
   goTo(0);
