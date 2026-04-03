@@ -205,80 +205,64 @@
     /* ════════════════════════════════
        SLIDE 2 — Customer Quotes
     ════════════════════════════════ */
-    #s2 { background: var(--bg); justify-content: flex-start; padding-top: 56px; }
+    #s2 { background: var(--bg); justify-content: flex-start; padding-top: 40px; }
+    .s2-sub { font-size: clamp(12px, 1.2vw, 14px); color: #888; margin-top: 2px; margin-bottom: 12px; }
 
     .quote-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       width: 100%;
-      max-width: 1060px;
+      max-width: 1200px;
+      overflow-y: auto;
+      flex: 1;
+      align-content: start;
+      padding-right: 4px;
     }
 
     .qcard {
       background: white;
-      border: 1px solid rgba(35,33,33,0.08);
-      border-left: 4px solid #F86455;
+      border: 1px solid #E5E5E5;
+      border-left: 3px solid #F86455;
       border-radius: 8px;
-      padding: 24px 24px 18px;
-      position: relative;
+      padding: 14px 14px 12px;
       display: flex;
       flex-direction: column;
-    }
-    .qmark {
-      position: absolute;
-      top: 8px; left: 14px;
-      font-size: 28px;
-      line-height: 1;
-      color: #F86455;
-      opacity: 0.35;
-      font-family: Georgia, serif;
-      user-select: none;
-      pointer-events: none;
+      gap: 8px;
     }
     .qtext {
       font-style: italic;
-      font-size: 14px;
-      line-height: 1.65;
+      font-size: 12px;
+      line-height: 1.55;
       color: #444444;
-      padding-top: 16px;
-      margin-bottom: 14px;
       flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-    .qcontext {
-      font-style: italic;
-      font-size: 11px;
-      color: rgba(35,33,33,0.4);
-      margin-top: 6px;
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
-    .qfooter { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; }
-    .qco { font-weight: 700; font-size: 11.5px; color: var(--charcoal); }
-    .mbadge {
-      display: inline-flex;
+    .qfooter {
+      display: flex;
       align-items: center;
-      font-size: 9.5px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 20px;
-      white-space: nowrap;
+      justify-content: space-between;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 2px;
     }
-    .mbadge.email { background: rgba(249,99,83,0.11); color: var(--green); border: 1px solid rgba(249,99,83,0.25); }
-    .mbadge.total { background: var(--green); color: white; }
-
-    .mrr-bar {
-      width: 100%;
-      max-width: 1060px;
-      text-align: center;
-      font-size: clamp(13px, 1.3vw, 15px);
-      font-weight: 700;
-      color: var(--navy);
-      background: rgba(249,99,83,0.09);
-      border: 2px solid var(--green);
-      border-radius: 8px;
-      padding: 10px 24px;
-      margin-top: 13px;
+    .qco { font-weight: 700; font-size: 12px; color: #232122; }
+    .qbadges { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+    .src-badge {
+      background: #F0F0F0; color: #666666; font-size: 10px; font-weight: 500;
+      padding: 2px 7px; border-radius: 10px; text-decoration: none; white-space: nowrap;
+    }
+    .src-badge:hover { background: #E5E5E5; }
+    .mrr-badge {
+      background: white; color: #F86455; font-size: 10px; font-weight: 700;
+      padding: 2px 7px; border-radius: 10px; border: 1.5px solid #F86455; white-space: nowrap;
+    }
+    .s2-footnote {
+      font-style: italic; font-size: 11px; color: #aaa; text-align: center;
+      margin-top: 8px; flex-shrink: 0;
     }
 
     /* ════════════════════════════════
@@ -880,47 +864,7 @@
     /* Slide 1 — Lemon headline highlight */
     #s1 h1 .hl { color: var(--lemon); }
 
-    /* Slide 2 — subtitle */
-    .s2-sub {
-      font-size: 13px;
-      color: rgba(35,33,33,0.45);
-      margin-top: 4px;
-      font-weight: 400;
-    }
-
-    /* Slide 2 — all cards same #F86455 border + qmark */
-    .quote-grid { align-items: stretch; }
-    .quote-grid .qcard { border-left-color: #F86455; height: 100%; box-sizing: border-box; }
-    .quote-grid .qcard .qmark { color: #F86455; }
-
-    /* Slide 2 — MRR badge: outline style */
-    .mbadge.total { background: white; color: #F86455; border: 1.5px solid #F86455; }
-
-    /* Slide 2 — source badge pill */
-    .src-badge {
-      display: inline-block;
-      background: #F0F0F0;
-      color: #666666;
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 10px;
-      margin-top: 4px;
-      font-weight: 400;
-    }
-
-    /* Slide 2 — footer left stack */
-    .qfooter-left { display: flex; flex-direction: column; align-items: flex-start; }
-
-    /* Slide 2 — footnote */
-    .s2-footnote {
-      width: 100%;
-      max-width: 1060px;
-      font-size: 12px;
-      color: rgba(35,33,33,0.4);
-      font-style: italic;
-      text-align: center;
-      margin-top: 12px;
-    }
+    /* Slide 2 — legacy overrides (styles now in base CSS block) */
 
     /* Slide 3 — "What they actually need" column: Lemon */
     .tcol.right { border-top-color: var(--lemon); }
@@ -1075,14 +1019,10 @@
     .bpill        { padding: 8px 18px; font-size: 12px; }
     .bpill-row    { gap: 12px; margin-top: 16px; }
 
-    /* ── S2: quote cards — height auto, no blank space ── */
-    #s2 .quote-grid { gap: 16px; }
-    #s2 .qcard      { height: auto; min-height: 180px; padding: 24px; }
-    #s2 .qt         { font-size: clamp(13px, 1.3vw, 15px) !important;
-                      font-style: italic; line-height: 1.6 !important; margin-bottom: 12px !important; }
-    #s2 .qco        { font-size: clamp(13px, 1.3vw, 15px); font-weight: 700; }
-    #s2 .mbadge     { font-size: clamp(11px, 1vw, 13px); }
-    #s2 .qmark      { font-size: 24px; margin-bottom: 8px; opacity: 0.35; }
+    /* ── S2: 3-col 9-card grid ── */
+    #s2 { padding-top: 36px; }
+    #s2 .quote-grid { gap: 10px; grid-template-columns: repeat(3,1fr); }
+    #s2 .qcard { padding: 14px 14px 12px; height: auto; min-height: 0; }
 
     /* ── S3: translation rows — fill height evenly ── */
     #s3 .s3-table   { flex: 1; margin-bottom: 16px; }
@@ -1115,11 +1055,8 @@
     ════════════════════════════════════════════════════ */
 
     /* S2: quote card grid expands to fill height after header */
-    #s2 .quote-grid {
-      flex: 1;
-      grid-template-rows: 1fr 1fr;
-      align-content: stretch;
-    }
+    /* S2 quote-grid: scrollable 3-col, fills remaining space */
+    #s2 .quote-grid { flex: 1; align-content: start; overflow-y: auto; }
 
 
     /* S6: columns fill height, bullets stay evenly spaced at 16px */
@@ -1170,53 +1107,117 @@
       <p class="s2-sub">Customers want one Klaviyo account with multiple sending domains &mdash; one per brand, all managed in one place</p>
     </div>
     <div class="quote-grid">
+
+      <!-- Card 1 -->
       <div class="qcard">
-        <span class="qmark">&ldquo;</span>
-        <p class="qtext">Prefers a multi-domain set-up in one account.</p>
-        <p class="qcontext">Context: Single team managing multiple brands, seeking to avoid account switching</p>
+        <p class="qtext">&ldquo;Customer would like to consolidate multiple Klaviyo accounts into a single account to save on costs due to profile duplication, and get a clearer picture of profile engagement across all brands.&rdquo;</p>
         <div class="qfooter">
-          <div class="qfooter-left">
-            <span class="qco">Lucky Strike / Bowlero</span>
-            <span class="src-badge">Salesforce Opportunity Note</span>
+          <span class="qco">Authentic Brands Group</span>
+          <div class="qbadges">
+            <a class="src-badge" href="https://docs.google.com/document/d/1mVghbJ8aaxE8t5RzBx7B5jKm7L661AUyv153kOOaqfQ" target="_blank">Discovery Doc</a>
+            <span class="mrr-badge">$577,166 MRR</span>
           </div>
-          <span class="mbadge total">$28,820 MRR</span>
         </div>
       </div>
+
+      <!-- Card 2 -->
       <div class="qcard">
-        <span class="qmark">&ldquo;</span>
-        <p class="qtext">In a perfect world, we'd send from one account and choose from seven different sending domains per brand.</p>
+        <p class="qtext">&ldquo;Part of that branded customization is a branded sending domain, which Klaviyo doesn&rsquo;t currently support. The workaround of assigning each brand its own Klaviyo account has too many downsides.&rdquo;</p>
         <div class="qfooter">
-          <div class="qfooter-left">
-            <span class="qco">Modern Lifestyle Shop</span>
-            <span class="src-badge">Gong Call</span>
+          <span class="qco">Atrium Innovations</span>
+          <div class="qbadges">
+            <a class="src-badge" href="https://docs.google.com/document/d/1mVghbJ8aaxE8t5RzBx7B5jKm7L661AUyv153kOOaqfQ" target="_blank">Discovery Doc</a>
+            <span class="mrr-badge">$56,559 MRR</span>
           </div>
-          <span class="mbadge total">$23,403 MRR</span>
         </div>
       </div>
+
+      <!-- Card 3 -->
       <div class="qcard">
-        <span class="qmark">&ldquo;</span>
-        <p class="qtext">We require different sending domains per brand — right now that's a full stop. We have to separate into multiple accounts.</p>
+        <p class="qtext">&ldquo;Customer went through challenging implementation and still hasn&rsquo;t completed warming. The biggest roadblock is that this account needs the ability to host multiple branded sending domains.&rdquo;</p>
         <div class="qfooter">
-          <div class="qfooter-left">
-            <span class="qco">Holley</span>
-            <span class="src-badge">Gong Call</span>
+          <span class="qco">Lucky Strike / Bowlero</span>
+          <div class="qbadges">
+            <a class="src-badge" href="https://klaviyo.lightning.force.com/lightning/r/Account/001Nu00000BlAdVIAV/view" target="_blank">Salesforce</a>
+            <span class="mrr-badge">$28,820 MRR</span>
           </div>
-          <span class="mbadge total">$12,990 MRR</span>
         </div>
       </div>
+
+      <!-- Card 4 -->
       <div class="qcard">
-        <span class="qmark">&ldquo;</span>
-        <p class="qtext">It would be very important to have a second sending domain. I would love to do it with Klaviyo and not use different software.</p>
+        <p class="qtext">&ldquo;In a perfect world when we&rsquo;re sending out a promo, we would do it all from one account and where we choose the sending domain, we can basically choose from like seven different sending domains.&rdquo;</p>
         <div class="qfooter">
-          <div class="qfooter-left">
-            <span class="qco">Creamy Fabrics</span>
-            <span class="src-badge">Gong Call</span>
+          <span class="qco">Modern Lifestyle Shop</span>
+          <div class="qbadges">
+            <a class="src-badge" href="https://us-42115.app.gong.io/call?id=3553317376906088612" target="_blank">Gong Call</a>
+            <span class="mrr-badge">$23,403 MRR</span>
           </div>
-          <span class="mbadge total">$12,350 MRR</span>
         </div>
       </div>
+
+      <!-- Card 5 -->
+      <div class="qcard">
+        <p class="qtext">&ldquo;We have 14 different ecommerce brands in a single Klaviyo account. Our customers technically don&rsquo;t know they&rsquo;re under this umbrella. That&rsquo;s why I was trying to get away from the single Holley domain.&rdquo;</p>
+        <div class="qfooter">
+          <span class="qco">Holley</span>
+          <div class="qbadges">
+            <a class="src-badge" href="https://us-42115.app.gong.io/call?id=5668384765526555303" target="_blank">Gong Call</a>
+            <span class="mrr-badge">$12,990 MRR</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="qcard">
+        <p class="qtext">&ldquo;It would be very important to have a second sending domain. I would love to do it with Klaviyo and not use a different kind of software here.&rdquo;</p>
+        <div class="qfooter">
+          <span class="qco">OnlineGen / Creamy Fabrics</span>
+          <div class="qbadges">
+            <a class="src-badge" href="https://us-42115.app.gong.io/call?id=5615029628677163098" target="_blank">Gong Call</a>
+            <span class="mrr-badge">$12,350 MRR</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 7 -->
+      <div class="qcard">
+        <p class="qtext">&ldquo;Can we have multiple sending domains and reduce the number of sending domains over time as we increase the number of sends out of a primary sending domain?&rdquo;</p>
+        <div class="qfooter">
+          <span class="qco">GrabOne</span>
+          <div class="qbadges">
+            <a class="src-badge" href="https://us-42115.app.gong.io/call?id=7581416299433519364" target="_blank">Gong Call</a>
+            <span class="mrr-badge">$4,355 MRR</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 8 -->
+      <div class="qcard">
+        <p class="qtext">&ldquo;They have to use multiple accounts due to lack of support for multiple sending domains within one account &mdash; would want to be able to have a master/portfolio account.&rdquo;</p>
+        <div class="qfooter">
+          <span class="qco">Silver Oak</span>
+          <div class="qbadges">
+            <a class="src-badge" href="https://docs.google.com/document/d/1mVghbJ8aaxE8t5RzBx7B5jKm7L661AUyv153kOOaqfQ" target="_blank">Discovery Doc</a>
+            <span class="mrr-badge">$2,979 MRR</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 9 -->
+      <div class="qcard">
+        <p class="qtext">&ldquo;Their near-term goal is to assign unique branded sending domains to each brand. The option of supporting multiple branded sending domains in a single account is more attractive.&rdquo;</p>
+        <div class="qfooter">
+          <span class="qco">Kenvue</span>
+          <div class="qbadges">
+            <a class="src-badge" href="https://docs.google.com/document/d/1mVghbJ8aaxE8t5RzBx7B5jKm7L661AUyv153kOOaqfQ" target="_blank">Discovery Doc</a>
+            <span class="mrr-badge">$175 MRR</span>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <p class="s2-footnote">Combined Total MRR across these accounts: $77,563 &mdash; full revenue impact is larger and still being quantified</p>
+    <p class="s2-footnote">Combined Total MRR across accounts shown: $718,787 &mdash; full revenue impact is larger and still being quantified</p>
   </div>
 
   <!-- SLIDE 3 — Why Not One Account -->
