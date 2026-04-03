@@ -8,7 +8,7 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Inter', -apple-system, sans-serif; }
+    html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Inter', -apple-system, sans-serif; background: #1a1a1a; }
 
     :root {
       /* ── Main palette ── */
@@ -31,7 +31,15 @@
     }
 
     /* ── Deck & Slides ── */
-    #deck { position: fixed; inset: 0; }
+    #deck {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 1440px;
+      height: 900px;
+      transform-origin: center center;
+      /* transform set by scaleStage() */
+    }
 
     .slide {
       position: absolute;
@@ -44,7 +52,7 @@
       opacity: 0;
       transition: opacity 0.4s ease;
       pointer-events: none;
-      overflow-y: auto;
+      overflow: hidden;
     }
     .slide.active { opacity: 1; pointer-events: all; z-index: 10; }
 
@@ -1007,39 +1015,7 @@
   </div>
 
   <!-- SLIDE 7 — Real-World Impact -->
-  <div class="slide" id="s7" data-theme="light">
-    <div class="slide-hdr light">
-      <h2>What This Looks Like for Real Customers</h2>
-    </div>
-    <div class="scenario-grid">
-      <div class="sccard">
-        <h3>ABG &mdash; Authentic Brands Group</h3>
-        <p class="bcount">20+ brands &middot; Forever21, Champion &amp; more</p>
-        <div class="scsec today">
-          <label>Today</label>
-          <p>Manually aggregating data across accounts via custom APIs into a &ldquo;membership account&rdquo; &mdash; a fragile, resource-intensive workaround that requires ongoing engineering investment.</p>
-        </div>
-        <div class="scsec with">
-          <label>With Organizations</label>
-          <p>Global Profile merges customers across all brands automatically &rarr; powers cross-sell at scale with zero custom engineering overhead.</p>
-        </div>
-      </div>
-      <div class="sccard">
-        <h3>COTY</h3>
-        <p class="bcount">50+ accounts &middot; Calvin Klein, Burberry, Gucci &amp; more</p>
-        <div class="scsec today">
-          <label>Today</label>
-          <p>Logging into every account one-by-one to audit health, update users, and manage security settings &mdash; an unsustainable operational burden at 50+ accounts.</p>
-        </div>
-        <div class="scsec with">
-          <label>With Organizations</label>
-          <p>Single command center for CRM health, user management, billing, and security across all 50+ accounts simultaneously.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 8 — Summary / CTA -->
+  <!-- SLIDE 7 — Summary / CTA (formerly slide 8) -->
   <div class="slide" id="s8" data-theme="light">
     <div class="cta-wrap">
       <div class="slide-hdr">
@@ -1133,6 +1109,15 @@
     const dx = e.changedTouches[0].clientX - tx;
     if (Math.abs(dx) > 50) goTo(cur + (dx < 0 ? 1 : -1));
   }, { passive: true });
+
+  // Scale entire deck to fit viewport proportionally (like Keynote/Google Slides)
+  function scaleStage() {
+    const deck = document.getElementById('deck');
+    const scale = Math.min(window.innerWidth / 1440, window.innerHeight / 900);
+    deck.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+  window.addEventListener('resize', scaleStage);
+  scaleStage();
 
   // Init
   goTo(0);
