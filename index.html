@@ -615,42 +615,49 @@
       margin-bottom: 4px;
     }
     .s3-col-hdr {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 1.3px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: white;
+      opacity: 0.6;
     }
-    .s3-col-hdr-need { color: var(--lemon); }
+    .s3-col-hdr-need { opacity: 1; }
     .s3-row {
       display: grid;
-      grid-template-columns: 1fr 52px 1fr;
+      grid-template-columns: 1fr 60px 1fr;
       align-items: center;
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
     }
+    .s3-row:last-child { border-bottom: none; }
     .s3-cell {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: clamp(13px, 1.3vw, 16px);
-      font-weight: 600;
-      line-height: 1.3;
+      gap: 14px;
+      font-size: clamp(13px, 1.35vw, 17px);
+      line-height: 1.35;
     }
-    .s3-ask { color: rgba(255,255,255,0.75); }
-    .s3-need { color: white; }
-    .s3ri { font-size: 22px; flex-shrink: 0; }
+    .s3-ask  { color: white; opacity: 0.6; font-weight: 500; }
+    .s3-need { color: white; opacity: 1; font-weight: 700; }
+    .s3ri { flex-shrink: 0; }
+    .s3-ask  .s3ri { font-size: 8px; line-height: 1; margin-top: 1px; }
+    .s3-need .s3ri { font-size: 14px; font-weight: 700; }
     .s3-arrow {
       text-align: center;
-      font-size: 18px;
-      color: rgba(255,255,255,0.3);
-      font-weight: 300;
+      font-size: 22px;
+      color: white;
+      opacity: 0.5;
+      font-weight: 400;
     }
     #s3 .callout-box {
-      background: var(--charcoal);
+      background: #232122;
       border: none;
-      border-left: 4px solid var(--lemon);
       color: rgba(255,255,255,0.92);
+      font-style: normal;
+      font-weight: 500;
+      font-size: clamp(14px, 1.4vw, 17px);
+      line-height: 1.6;
     }
 
     /* Slide 5 — org diagram & value props on Poppy bg */
@@ -832,12 +839,10 @@
     #s2 .mbadge     { font-size: clamp(11px, 1vw, 13px); }
     #s2 .qmark      { font-size: 24px; margin-bottom: 8px; opacity: 0.35; }
 
-    /* ── S3: translation rows ── */
-    #s3 .s3-table   { gap: 10px; }
-    #s3 .s3-cell    { font-size: clamp(13px, 1.3vw, 15px); padding: 14px 18px; }
-    #s3 .s3-arrow   { font-size: 18px; width: 40px; }
-    #s3 .callout-box { padding: 16px 24px; margin-top: 12px;
-                       font-size: clamp(13px, 1.3vw, 15px); }
+    /* ── S3: translation rows — fill height evenly ── */
+    #s3 .s3-table   { flex: 1; margin-bottom: 16px; }
+    #s3 .s3-row     { flex: 1; }
+    #s3 .callout-box { padding: 20px 28px; margin-top: 0; }
 
     /* ── S4: problem cards — height auto ── */
     #s4 .s4-setup   { font-size: clamp(13px, 1.4vw, 16px); color: rgba(35,33,33,0.6);
@@ -982,44 +987,44 @@
   <!-- SLIDE 3 — Real Need -->
   <div class="slide" id="s3" data-theme="dark">
     <div class="slide-hdr light">
-      <h2>The Request is a Proxy. The Real Need is Centralization.</h2>
+      <h2>They&rsquo;re Asking for Domains. They Need Centralization.</h2>
     </div>
 
     <div class="s3-table">
       <!-- Column headers -->
       <div class="s3-thead">
-        <span class="s3-col-hdr">What they say they want</span>
+        <span class="s3-col-hdr">What They Ask For</span>
         <span></span>
-        <span class="s3-col-hdr s3-col-hdr-need">What they actually need</span>
+        <span class="s3-col-hdr s3-col-hdr-need">What They Actually Need</span>
       </div>
       <!-- Row 1 -->
       <div class="s3-row">
-        <div class="s3-cell s3-ask"><span class="s3ri">🔑</span><span>No more switching between accounts</span></div>
+        <div class="s3-cell s3-ask"><span class="s3ri">&#9679;</span><span>Multiple sending domains in one account</span></div>
         <div class="s3-arrow">→</div>
-        <div class="s3-cell s3-need"><span class="s3ri">🏛️</span><span>Central command center across all accounts</span></div>
+        <div class="s3-cell s3-need"><span class="s3ri">✓</span><span>One place to manage every brand&rsquo;s domain</span></div>
       </div>
       <!-- Row 2 -->
       <div class="s3-row">
-        <div class="s3-cell s3-ask"><span class="s3ri">📧</span><span>Different domain per brand — without juggling multiple accounts</span></div>
+        <div class="s3-cell s3-ask"><span class="s3ri">&#9679;</span><span>Single login for all brands</span></div>
         <div class="s3-arrow">→</div>
-        <div class="s3-cell s3-need"><span class="s3ri">📤</span><span>One place to manage every brand&rsquo;s sending domain</span></div>
+        <div class="s3-cell s3-need"><span class="s3ri">✓</span><span>Central command center across all accounts</span></div>
       </div>
       <!-- Row 3 -->
       <div class="s3-row">
-        <div class="s3-cell s3-ask"><span class="s3ri">👥</span><span>One profile view, separate consent per brand</span></div>
+        <div class="s3-cell s3-ask"><span class="s3ri">&#9679;</span><span>One account to build and send from</span></div>
         <div class="s3-arrow">→</div>
-        <div class="s3-cell s3-need"><span class="s3ri">🧩</span><span>Unified profiles across all brands — with consent unique to each</span></div>
+        <div class="s3-cell s3-need"><span class="s3ri">✓</span><span>Centralized assets and campaigns across brands</span></div>
       </div>
       <!-- Row 4 -->
       <div class="s3-row">
-        <div class="s3-cell s3-ask"><span class="s3ri">🏗️</span><span>One place to create, build &amp; send</span></div>
+        <div class="s3-cell s3-ask"><span class="s3ri">&#9679;</span><span>One place to see all customer data</span></div>
         <div class="s3-arrow">→</div>
-        <div class="s3-cell s3-need"><span class="s3ri">📦</span><span>Centralized asset library &amp; ability to send to multiple brands in one view</span></div>
+        <div class="s3-cell s3-need"><span class="s3ri">✓</span><span>Unified profiles across all brands with consent unique to each</span></div>
       </div>
     </div>
 
     <div class="callout-box">
-      &ldquo;The ask for &lsquo;one account, many domains&rsquo; is really an ask for reduced operational friction and centralized control &mdash; not a technical architecture preference.&rdquo;
+      Every one of these requests is solvable &mdash; not by changing account architecture, but by building the Organization layer on top of it.
     </div>
   </div>
 
