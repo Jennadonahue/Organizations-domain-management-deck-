@@ -431,53 +431,97 @@
     .vprop p { font-size: clamp(11px, 1.05vw, 13px); line-height: 1.55; color: rgba(255,255,255,0.72); }
 
     /* ════════════════════════════════
-       SLIDE 6 — Needs Table
+       SLIDE 6 — Milestone Columns
     ════════════════════════════════ */
-    #s6 { background: var(--bg); justify-content: flex-start; padding-top: 56px; }
+    #s6 { background: var(--bg); justify-content: flex-start; padding-top: 40px; }
 
-    .needs-tbl {
+    .ms-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
       width: 100%;
       max-width: 1060px;
-      border-collapse: separate;
-      border-spacing: 0;
-      font-size: clamp(11px, 1.05vw, 13px);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 18px rgba(0,0,0,0.07);
+      margin-bottom: 20px;
     }
-    .needs-tbl thead th {
-      background: var(--navy);
-      color: white;
-      padding: 11px 14px;
-      text-align: left;
-      font-size: 10.5px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-    }
-    .needs-tbl tbody tr { background: white; }
-    .needs-tbl tbody tr:nth-child(even) { background: rgba(255,252,249,0.9); }
-    .needs-tbl tbody td {
-      padding: 9px 14px;
-      border-bottom: 1px solid rgba(35,33,33,0.07);
-      line-height: 1.45;
-      color: var(--stone);
-      vertical-align: middle;
-    }
-    .needs-tbl tbody tr:last-child td { border-bottom: none; }
 
-    .sbadge {
-      display: inline-block;
-      padding: 2px 9px;
+    .ms-col {
+      background: white;
+      border-radius: 12px;
+      border: 1px solid rgba(35,33,33,0.08);
+      border-top: 4px solid #2D9E6B;
+      padding: 24px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+    }
+    .ms-col-m2 { border-top-color: #E8900A; }
+
+    .ms-col-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .ms-period {
+      font-size: clamp(13px, 1.3vw, 16px);
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+    .ms-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 12px;
       border-radius: 20px;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       white-space: nowrap;
     }
-    .sbadge.m1  { background: rgba(249,99,83,0.1);  color: #0d5e39; border: 1px solid rgba(249,99,83,0.28); }
-    .sbadge.m1c { background: rgba(249,99,83,0.2);  color: #083e26; border: 1px solid rgba(249,99,83,0.45); }
-    .sbadge.m12 { background: rgba(249,99,83,0.1);  color: #0d5e39; border: 1px solid rgba(249,99,83,0.28); }
-    .sbadge.m2  { background: rgba(245,158,11,0.12); color: #92400e; border: 1px solid rgba(245,158,11,0.38); }
+    .ms-badge-green { background: rgba(45,158,107,0.12); color: #1a7a50; border: 1px solid rgba(45,158,107,0.35); }
+    .ms-badge-amber { background: rgba(232,144,10,0.12); color: #9a5e04; border: 1px solid rgba(232,144,10,0.35); }
+
+    .ms-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+    }
+    .ms-list li {
+      font-size: clamp(14px, 1.4vw, 18px);
+      line-height: 1.5;
+      color: var(--stone);
+      padding: 14px 0 14px 28px;
+      position: relative;
+      border-bottom: 1px solid rgba(35,33,33,0.06);
+    }
+    .ms-list li:last-child { border-bottom: none; }
+    .ms-col-m1 .ms-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: 14px;
+      color: #2D9E6B;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .ms-col-m2 .ms-list li::before {
+      content: '◦';
+      position: absolute;
+      left: 2px;
+      top: 11px;
+      color: #E8900A;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .ms-footnote {
+      width: 100%;
+      max-width: 1060px;
+      font-size: clamp(12px, 1.1vw, 14px);
+      color: rgba(35,33,33,0.45);
+      font-style: italic;
+      text-align: center;
+    }
 
     /* ════════════════════════════════
        SLIDE 7 — Real-World Impact
@@ -735,11 +779,7 @@
     .vprops .vprop:nth-child(2) { border-left: 3px solid var(--pink); }
     .vprops .vprop:nth-child(3) { border-left: 3px solid var(--sky); }
 
-    /* Slide 6 — Status badge recolors */
-    .sbadge.m1  { background: rgba(166,207,235,0.18); color: #1a5f80; border-color: rgba(166,207,235,0.7); }
-    .sbadge.m1c { background: rgba(145,118,209,0.16); color: #4d3594; border-color: rgba(145,118,209,0.5); }
-    .sbadge.m12 { background: rgba(116,74,110,0.12);  color: var(--eggplant); border-color: rgba(116,74,110,0.4); }
-    .sbadge.m2  { background: rgba(255,164,62,0.14);  color: #8a4500; border-color: rgba(255,164,62,0.5); }
+    /* Slide 6 — milestone columns fill height */
 
     /* Slide 7 — Scenario cards: Violet / Pink top border */
     .scenario-grid .sccard:nth-child(1) { border-top-color: var(--violet); }
@@ -823,13 +863,8 @@
     .vico           { font-size: 24px; margin-bottom: 10px; }
     #s5 .vprop p    { font-size: clamp(13px, 1.3vw, 15px); line-height: 1.5; }
 
-    /* ── S6: table — extra bottom padding clears nav ── */
+    /* ── S6: milestone columns ── */
     #s6             { padding-bottom: 80px; }
-    .needs-tbl      { font-size: clamp(12px, 1.2vw, 14px); }
-    .needs-tbl thead th { font-size: clamp(11px, 1vw, 13px); text-transform: uppercase;
-                          padding: 12px 14px; }
-    .needs-tbl tbody td { padding: 12px 14px; }
-    .sbadge         { font-size: clamp(10px, 0.9vw, 12px); padding: 4px 10px; }
 
     /* ── S8 (CTA): top-aligned, compact spacing for 4 items ── */
     #s8             { justify-content: flex-start; }
@@ -862,9 +897,9 @@
     /* S5: evenly distribute header / org-diagram / value-props */
     #s5 { justify-content: space-between; }
 
-    /* S6: taller rows so the table fills more of the screen */
-    #s6 .needs-tbl thead th { padding: 18px 14px; }
-    #s6 .needs-tbl tbody td { padding: 20px 14px; }
+    /* S6: columns fill height after header */
+    #s6 .ms-cols { flex: 1; align-items: stretch; }
+    #s6 .ms-col  { display: flex; flex-direction: column; }
 
   </style>
 </head>
@@ -1059,57 +1094,40 @@
     </div>
   </div>
 
-  <!-- SLIDE 6 — Needs to Solutions Table -->
+  <!-- SLIDE 6 — Milestone Columns -->
   <div class="slide" id="s6" data-theme="light">
     <div class="slide-hdr">
-      <h2>Organizations Directly Addresses What Customers Actually Need</h2>
+      <h2>What Organizations Delivers &mdash; and When</h2>
     </div>
-    <table class="needs-tbl">
-      <thead>
-        <tr>
-          <th style="width:34%">Customer Need</th>
-          <th style="width:42%">Organizations Solution</th>
-          <th style="width:24%">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Stop switching between accounts to do work</td>
-          <td>Org-level UI: manage all accounts from one pane</td>
-          <td><span class="sbadge m1">Milestone 1</span></td>
-        </tr>
-        <tr>
-          <td>Send campaigns/flows across brands at once</td>
-          <td>Multi-Brand Campaign Deployment</td>
-          <td><span class="sbadge m2">Milestone 2</span></td>
-        </tr>
-        <tr>
-          <td>Unified view of all customer profiles across brands</td>
-          <td>Cross-Brand Identity Resolution (Global Profile)</td>
-          <td><span class="sbadge m2">Milestone 2</span></td>
-        </tr>
-        <tr>
-          <td>Centralized domain &amp; channel settings</td>
-          <td>Centralized Channel Settings Management</td>
-          <td><span class="sbadge m2">Milestone 2</span></td>
-        </tr>
-        <tr>
-          <td>Manage users &amp; permissions once, apply everywhere</td>
-          <td>Enterprise Grade Permissions</td>
-          <td><span class="sbadge m1c">Milestone 1 &ndash; Committed</span></td>
-        </tr>
-        <tr>
-          <td>Single billing view across accounts</td>
-          <td>Cross Brand Billing Views</td>
-          <td><span class="sbadge m1c">Milestone 1 &ndash; Committed</span></td>
-        </tr>
-        <tr>
-          <td>Cross-brand segmentation &amp; cross-sell</td>
-          <td>Cross Brand Activation + Reporting</td>
-          <td><span class="sbadge m12">Milestone 1&ndash;2</span></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="ms-cols">
+      <!-- Left: M1 -->
+      <div class="ms-col ms-col-m1">
+        <div class="ms-col-hdr">
+          <span class="ms-period">Milestone 1 &middot; End of Q2 2026</span>
+          <span class="ms-badge ms-badge-green">Committed</span>
+        </div>
+        <ul class="ms-list">
+          <li>One place to manage all accounts, users, and permissions</li>
+          <li>Enterprise-grade permissions and access controls</li>
+          <li>Cross-brand billing visibility</li>
+          <li>Foundation for cross-brand reporting</li>
+        </ul>
+      </div>
+      <!-- Right: M2 -->
+      <div class="ms-col ms-col-m2">
+        <div class="ms-col-hdr">
+          <span class="ms-period">Milestone 2 &middot; Late 2026 / Early 2027</span>
+          <span class="ms-badge ms-badge-amber">Planned</span>
+        </div>
+        <ul class="ms-list">
+          <li>Send campaigns and flows across multiple brands at once</li>
+          <li>Unified customer profiles across all brands (Global Profile)</li>
+          <li>Centralized domain and channel settings management</li>
+          <li>Cross-brand segmentation and audience activation</li>
+        </ul>
+      </div>
+    </div>
+    <p class="ms-footnote">Milestone 1 directly addresses the centralization and reduced friction customers are asking for today.</p>
   </div>
 
   <!-- SLIDE 7 — Real-World Impact -->
