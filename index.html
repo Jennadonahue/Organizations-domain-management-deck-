@@ -503,7 +503,30 @@
     /* ── Step 2: Templates ── */
     .tmpl-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
     .tmpl-card { border: 1px solid #E5E5E5; border-radius: 8px; padding: 10px; }
-    .tmpl-thumb { height: 44px; background: #F0F0F0; border-radius: 5px; margin-bottom: 7px; }
+    .tmpl-preview {
+      height: 80px; border-radius: 6px; overflow: hidden; margin-bottom: 7px;
+      background: #F9F9F9; display: flex; flex-direction: column;
+    }
+    .tp-header {
+      height: 20px; flex-shrink: 0; display: flex; align-items: center;
+      justify-content: center; font-size: 7px; font-weight: 800;
+      color: white; letter-spacing: 1px;
+    }
+    .tp-body {
+      flex: 1; padding: 5px 8px; display: flex; flex-direction: column;
+      justify-content: center; gap: 4px;
+    }
+    .tp-line { height: 5px; background: #E0E0E0; border-radius: 3px; }
+    .tp-btn {
+      height: 6px; width: 40%; border-radius: 4px; margin-top: 2px; align-self: center;
+    }
+    .tp-avatar {
+      width: 16px; height: 16px; border-radius: 50%; background: #E0E0E0; align-self: center;
+    }
+    .tp-product-box {
+      height: 30px; background: #F5F5F5; display: flex; align-items: center;
+      padding: 0 8px; gap: 4px; font-size: 11px; flex-shrink: 0;
+    }
     .tmpl-name { font-size: 11px; font-weight: 700; color: #232122; margin-bottom: 3px; }
     .tmpl-used { font-size: 9px; color: #999; margin-bottom: 8px; }
     .tmpl-deploy-btn {
@@ -1374,19 +1397,44 @@
               <div class="sc-subtitle">Create once, deploy across any brand</div>
               <div class="tmpl-grid">
                 <div class="tmpl-card">
-                  <div class="tmpl-thumb"></div>
+                  <!-- Summer Sale Banner preview -->
+                  <div class="tmpl-preview">
+                    <div class="tp-header" style="background:#F86455;">SUMMER SALE</div>
+                    <div class="tp-body">
+                      <div class="tp-line" style="width:60%"></div>
+                      <div class="tp-line" style="width:40%"></div>
+                      <div class="tp-btn" style="background:#F86455;"></div>
+                    </div>
+                  </div>
                   <div class="tmpl-name">Summer Sale Banner</div>
                   <div class="tmpl-used">Used by: Wayfair, AllModern</div>
                   <button class="tmpl-deploy-btn" id="tmpl-deploy-btn">Deploy to brands</button>
                 </div>
                 <div class="tmpl-card">
-                  <div class="tmpl-thumb"></div>
+                  <!-- Welcome Series preview -->
+                  <div class="tmpl-preview">
+                    <div class="tp-header" style="background:#232122;">WELCOME</div>
+                    <div class="tp-body" style="align-items:center;">
+                      <div class="tp-avatar"></div>
+                      <div class="tp-line" style="width:70%"></div>
+                      <div class="tp-line" style="width:50%"></div>
+                      <div class="tp-btn" style="background:#232122;"></div>
+                    </div>
+                  </div>
                   <div class="tmpl-name">Welcome Series</div>
                   <div class="tmpl-used">Used by: All 6 brands</div>
                   <button class="tmpl-deploy-btn">Deploy to brands</button>
                 </div>
                 <div class="tmpl-card">
-                  <div class="tmpl-thumb"></div>
+                  <!-- Abandoned Cart preview -->
+                  <div class="tmpl-preview" style="background:#fff; border:1px solid #E5E5E5;">
+                    <div class="tp-product-box">🛒 <span style="font-size:7px;color:#aaa;">Product item</span></div>
+                    <div class="tp-body">
+                      <div class="tp-line" style="width:65%"></div>
+                      <div class="tp-line" style="width:45%"></div>
+                      <div class="tp-btn" style="background:#F86455;"></div>
+                    </div>
+                  </div>
                   <div class="tmpl-name">Abandoned Cart</div>
                   <div class="tmpl-used">Used by: Joss &amp; Main, Birch Lane</div>
                   <button class="tmpl-deploy-btn">Deploy to brands</button>
