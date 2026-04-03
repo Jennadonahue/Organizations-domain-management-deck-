@@ -463,7 +463,7 @@
       flex-wrap: wrap;
     }
     .ms-period {
-      font-size: clamp(13px, 1.3vw, 16px);
+      font-size: clamp(12px, 1.1vw, 14px);
       font-weight: 700;
       color: var(--charcoal);
     }
@@ -718,55 +718,91 @@
     .tcol.right h3 { color: var(--lemon); }
     .tcol.right li::before { color: var(--lemon); }
 
-    /* Slide 4 — Why one account can't work */
-    .s4-sub {
-      font-size: clamp(12px, 1.1vw, 14px);
-      color: rgba(35,33,33,0.5);
-      margin-top: 6px;
-      font-weight: 400;
-      line-height: 1.5;
-    }
+    /* Slide 4 — Expandable cards */
     .s4-setup {
       font-size: clamp(13px, 1.2vw, 15px);
       color: rgba(35,33,33,0.55);
       max-width: 1060px;
       width: 100%;
       line-height: 1.6;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
-    .s4-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
+    .xcard-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       width: 100%;
       max-width: 1060px;
     }
-    .s4-card {
+    .xcard {
       background: white;
       border-radius: 12px;
-      border: 1px solid rgba(35,33,33,0.08);
-      border-top: 4px solid var(--poppy);
-      padding: 20px 22px;
+      border: 1px solid rgba(35,33,33,0.1);
+      overflow: hidden;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    }
+    .xcard-header {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      align-items: center;
+      gap: 16px;
+      padding: 0 20px;
+      min-height: 72px;
+      cursor: pointer;
+      user-select: none;
     }
-    .s4-c1 { border-top-color: var(--eggplant); }
-    .s4-c2 { border-top-color: var(--violet); }
-    .s4-c3 { border-top-color: var(--sky); }
-    .s4-c4 { border-top-color: var(--orange); }
-    .s4-ico { font-size: 26px; }
-    .s4-card strong {
-      font-size: clamp(14px, 1.3vw, 16px);
-      font-weight: 800;
+    .xcard-header:hover { background: rgba(35,33,33,0.02); }
+    .xcard-num {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #F86455;
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .xcard-title-wrap { flex: 1; padding: 14px 0; }
+    .xcard-title {
+      display: block;
+      font-size: clamp(13px, 1.3vw, 15px);
+      font-weight: 700;
       color: var(--charcoal);
-      line-height: 1.2;
+      line-height: 1.3;
+      margin-bottom: 3px;
     }
-    .s4-card p {
-      font-size: clamp(12px, 1vw, 13px);
-      color: rgba(35,33,33,0.55);
-      line-height: 1.55;
-      margin: 0;
+    .xcard-summary {
+      display: block;
+      font-size: clamp(12px, 1.1vw, 13px);
+      color: rgba(35,33,33,0.5);
+      line-height: 1.4;
+    }
+    .xcard-toggle {
+      flex-shrink: 0;
+      font-size: 22px;
+      font-weight: 300;
+      color: #F86455;
+      line-height: 1;
+      width: 24px;
+      text-align: center;
+    }
+    .xcard-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 20px 0 68px;
+    }
+    .xcard-body p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+      margin: 0 0 20px;
+    }
+    .xcard.open .xcard-body {
+      max-height: 300px;
+      padding: 4px 20px 20px 68px;
     }
 
     /* Slide 4 — Block quote: Violet accent */
@@ -844,14 +880,8 @@
     #s3 .s3-row     { flex: 1; }
     #s3 .callout-box { padding: 20px 28px; margin-top: 0; }
 
-    /* ── S4: problem cards — height auto ── */
-    #s4 .s4-setup   { font-size: clamp(13px, 1.4vw, 16px); color: rgba(35,33,33,0.6);
-                      margin-bottom: 16px; }
-    #s4 .s4-grid    { gap: 16px; }
-    #s4 .s4-card    { height: auto; padding: 24px; }
-    #s4 .s4-ico     { font-size: 28px; margin-bottom: 10px; }
-    #s4 .s4-card strong { font-size: clamp(13px, 1.3vw, 15px); display: block; margin-bottom: 8px; }
-    #s4 .s4-card p  { font-size: clamp(13px, 1.3vw, 15px); line-height: 1.6; }
+    /* ── S4: expandable cards ── */
+    #s4 .s4-setup   { font-size: clamp(13px, 1.4vw, 16px); color: rgba(35,33,33,0.6); margin-bottom: 16px; }
 
     /* ── S5: org diagram + value props ── */
     #s5 .s5-sub     { font-size: clamp(13px, 1.4vw, 16px); color: rgba(255,255,255,0.6);
@@ -893,18 +923,15 @@
       align-content: stretch;
     }
 
-    /* S4: problem card grid expands to fill height after header */
-    #s4 .s4-grid {
-      flex: 1;
-      grid-template-rows: 1fr 1fr;
-    }
 
     /* S5: evenly distribute header / org-diagram / value-props */
     #s5 { justify-content: space-between; }
 
-    /* S6: columns fill height after header */
+    /* S6: columns fill height, bullets stay evenly spaced at 16px */
     #s6 .ms-cols { flex: 1; align-items: stretch; }
     #s6 .ms-col  { display: flex; flex-direction: column; }
+    .ms-list     { gap: 16px; justify-content: flex-start; flex: 1; }
+    .ms-footnote { margin-top: 24px; }
 
   </style>
 </head>
@@ -1031,30 +1058,67 @@
   <!-- SLIDE 4 — Why Not One Account -->
   <div class="slide" id="s4" data-theme="light">
     <div class="slide-hdr">
-      <h2>One Account, Multiple Brands: Four Problems That Don&rsquo;t Go Away</h2>
-      <p class="s4-sub">Forcing multiple brands into one account creates four compounding problems &mdash; none of which go away with more features.</p>
+      <h2>Why One Account Can&rsquo;t Support Multiple Brands</h2>
+      <p class="s4-setup">Klaviyo&rsquo;s account model is intentionally built around a single brand. Here&rsquo;s what breaks when you force multiple brands into one.</p>
     </div>
-    <div class="s4-grid">
-      <div class="s4-card s4-c1">
-        <span class="s4-ico">🔒</span>
-        <strong>Consent gets crossed</strong>
-        <p>One unsubscribe silences a customer across every brand &mdash; even ones they never opted out of.</p>
+    <div class="xcard-list">
+
+      <div class="xcard">
+        <div class="xcard-header" onclick="toggleXCard(this)">
+          <span class="xcard-num">1</span>
+          <div class="xcard-title-wrap">
+            <strong class="xcard-title">Consent and suppression breaks across brands</strong>
+            <span class="xcard-summary">One unsubscribe silences a customer across every brand &mdash; even ones they never opted out of.</span>
+          </div>
+          <span class="xcard-toggle">+</span>
+        </div>
+        <div class="xcard-body">
+          <p>Klaviyo&rsquo;s suppression logic operates at the account level. If a customer unsubscribes from Brand A, that suppression does not automatically transfer to Brand B in a separate account &mdash; which is the correct behavior. But inside a single account, one unsubscribe suppresses that profile globally, meaning a customer who opts out of Brand A emails is silently suppressed from Brand B, C, and D with no way to separate consent by brand. This creates compliance risk and kills cross-brand marketing effectiveness.</p>
+        </div>
       </div>
-      <div class="s4-card s4-c2">
-        <span class="s4-ico">📬</span>
-        <strong>Reputation bleeds between brands</strong>
-        <p>One brand&rsquo;s spam complaints hurt deliverability for every other brand in the account.</p>
+
+      <div class="xcard">
+        <div class="xcard-header" onclick="toggleXCard(this)">
+          <span class="xcard-num">2</span>
+          <div class="xcard-title-wrap">
+            <strong class="xcard-title">Sender reputation bleeds between brands</strong>
+            <span class="xcard-summary">One brand&rsquo;s spam complaints damage deliverability for every other brand sharing the account.</span>
+          </div>
+          <span class="xcard-toggle">+</span>
+        </div>
+        <div class="xcard-body">
+          <p>Sending domain reputation is tied to the account. If Brand A runs a poorly targeted campaign that generates high spam complaints or bounces, it degrades the sender score for the shared domain &mdash; directly hurting the deliverability of Brand B and Brand C. There is no way to isolate one brand&rsquo;s sending behavior from another inside a single account. Separate accounts with separate sending domains is the only way to protect each brand&rsquo;s reputation independently.</p>
+        </div>
       </div>
-      <div class="s4-card s4-c3">
-        <span class="s4-ico">📊</span>
-        <strong>Metrics become meaningless</strong>
-        <p>Revenue and engagement blend together &mdash; you can&rsquo;t tell which brand is winning or losing.</p>
+
+      <div class="xcard">
+        <div class="xcard-header" onclick="toggleXCard(this)">
+          <span class="xcard-num">3</span>
+          <div class="xcard-title-wrap">
+            <strong class="xcard-title">Reporting and attribution becomes unreliable</strong>
+            <span class="xcard-summary">Revenue and engagement blend together &mdash; you can&rsquo;t tell which brand is winning or losing.</span>
+          </div>
+          <span class="xcard-toggle">+</span>
+        </div>
+        <div class="xcard-body">
+          <p>All analytics in Klaviyo are scoped to a single account. Revenue attribution, flow performance, campaign engagement, and profile metrics would all be aggregated across every brand in the account with no clean way to separate them. Leadership loses the ability to evaluate brand-level performance, identify underperforming brands, or make data-driven investment decisions across the portfolio. Clean reporting requires clean data separation &mdash; which requires separate accounts.</p>
+        </div>
       </div>
-      <div class="s4-card s4-c4">
-        <span class="s4-ico">⚙️</span>
-        <strong>Config can&rsquo;t scale per brand</strong>
-        <p>Every brand shares the same domains, phone numbers, and settings &mdash; there&rsquo;s no way to configure them independently.</p>
+
+      <div class="xcard">
+        <div class="xcard-header" onclick="toggleXCard(this)">
+          <span class="xcard-num">4</span>
+          <div class="xcard-title-wrap">
+            <strong class="xcard-title">Channel configuration can&rsquo;t be separated per brand</strong>
+            <span class="xcard-summary">Every brand shares the same domains, phone numbers, and settings &mdash; with no way to configure them independently.</span>
+          </div>
+          <span class="xcard-toggle">+</span>
+        </div>
+        <div class="xcard-body">
+          <p>Sending domains, click-tracking domains, SMS phone numbers, sender IDs, and third-party app integrations are all configured at the account level. There is no sub-brand or brand-level configuration layer inside a single account. This means every brand is locked into shared infrastructure &mdash; you cannot give Brand A its own sending domain while Brand B uses a different one, and you cannot connect Brand A to a different Shopify store than Brand B. This is a hard architectural limit, not a missing feature.</p>
+        </div>
       </div>
+
     </div>
   </div>
 
@@ -1240,6 +1304,21 @@
 
   // Init
   goTo(0);
+
+  // Slide 4 — expandable cards (only one open at a time)
+  function toggleXCard(header) {
+    const card = header.closest('.xcard');
+    const list = card.closest('.xcard-list');
+    const isOpen = card.classList.contains('open');
+    list.querySelectorAll('.xcard').forEach(c => {
+      c.classList.remove('open');
+      c.querySelector('.xcard-toggle').textContent = '+';
+    });
+    if (!isOpen) {
+      card.classList.add('open');
+      card.querySelector('.xcard-toggle').textContent = '−';
+    }
+  }
 </script>
 
 </body>
