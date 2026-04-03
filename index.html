@@ -8,7 +8,7 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Inter', -apple-system, sans-serif; background: #1a1a1a; }
+    html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Inter', -apple-system, sans-serif; }
 
     :root {
       /* ── Main palette ── */
@@ -31,29 +31,27 @@
     }
 
     /* ── Deck & Slides ── */
-    #deck {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 1440px;
-      height: 900px;
-      transform-origin: center center;
-      /* transform set by scaleStage() */
-    }
+    #deck { position: fixed; inset: 0; }
 
     .slide {
       position: absolute;
       inset: 0;
+      width: 100vw;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 62px 80px 88px;
+      justify-content: flex-start;
+      padding: 40px 40px 80px;
+      overflow: hidden;
       opacity: 0;
       transition: opacity 0.4s ease;
       pointer-events: none;
-      overflow: hidden;
+      box-sizing: border-box;
     }
+
+    /* All direct content children constrained to 1200px and centered */
+    .slide > * { max-width: 1200px; width: 100%; }
     .slide.active { opacity: 1; pointer-events: all; z-index: 10; }
 
     /* ── Navigation pill ── */
@@ -770,76 +768,103 @@
     }
 
     /* ═══════════════════════════════════════════════════
-       FILL-STAGE — scale all content to use full 900px
+       FLUID LAYOUT — 100vw × 100vh, max-width 1200px
     ═══════════════════════════════════════════════════ */
 
-    /* Less padding, more room */
-    .slide          { padding: 38px 72px 48px; }
-    #s2,#s3,#s4,#s5,#s6,#s7 { padding-top: 44px; }
+    /* ── Shared: slide header ── */
+    .slide-hdr    { margin-bottom: 16px; }
+    .slide-hdr h2 { font-size: clamp(28px, 3.5vw, 42px); font-weight: 800; }
 
-    /* Bigger headers */
-    .slide-hdr      { margin-bottom: 26px; }
-    .slide-hdr h2   { font-size: clamp(28px, 3vw, 44px); }
+    /* ── S1: title slide centered ── */
+    #s1           { justify-content: center; align-items: center; }
+    #s1 h1        { font-size: clamp(36px, 5vw, 60px); margin-bottom: 16px; }
+    #s1 .sub      { font-size: clamp(13px, 1.4vw, 16px); color: rgba(255,255,255,0.6); margin-bottom: 36px; }
+    .s1-tag       { font-size: 11px; padding: 6px 14px; margin-bottom: 24px; }
+    .bpill        { padding: 8px 18px; font-size: 12px; }
+    .bpill-row    { gap: 12px; margin-top: 16px; }
 
-    /* ── S1 title ── */
-    #s1 h1          { font-size: clamp(38px, 5vw, 68px); margin-bottom: 20px; }
-    #s1 .sub        { font-size: clamp(16px, 1.9vw, 22px); margin-bottom: 44px; }
-    .s1-tag         { font-size: 11px; padding: 7px 16px; margin-bottom: 30px; }
-    .s1-org-node    { padding: 12px 28px; font-size: 14px; }
-    .bpill          { padding: 10px 22px; font-size: 13px; }
-    .bpill-row      { gap: 14px; margin-top: 22px; }
-    .arr            { font-size: 15px; }
+    /* ── S2: quote cards — height auto, no blank space ── */
+    #s2 .quote-grid { gap: 16px; }
+    #s2 .qcard      { height: auto; min-height: 180px; padding: 24px; }
+    #s2 .qt         { font-size: clamp(13px, 1.3vw, 15px) !important;
+                      font-style: italic; line-height: 1.6 !important; margin-bottom: 12px !important; }
+    #s2 .qco        { font-size: clamp(13px, 1.3vw, 15px); font-weight: 700; }
+    #s2 .mbadge     { font-size: clamp(11px, 1vw, 13px); }
+    #s2 .qmark      { font-size: 24px; margin-bottom: 8px; opacity: 0.35; }
 
-    /* ── S2 quotes ── */
-    .quote-grid     { gap: 22px; }
-    .qcard          { padding: 32px 28px; }
-    .qt             { font-size: clamp(14px, 1.4vw, 17px) !important; line-height: 1.65 !important; margin-bottom: 18px !important; }
-    .qmark          { font-size: 30px; margin-bottom: 12px; }
-    .qco-row        { gap: 10px; margin-top: 14px; }
+    /* ── S3: translation rows ── */
+    #s3 .s3-table   { gap: 10px; }
+    #s3 .s3-cell    { font-size: clamp(13px, 1.3vw, 15px); padding: 14px 18px; }
+    #s3 .s3-arrow   { font-size: 18px; width: 40px; }
+    #s3 .callout-box { padding: 16px 24px; margin-top: 12px;
+                       font-size: clamp(13px, 1.3vw, 15px); }
 
-    /* ── S3 translation rows ── */
-    .s3-table       { gap: 12px; width: 100%; max-width: 1060px; }
-    .s3-row         { min-height: 0; }
-    .s3-cell        { font-size: clamp(14px, 1.4vw, 17px); padding: 18px 22px; }
-    .s3-arrow       { font-size: 20px; width: 44px; }
-    .callout-box    { padding: 20px 28px; margin-top: 18px;
-                      font-size: clamp(13px, 1.2vw, 16px); }
+    /* ── S4: problem cards — height auto ── */
+    #s4 .s4-setup   { font-size: clamp(13px, 1.4vw, 16px); color: rgba(35,33,33,0.6);
+                      margin-bottom: 16px; }
+    #s4 .s4-grid    { gap: 16px; }
+    #s4 .s4-card    { height: auto; padding: 24px; }
+    #s4 .s4-ico     { font-size: 28px; margin-bottom: 10px; }
+    #s4 .s4-card strong { font-size: clamp(13px, 1.3vw, 15px); display: block; margin-bottom: 8px; }
+    #s4 .s4-card p  { font-size: clamp(13px, 1.3vw, 15px); line-height: 1.6; }
 
-    /* ── S4 risk cards ── */
-    .s4-setup       { font-size: clamp(14px, 1.35vw, 17px); margin-bottom: 24px; max-width: 900px; }
-    .s4-grid        { gap: 20px; }
-    .s4-card        { padding: 32px 28px; }
-    .s4-ico         { font-size: 34px; margin-bottom: 14px; }
-    .s4-card strong { font-size: clamp(16px, 1.55vw, 20px); display: block; margin-bottom: 10px; }
-    .s4-card p      { font-size: clamp(13px, 1.2vw, 15px); line-height: 1.65; }
+    /* ── S5: org diagram + value props ── */
+    #s5 .s5-sub     { font-size: clamp(13px, 1.4vw, 16px); color: rgba(255,255,255,0.6);
+                      margin-bottom: 16px; }
+    #s5 .org-diagram { margin-bottom: 16px; }
+    .org-top        { padding: 16px 28px; font-size: clamp(15px, 1.6vw, 19px); }
+    .org-lines      { height: 44px; }
+    .org-accounts   { gap: 12px; }
+    .abox           { height: auto; padding: 20px 12px; min-height: 0;
+                      font-size: clamp(13px, 1.3vw, 15px); }
+    .aico           { font-size: 26px; margin-bottom: 8px; }
+    #s5 .vprops     { gap: 14px; margin-top: 14px; }
+    #s5 .vprop      { height: auto; padding: 24px; }
+    .vico           { font-size: 24px; margin-bottom: 10px; }
+    #s5 .vprop p    { font-size: clamp(13px, 1.3vw, 15px); line-height: 1.5; }
 
-    /* ── S5 org diagram ── */
-    .org-diagram    { margin-bottom: 22px; }
-    .org-top        { padding: 20px 36px; font-size: clamp(17px, 1.8vw, 22px); }
-    .org-lines      { height: 52px; }
-    .org-accounts   { gap: 16px; }
-    .abox           { padding: 24px 14px; min-height: 95px;
-                      font-size: clamp(13px, 1.3vw, 16px); }
-    .aico           { font-size: 30px; margin-bottom: 10px; }
-    .vprops         { gap: 16px; margin-top: 18px; max-width: 880px; }
-    .vprop          { padding: 24px 20px; }
-    .vico           { font-size: 28px; margin-bottom: 12px; }
-    .vprop p        { font-size: clamp(13px, 1.2vw, 15px); line-height: 1.55; }
+    /* ── S6: table — extra bottom padding clears nav ── */
+    #s6             { padding-bottom: 80px; }
+    .needs-tbl      { font-size: clamp(12px, 1.2vw, 14px); }
+    .needs-tbl thead th { font-size: clamp(11px, 1vw, 13px); text-transform: uppercase;
+                          padding: 12px 14px; }
+    .needs-tbl tbody td { padding: 12px 14px; }
+    .sbadge         { font-size: clamp(10px, 0.9vw, 12px); padding: 4px 10px; }
 
-    /* ── S6 table ── */
-    .needs-tbl               { font-size: clamp(13px, 1.25vw, 15px); }
-    .needs-tbl thead th      { padding: 15px 18px; }
-    .needs-tbl tbody td      { padding: 14px 18px; }
-    .sbadge                  { padding: 5px 13px; font-size: 11.5px; }
+    /* ── S8 (CTA): vertically centered ── */
+    #s8             { justify-content: center; }
+    .cta-wrap       { max-width: 900px; }
+    .npoint         { gap: 16px; margin-bottom: 24px; }
+    .nnum           { width: 44px; height: 44px; font-size: 18px; flex-shrink: 0; }
+    .nptext h3      { font-size: clamp(15px, 1.6vw, 18px); font-weight: 700; margin-bottom: 6px; }
+    .nptext p       { font-size: clamp(12px, 1.2vw, 14px); line-height: 1.6; }
+    .closing        { padding: 22px 28px; font-size: clamp(13px, 1.3vw, 15px);
+                      line-height: 1.65; margin-top: 24px; }
 
-    /* ── S7 CTA ── */
-    .cta-wrap       { max-width: 920px; }
-    .npoint         { gap: 18px; margin-bottom: 28px; }
-    .nnum           { width: 46px; height: 46px; font-size: 20px; flex-shrink: 0; }
-    .nptext h3      { font-size: clamp(16px, 1.7vw, 21px); margin-bottom: 8px; }
-    .nptext p       { font-size: clamp(13px, 1.35vw, 16px); line-height: 1.65; }
-    .closing        { padding: 26px 34px; font-size: clamp(14px, 1.45vw, 18px);
-                      line-height: 1.65; margin-top: 30px; }
+    /* ════════════════════════════════════════════════════
+       FILL-HEIGHT — content stretches to fill full screen
+    ════════════════════════════════════════════════════ */
+
+    /* S2: quote card grid expands to fill height after header */
+    #s2 .quote-grid {
+      flex: 1;
+      grid-template-rows: 1fr 1fr;
+      align-content: stretch;
+    }
+
+    /* S4: problem card grid expands to fill height after header */
+    #s4 .s4-grid {
+      flex: 1;
+      grid-template-rows: 1fr 1fr;
+    }
+
+    /* S5: evenly distribute header / org-diagram / value-props */
+    #s5 { justify-content: space-between; }
+
+    /* S6: taller rows so the table fills more of the screen */
+    #s6 .needs-tbl thead th { padding: 18px 14px; }
+    #s6 .needs-tbl tbody td { padding: 20px 14px; }
+
   </style>
 </head>
 <body>
@@ -1181,15 +1206,6 @@
     const dx = e.changedTouches[0].clientX - tx;
     if (Math.abs(dx) > 50) goTo(cur + (dx < 0 ? 1 : -1));
   }, { passive: true });
-
-  // Scale entire deck to fit viewport proportionally (like Keynote/Google Slides)
-  function scaleStage() {
-    const deck = document.getElementById('deck');
-    const scale = Math.min(window.innerWidth / 1440, window.innerHeight / 900);
-    deck.style.transform = `translate(-50%, -50%) scale(${scale})`;
-  }
-  window.addEventListener('resize', scaleStage);
-  scaleStage();
 
   // Init
   goTo(0);
