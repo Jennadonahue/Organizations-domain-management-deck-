@@ -253,8 +253,8 @@
       margin-bottom: 8px;
       line-height: 1.4;
     }
-    .qfooter { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .qco { font-weight: 700; font-size: 11.5px; color: var(--charcoal); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60%; }
+    .qfooter { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; }
+    .qco { font-weight: 700; font-size: 11.5px; color: var(--charcoal); }
     .mbadge {
       display: inline-flex;
       align-items: center;
@@ -710,8 +710,34 @@
     .quote-grid .qcard { border-left-color: #F86455; height: 100%; box-sizing: border-box; }
     .quote-grid .qcard .qmark { color: #F86455; }
 
-    /* Slide 2 — MRR badge */
-    .mbadge.total { background: var(--poppy); color: white; border: none; }
+    /* Slide 2 — MRR badge: outline style */
+    .mbadge.total { background: white; color: #F86455; border: 1.5px solid #F86455; }
+
+    /* Slide 2 — source badge pill */
+    .src-badge {
+      display: inline-block;
+      background: #F0F0F0;
+      color: #666666;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-top: 4px;
+      font-weight: 400;
+    }
+
+    /* Slide 2 — footer left stack */
+    .qfooter-left { display: flex; flex-direction: column; align-items: flex-start; }
+
+    /* Slide 2 — footnote */
+    .s2-footnote {
+      width: 100%;
+      max-width: 1060px;
+      font-size: 12px;
+      color: rgba(35,33,33,0.4);
+      font-style: italic;
+      text-align: center;
+      margin-top: 12px;
+    }
 
     /* Slide 3 — "What they actually need" column: Lemon */
     .tcol.right { border-top-color: var(--lemon); }
@@ -972,7 +998,7 @@
   <div class="slide" id="s2" data-theme="light">
     <div class="slide-hdr">
       <h2>We Keep Hearing the Same Request</h2>
-      <p class="s2-sub">Representing $77,563 in monthly recurring revenue</p>
+      <p class="s2-sub">A pattern emerging across enterprise and mid-market accounts</p>
     </div>
     <div class="quote-grid">
       <div class="qcard">
@@ -980,7 +1006,10 @@
         <p class="qtext">Prefers a multi-domain set-up in one account.</p>
         <p class="qcontext">Context: Single team managing multiple brands, seeking to avoid account switching</p>
         <div class="qfooter">
-          <span class="qco">Lucky Strike / Bowlero</span>
+          <div class="qfooter-left">
+            <span class="qco">Lucky Strike / Bowlero</span>
+            <span class="src-badge">Salesforce Opportunity Note</span>
+          </div>
           <span class="mbadge total">$28,820 MRR</span>
         </div>
       </div>
@@ -988,7 +1017,10 @@
         <span class="qmark">&ldquo;</span>
         <p class="qtext">In a perfect world, we'd send from one account and choose from seven different sending domains per brand.</p>
         <div class="qfooter">
-          <span class="qco">Modern Lifestyle Shop</span>
+          <div class="qfooter-left">
+            <span class="qco">Modern Lifestyle Shop</span>
+            <span class="src-badge">Gong Call</span>
+          </div>
           <span class="mbadge total">$23,403 MRR</span>
         </div>
       </div>
@@ -996,7 +1028,10 @@
         <span class="qmark">&ldquo;</span>
         <p class="qtext">We require different sending domains per brand — right now that's a full stop. We have to separate into multiple accounts.</p>
         <div class="qfooter">
-          <span class="qco">Holley</span>
+          <div class="qfooter-left">
+            <span class="qco">Holley</span>
+            <span class="src-badge">Gong Call</span>
+          </div>
           <span class="mbadge total">$12,990 MRR</span>
         </div>
       </div>
@@ -1004,11 +1039,15 @@
         <span class="qmark">&ldquo;</span>
         <p class="qtext">It would be very important to have a second sending domain. I would love to do it with Klaviyo and not use different software.</p>
         <div class="qfooter">
-          <span class="qco">Creamy Fabrics</span>
+          <div class="qfooter-left">
+            <span class="qco">Creamy Fabrics</span>
+            <span class="src-badge">Gong Call</span>
+          </div>
           <span class="mbadge total">$12,350 MRR</span>
         </div>
       </div>
     </div>
+    <p class="s2-footnote">Combined Total MRR across these accounts: $77,563 &mdash; full revenue impact is larger and still being quantified</p>
   </div>
 
   <!-- SLIDE 3 — Why Not One Account -->
