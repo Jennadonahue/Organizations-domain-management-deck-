@@ -705,9 +705,47 @@
     /* hint label above panel */
     .s5-chap-hint {
       font-size: 11px; font-style: italic; color: #999999;
-      text-align: center; margin: 0 0 6px; width: 160px; flex-shrink: 0;
+      text-align: center; margin: 0; flex-shrink: 0;
     }
-    /* hand icon in header */
+    /* column wrapper: hint label above + panel below */
+    .s5-chap-col {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 6px; flex-shrink: 0;
+    }
+
+    /* pulsing coral dot next to CHAPTERS */
+    .s5-live-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      background: #F86455; border-radius: 50%;
+      margin-left: 5px; vertical-align: middle;
+      animation: dotPulse 1.5s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.35; transform: scale(0.65); }
+    }
+
+    /* chevron on inactive chapter items — hidden when active */
+    .s5-chap-chevron {
+      font-size: 14px; color: #CCCCCC; flex-shrink: 0;
+      margin-left: auto; line-height: 1;
+      transition: opacity 0.15s;
+    }
+    .s5-chap-btn.active .s5-chap-chevron { display: none; }
+
+    /* panel glow animation (one-time, 5s) */
+    @keyframes panelGlow {
+      0%,100% { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+      35%      { box-shadow: 0 0 0 3px rgba(248,100,85,0.22), 0 4px 20px rgba(248,100,85,0.14); }
+      65%      { box-shadow: 0 0 0 3px rgba(248,100,85,0.22), 0 4px 20px rgba(248,100,85,0.14); }
+    }
+    .s5-chapter-panel.glowing { animation: panelGlow 5s ease-in-out forwards; }
+
+    /* cursor pointer on replay button */
+    .s5-chap-replay { cursor: pointer; }
+
+    /* hand icon (legacy — kept to avoid errors) */
     .s5-chap-hand {
       font-size: 12px; margin-left: 4px;
       display: inline-block;
@@ -715,10 +753,10 @@
       transition: opacity 0.6s ease;
     }
     .s5-chap-hand.hidden { opacity: 0; }
-    /* play icon — only visible on active button */
+    /* play icon — only visible on active button; no margin-left since chevron handles right side */
     .s5-chap-play {
       font-size: 10px; color: #F86455;
-      margin-left: auto; flex-shrink: 0;
+      flex-shrink: 0;
       opacity: 0;
       transition: opacity 0.2s;
     }
@@ -1805,27 +1843,29 @@
       </div><!-- /browser-body -->
     </div><!-- /browser-wrap -->
 
-    <!-- External chapter nav panel -->
-    <p class="s5-chap-hint">Click to jump to any step</p>
-    <div class="s5-chapter-panel" id="chapter-nav">
-      <div class="s5-chap-hdr">CHAPTERS <span class="s5-chap-hand" id="s5-chap-hand">&#128070;</span></div>
-      <button class="s5-chap-btn active" id="chap0" onclick="s5JumpTo(0)">
-        <span class="s5-chap-num">1</span><span class="s5-chap-label">Accounts</span><span class="s5-chap-play">&#9654;</span>
-      </button>
-      <button class="s5-chap-btn" id="chap1" onclick="s5JumpTo(1)">
-        <span class="s5-chap-num">2</span><span class="s5-chap-label">Templates</span><span class="s5-chap-play">&#9654;</span>
-      </button>
-      <button class="s5-chap-btn" id="chap2" onclick="s5JumpTo(2)">
-        <span class="s5-chap-num">3</span><span class="s5-chap-label">Segments</span><span class="s5-chap-play">&#9654;</span>
-      </button>
-      <button class="s5-chap-btn" id="chap3" onclick="s5JumpTo(3)">
-        <span class="s5-chap-num">4</span><span class="s5-chap-label">Campaign Send</span><span class="s5-chap-play">&#9654;</span>
-      </button>
-      <button class="s5-chap-btn" id="chap4" onclick="s5JumpTo(4)">
-        <span class="s5-chap-num">5</span><span class="s5-chap-label">Profiles</span><span class="s5-chap-play">&#9654;</span>
-      </button>
-      <div class="s5-chap-divider"></div>
-      <button class="s5-chap-replay" onclick="s5JumpTo(0)">&#8635; Replay</button>
+    <!-- External chapter nav column (hint + panel stacked) -->
+    <div class="s5-chap-col">
+      <p class="s5-chap-hint">Click to jump to any step</p>
+      <div class="s5-chapter-panel" id="chapter-nav">
+        <div class="s5-chap-hdr">CHAPTERS <span class="s5-live-dot"></span></div>
+        <button class="s5-chap-btn active" id="chap0" onclick="s5JumpTo(0)">
+          <span class="s5-chap-num">1</span><span class="s5-chap-label">Accounts</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+        </button>
+        <button class="s5-chap-btn" id="chap1" onclick="s5JumpTo(1)">
+          <span class="s5-chap-num">2</span><span class="s5-chap-label">Templates</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+        </button>
+        <button class="s5-chap-btn" id="chap2" onclick="s5JumpTo(2)">
+          <span class="s5-chap-num">3</span><span class="s5-chap-label">Segments</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+        </button>
+        <button class="s5-chap-btn" id="chap3" onclick="s5JumpTo(3)">
+          <span class="s5-chap-num">4</span><span class="s5-chap-label">Campaign Send</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+        </button>
+        <button class="s5-chap-btn" id="chap4" onclick="s5JumpTo(4)">
+          <span class="s5-chap-num">5</span><span class="s5-chap-label">Profiles</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+        </button>
+        <div class="s5-chap-divider"></div>
+        <button class="s5-chap-replay" onclick="s5JumpTo(0)">&#8635; Replay</button>
+      </div>
     </div>
 
     </div><!-- /s5-demo-row -->
@@ -1998,17 +2038,18 @@
     // One-time intro effects on first load
     if (!s5HasLoaded) {
       s5HasLoaded = true;
-      // Pulse the first chapter button twice, then stop
+      // Pulse the first chapter button 3×
       var btn0 = document.getElementById('chap0');
       if (btn0) {
         btn0.classList.add('pulsing');
         setTimeout(function() { btn0.classList.remove('pulsing'); }, 1700);
       }
-      // Fade out hand icon after 3s
-      setTimeout(function() {
-        var hand = document.getElementById('s5-chap-hand');
-        if (hand) hand.classList.add('hidden');
-      }, 3000);
+      // Glow the chapter panel for 5s
+      var panel = document.getElementById('chapter-nav');
+      if (panel) {
+        panel.classList.add('glowing');
+        setTimeout(function() { panel.classList.remove('glowing'); }, 5200);
+      }
     }
   }
 
