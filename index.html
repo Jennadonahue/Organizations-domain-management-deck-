@@ -702,6 +702,33 @@
       transition: color 0.15s;
     }
     .s5-chap-replay:hover { color: #232122; }
+    /* hint label above panel */
+    .s5-chap-hint {
+      font-size: 11px; font-style: italic; color: #999999;
+      text-align: center; margin: 0 0 6px; width: 160px; flex-shrink: 0;
+    }
+    /* hand icon in header */
+    .s5-chap-hand {
+      font-size: 12px; margin-left: 4px;
+      display: inline-block;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+    }
+    .s5-chap-hand.hidden { opacity: 0; }
+    /* play icon — only visible on active button */
+    .s5-chap-play {
+      font-size: 10px; color: #F86455;
+      margin-left: auto; flex-shrink: 0;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .s5-chap-btn.active .s5-chap-play { opacity: 1; }
+    /* pulse animation on first chapter item */
+    @keyframes chapPulse {
+      0%,100% { background: #FFF5F4; border-left-color: #F86455; }
+      50%      { background: white;   border-left-color: transparent; }
+    }
+    .s5-chap-btn.pulsing { animation: chapPulse 0.55s ease-in-out 3; }
 
     /* ── Step 3: Segment builder ── */
     .seg-builder { padding: 4px 0; display: flex; flex-direction: column; gap: 6px; }
@@ -1779,22 +1806,23 @@
     </div><!-- /browser-wrap -->
 
     <!-- External chapter nav panel -->
+    <p class="s5-chap-hint">Click to jump to any step</p>
     <div class="s5-chapter-panel" id="chapter-nav">
-      <div class="s5-chap-hdr">CHAPTERS</div>
+      <div class="s5-chap-hdr">CHAPTERS <span class="s5-chap-hand" id="s5-chap-hand">&#128070;</span></div>
       <button class="s5-chap-btn active" id="chap0" onclick="s5JumpTo(0)">
-        <span class="s5-chap-num">1</span><span class="s5-chap-label">Accounts</span>
+        <span class="s5-chap-num">1</span><span class="s5-chap-label">Accounts</span><span class="s5-chap-play">&#9654;</span>
       </button>
       <button class="s5-chap-btn" id="chap1" onclick="s5JumpTo(1)">
-        <span class="s5-chap-num">2</span><span class="s5-chap-label">Templates</span>
+        <span class="s5-chap-num">2</span><span class="s5-chap-label">Templates</span><span class="s5-chap-play">&#9654;</span>
       </button>
       <button class="s5-chap-btn" id="chap2" onclick="s5JumpTo(2)">
-        <span class="s5-chap-num">3</span><span class="s5-chap-label">Segments</span>
+        <span class="s5-chap-num">3</span><span class="s5-chap-label">Segments</span><span class="s5-chap-play">&#9654;</span>
       </button>
       <button class="s5-chap-btn" id="chap3" onclick="s5JumpTo(3)">
-        <span class="s5-chap-num">4</span><span class="s5-chap-label">Campaign Send</span>
+        <span class="s5-chap-num">4</span><span class="s5-chap-label">Campaign Send</span><span class="s5-chap-play">&#9654;</span>
       </button>
       <button class="s5-chap-btn" id="chap4" onclick="s5JumpTo(4)">
-        <span class="s5-chap-num">5</span><span class="s5-chap-label">Profiles</span>
+        <span class="s5-chap-num">5</span><span class="s5-chap-label">Profiles</span><span class="s5-chap-play">&#9654;</span>
       </button>
       <div class="s5-chap-divider"></div>
       <button class="s5-chap-replay" onclick="s5JumpTo(0)">&#8635; Replay</button>
@@ -1962,9 +1990,26 @@
     if (ann) ann.classList.remove('visible');
   }
 
+  var s5HasLoaded = false;
+
   function s5Start() {
     s5Stop();
     s5AutoPlay(s5Gen, 0);
+    // One-time intro effects on first load
+    if (!s5HasLoaded) {
+      s5HasLoaded = true;
+      // Pulse the first chapter button twice, then stop
+      var btn0 = document.getElementById('chap0');
+      if (btn0) {
+        btn0.classList.add('pulsing');
+        setTimeout(function() { btn0.classList.remove('pulsing'); }, 1700);
+      }
+      // Fade out hand icon after 3s
+      setTimeout(function() {
+        var hand = document.getElementById('s5-chap-hand');
+        if (hand) hand.classList.add('hidden');
+      }, 3000);
+    }
   }
 
   function s5JumpTo(n) {
