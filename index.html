@@ -629,6 +629,39 @@
     .demo-progress-bar { height: 3px; background: rgba(248,100,85,0.15); flex-shrink: 0; }
     .demo-progress-fill { height: 100%; width: 0%; background: #F86455; transition: none; }
 
+    /* ── Chapter nav panel ── */
+    .chapter-nav {
+      width: 160px; flex-shrink: 0;
+      background: #F5F5F5;
+      border-left: 1px solid #E5E5E5;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .chapter-nav-hdr {
+      font-size: 11px; font-weight: 700; color: #999999;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      padding: 12px 12px 8px;
+      flex-shrink: 0;
+    }
+    .chapter-btn {
+      width: 100%; text-align: left;
+      padding: 10px 12px 10px 15px;
+      font-size: 13px; font-family: inherit;
+      background: transparent; border: none;
+      border-left: 3px solid transparent;
+      color: #666666; font-weight: 400;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      line-height: 1.3;
+    }
+    .chapter-btn:hover { background: #EEEEEE; color: #232122; }
+    .chapter-btn.active {
+      background: white;
+      border-left-color: #F86455;
+      color: #F86455;
+      font-weight: 700;
+    }
+
     /* ── Step 3: Segment builder ── */
     .seg-builder { padding: 4px 0; display: flex; flex-direction: column; gap: 6px; }
     .seg-name-input {
@@ -1698,6 +1731,15 @@
 
             <div class="demo-annotation" id="demo-annotation"></div>
           </div><!-- /browser-content -->
+          <!-- Chapter nav panel -->
+          <div class="chapter-nav" id="chapter-nav">
+            <div class="chapter-nav-hdr">Jump to</div>
+            <button class="chapter-btn active" id="chap0" onclick="s5JumpTo(0)">&#9312; Accounts</button>
+            <button class="chapter-btn" id="chap1" onclick="s5JumpTo(1)">&#9313; Templates</button>
+            <button class="chapter-btn" id="chap2" onclick="s5JumpTo(2)">&#9314; Segments</button>
+            <button class="chapter-btn" id="chap3" onclick="s5JumpTo(3)">&#9315; Campaign Send</button>
+            <button class="chapter-btn" id="chap4" onclick="s5JumpTo(4)">&#9316; Profiles</button>
+          </div>
         </div><!-- /browser-main -->
         <div class="demo-progress-bar"><div class="demo-progress-fill" id="demo-progress-fill"></div></div>
       </div><!-- /browser-body -->
@@ -1847,31 +1889,100 @@
     if (Math.abs(dx) > 50) goTo(cur + (dx < 0 ? 1 : -1));
   }, { passive: true });
 
-  // ── Slide 5: auto-playing 20s timeline demo ──
-  let autoTimers = [];
-  let s5Gen = 0;
+  // ── Slide 5: auto-playing 35s timeline demo ──
+  var autoTimers = [];
+  var s5Gen = 0;
+  var S5_LOOP = 35000;
+  var S5_STEP_TIMES = [0, 5000, 12000, 18000, 28000];
+  var S5_STEP_SIDS  = ['sb-accounts','sb-templates','sb-segments','sb-campaigns','sb-profiles'];
 
   function s5Stop() {
     s5Gen++;
     autoTimers.forEach(clearTimeout);
     autoTimers = [];
-    const c = document.getElementById('demo-cursor');
+    var c = document.getElementById('demo-cursor');
     if (c) { c.style.opacity = '0'; c.classList.remove('clicking'); }
-    const ann = document.getElementById('demo-annotation');
+    var ann = document.getElementById('demo-annotation');
     if (ann) ann.classList.remove('visible');
   }
 
   function s5Start() {
     s5Stop();
-    s5AutoPlay(s5Gen);
+    s5AutoPlay(s5Gen, 0);
   }
 
-  function s5AutoPlay(gen) {
-    if (gen !== s5Gen) return;
+  function s5JumpTo(n) {
+    if (n < 0 || n > 4) return;
+    s5Stop();
+    s5AutoPlay(s5Gen, S5_STEP_TIMES[n]);
+  }
 
-    function at(delay, fn) {
-      const id = setTimeout(function() { if (gen === s5Gen) fn(); }, delay);
+  function s5AutoPlay(gen, startOffset) {
+    if (gen !== s5Gen) return;
+    startOffset = startOffset || 0;
+
+    // at(absTime, fn) — schedules fn at (absTime - startOffset) ms from now; skips if past
+    function at(absTime, fn) {
+      var delay = absTime - startOffset;
+      if (delay < 0) return;
+      var id = setTimeout(function() { if (gen === s5Gen) fn(); }, delay);
       autoTimers.push(id);
+    }
+    // after(relMs, fn) — schedules relative to current moment (for cursor sub-animations)
+    function after(relMs, fn) {
+      var id = setTimeout(function() { if (gen === s5Gen) fn(); }, relMs);
+      autoTimers.push(id);
+    }
+
+    // ── Helpers ──
+    function updateChapterNav(idx) {
+      document.querySelectorAll('#s5 .chapter-btn').forEach(function(b, i) {
+        b.classList.toggle('active', i === idx);
+      });
+    }
+
+    function activateStep(n, sbId) {
+      document.querySelectorAll('#s5 .step').forEach(function(s) { s.classList.remove('active'); });
+      var el = document.getElementById('step' + n); if (el) el.classList.add('active');
+      document.querySelectorAll('#s5 .sb-item, #s5 .sb-sub').forEach(function(e) { e.classList.remove('active'); });
+      var sb = document.getElementById(sbId); if (sb) sb.classList.add('active');
+      updateChapterNav(n - 1);
+    }
+
+    function moveCursor(targetEl, moveDur) {
+      var cursor = document.getElementById('demo-cursor');
+      var container = document.querySelector('#s5 .browser-main');
+      if (!cursor || !targetEl || !container) return;
+      var cr = container.getBoundingClientRect();
+      var tr = targetEl.getBoundingClientRect();
+      var x = tr.left - cr.left + tr.width  / 2 - 5;
+      var y = tr.top  - cr.top  + tr.height / 2 - 5;
+      cursor.style.transition = 'none';
+      cursor.style.left = (x - 18) + 'px';
+      cursor.style.top  = (y - 12) + 'px';
+      cursor.style.opacity = '0';
+      void cursor.offsetHeight;
+      cursor.style.transition = 'left ' + moveDur + 'ms cubic-bezier(.25,.46,.45,.94), top ' + moveDur + 'ms cubic-bezier(.25,.46,.45,.94), opacity 0.15s ease';
+      cursor.style.opacity = '1';
+      cursor.style.left = x + 'px';
+      cursor.style.top  = y + 'px';
+      after(moveDur + 80, function() {
+        cursor.classList.add('clicking');
+        after(340, function() { cursor.classList.remove('clicking'); cursor.style.opacity = '0'; });
+      });
+    }
+
+    function showAnn(text) {
+      var a = document.getElementById('demo-annotation');
+      if (!a) return; a.textContent = text; a.classList.add('visible');
+    }
+    function hideAnn() {
+      var a = document.getElementById('demo-annotation'); if (a) a.classList.remove('visible');
+    }
+    function selectDropdown(id, val) {
+      var el = document.getElementById(id); if (!el) return;
+      el.classList.add('selecting');
+      after(260, function() { el.textContent = val; el.classList.remove('selecting'); });
     }
 
     // ── Reset all visual state ──
@@ -1896,136 +2007,101 @@
       var d = row.querySelector('.camp-domain'); if (d) d.textContent = '';
     });
     var campForm = document.getElementById('camp-form'); if (campForm) campForm.style.display = '';
-    var campSuccess = document.getElementById('camp-success'); if (campSuccess) campSuccess.style.display = 'none';
+    var campSuc  = document.getElementById('camp-success'); if (campSuc) campSuc.style.display = 'none';
     var s5list = document.getElementById('s5-list'); if (s5list) s5list.style.display = '';
     var s5det  = document.getElementById('s5-detail'); if (s5det) s5det.style.display = 'none';
     var maryRow = document.getElementById('s5-row-mary'); if (maryRow) maryRow.classList.remove('highlighted');
     document.querySelectorAll('#step5 .trow').forEach(function(r) { r.classList.remove('loaded'); });
-    var ann = document.getElementById('demo-annotation'); if (ann) ann.classList.remove('visible');
+    var annEl = document.getElementById('demo-annotation'); if (annEl) annEl.classList.remove('visible');
 
-    // ── Progress bar ──
+    // If jumping mid-loop, pre-activate the target step immediately
+    if (startOffset > 0) {
+      var jIdx = 0;
+      for (var k = 0; k < S5_STEP_TIMES.length; k++) { if (S5_STEP_TIMES[k] <= startOffset) jIdx = k; }
+      activateStep(jIdx + 1, S5_STEP_SIDS[jIdx]);
+    }
+
+    // ── Progress bar — starts at startOffset position, fills to 100% over remaining time ──
     var fill = document.getElementById('demo-progress-fill');
     if (fill) {
-      fill.style.transition = 'none'; fill.style.width = '0%';
+      var startPct   = startOffset / S5_LOOP * 100;
+      var remainSecs = (S5_LOOP - startOffset) / 1000;
+      fill.style.transition = 'none'; fill.style.width = startPct + '%';
       void fill.offsetHeight;
-      fill.style.transition = 'width 20s linear'; fill.style.width = '100%';
+      fill.style.transition = 'width ' + remainSecs + 's linear'; fill.style.width = '100%';
     }
 
-    // ── Helpers ──
-    function activateStep(n, sbId) {
-      document.querySelectorAll('#s5 .step').forEach(function(s) { s.classList.remove('active'); });
-      var el = document.getElementById('step' + n); if (el) el.classList.add('active');
-      document.querySelectorAll('#s5 .sb-item, #s5 .sb-sub').forEach(function(e) { e.classList.remove('active'); });
-      var sb = document.getElementById(sbId); if (sb) sb.classList.add('active');
-    }
-
-    function moveCursor(targetEl, moveDur) {
-      var cursor = document.getElementById('demo-cursor');
-      var container = document.querySelector('#s5 .browser-main');
-      if (!cursor || !targetEl || !container) return;
-      var cr = container.getBoundingClientRect();
-      var tr = targetEl.getBoundingClientRect();
-      var x = tr.left - cr.left + tr.width  / 2 - 5;
-      var y = tr.top  - cr.top  + tr.height / 2 - 5;
-      cursor.style.transition = 'none';
-      cursor.style.left = (x - 18) + 'px';
-      cursor.style.top  = (y - 12) + 'px';
-      cursor.style.opacity = '0';
-      void cursor.offsetHeight;
-      cursor.style.transition = 'left ' + moveDur + 'ms cubic-bezier(.25,.46,.45,.94), top ' + moveDur + 'ms cubic-bezier(.25,.46,.45,.94), opacity 0.15s ease';
-      cursor.style.opacity = '1';
-      cursor.style.left = x + 'px';
-      cursor.style.top  = y + 'px';
-      at(moveDur + 80, function() {
-        cursor.classList.add('clicking');
-        at(340, function() { cursor.classList.remove('clicking'); cursor.style.opacity = '0'; });
-      });
-    }
-
-    function showAnn(text) {
-      var a = document.getElementById('demo-annotation');
-      if (!a) return; a.textContent = text; a.classList.add('visible');
-    }
-    function hideAnn() {
-      var a = document.getElementById('demo-annotation'); if (a) a.classList.remove('visible');
-    }
-    function selectDropdown(id, val) {
-      var el = document.getElementById(id); if (!el) return;
-      el.classList.add('selecting');
-      at(260, function() { el.textContent = val; el.classList.remove('selecting'); });
-    }
-
-    // ── STEP 1: Accounts (0–3000ms) ──
+    // ── STEP 1: Accounts (0–5000ms) ──
     at(0,    function() { activateStep(1, 'sb-accounts'); });
-    [0,200,400,600,800,1000].forEach(function(t, i) {
+    [0,300,600,900,1200,1500].forEach(function(t, i) {
       at(t, function() { var rows = document.querySelectorAll('#step1 .trow'); if (rows[i]) rows[i].classList.add('loaded'); });
     });
-    at(1400, function() { showAnn('\u2713 All 6 brands managed from one Organization account'); });
-    at(2300, function() { hideAnn(); });
-    at(2400, function() { moveCursor(document.getElementById('sb-templates'), 420); });
+    at(2300, function() { showAnn('\u2713 All 6 brands managed from one Organization account'); });
+    at(3800, function() { hideAnn(); });
+    at(4200, function() { moveCursor(document.getElementById('sb-templates'), 420); });
 
-    // ── STEP 2: Templates (3000–7000ms) ──
-    at(3000, function() { activateStep(2, 'sb-templates'); });
-    at(4600, function() { moveCursor(document.getElementById('tmpl-deploy-btn'), 400); });
-    at(5200, function() { var m = document.getElementById('deploy-modal'); if (m) m.classList.add('open'); });
-    at(5450, function() { var cb = document.getElementById('mcb0'); if (cb) cb.classList.add('checked'); });
-    at(5650, function() { var cb = document.getElementById('mcb1'); if (cb) cb.classList.add('checked'); });
-    at(5850, function() { var cb = document.getElementById('mcb2'); if (cb) cb.classList.add('checked'); });
-    at(6150, function() { moveCursor(document.getElementById('modal-deploy-btn'), 360); });
-    at(6650, function() {
+    // ── STEP 2: Templates (5000–12000ms) ──
+    at(5000, function() { activateStep(2, 'sb-templates'); });
+    at(6800, function() { moveCursor(document.getElementById('tmpl-deploy-btn'), 400); });
+    at(7500, function() { var m = document.getElementById('deploy-modal'); if (m) m.classList.add('open'); });
+    at(7800, function() { var cb = document.getElementById('mcb0'); if (cb) cb.classList.add('checked'); });
+    at(8100, function() { var cb = document.getElementById('mcb1'); if (cb) cb.classList.add('checked'); });
+    at(8400, function() { var cb = document.getElementById('mcb2'); if (cb) cb.classList.add('checked'); });
+    at(8800, function() { moveCursor(document.getElementById('modal-deploy-btn'), 360); });
+    at(9500, function() {
       var m = document.getElementById('deploy-modal'); if (m) m.classList.remove('open');
       var t = document.getElementById('deploy-toast'); if (t) t.classList.add('visible');
       showAnn('\u2713 One template, deployed to 3 brands instantly');
     });
-    at(7400, function() { var t = document.getElementById('deploy-toast'); if (t) t.classList.remove('visible'); hideAnn(); });
-    at(7200, function() { moveCursor(document.getElementById('sb-segments'), 380); });
+    at(10400, function() { var t = document.getElementById('deploy-toast'); if (t) t.classList.remove('visible'); hideAnn(); });
+    at(11200, function() { moveCursor(document.getElementById('sb-segments'), 380); });
 
-    // ── STEP 3: Segments (7800–11000ms) ──
-    at(7800, function() { activateStep(3, 'sb-segments'); });
-    at(8500, function() { selectDropdown('seg-dd1', 'Wayfair'); });
-    at(9100, function() { selectDropdown('seg-dd2', 'Birch Lane'); });
-    at(9600, function() { var e = document.getElementById('seg-estimate'); if (e) { void e.offsetHeight; e.style.transition = 'opacity 0.4s'; e.style.opacity = '1'; } });
-    at(9800, function() { moveCursor(document.getElementById('seg-save-btn'), 380); });
-    at(10350, function() { var t = document.getElementById('seg-toast'); if (t) t.classList.add('visible'); showAnn('\u2713 Cross-brand segment built from org-level profile data'); });
-    at(10950, function() { var t = document.getElementById('seg-toast'); if (t) t.classList.remove('visible'); hideAnn(); });
-    at(10800, function() { moveCursor(document.getElementById('sb-campaigns'), 380); });
+    // ── STEP 3: Segments (12000–18000ms) ──
+    at(12200, function() { activateStep(3, 'sb-segments'); });
+    at(13200, function() { selectDropdown('seg-dd1', 'Wayfair'); });
+    at(14000, function() { selectDropdown('seg-dd2', 'Birch Lane'); });
+    at(14800, function() { var e = document.getElementById('seg-estimate'); if (e) { void e.offsetHeight; e.style.transition = 'opacity 0.4s'; e.style.opacity = '1'; } });
+    at(15000, function() { moveCursor(document.getElementById('seg-save-btn'), 380); });
+    at(15700, function() { var t = document.getElementById('seg-toast'); if (t) t.classList.add('visible'); showAnn('\u2713 Cross-brand segment built from org-level profile data'); });
+    at(16500, function() { moveCursor(document.getElementById('sb-campaigns'), 380); });
+    at(16800, function() { var t = document.getElementById('seg-toast'); if (t) t.classList.remove('visible'); hideAnn(); });
 
-    // ── STEP 4: Campaigns (11000–17000ms) ──
-    at(11000, function() { activateStep(4, 'sb-campaigns'); });
+    // ── STEP 4: Campaigns (18000–28000ms) ──
+    at(18200, function() { activateStep(4, 'sb-campaigns'); });
     var campText = 'Summer Sale \u2014 Multi-Brand';
     campText.split('').forEach(function(ch, i) {
-      at(11300 + i * 55, function() { var el = document.getElementById('camp-name-val'); if (el) el.textContent += ch; });
+      at(18600 + i * 75, function() { var el = document.getElementById('camp-name-val'); if (el) el.textContent += ch; });
     });
-    at(13000, function() { var el = document.getElementById('camp-tmpl-dd'); if (el) { el.classList.add('selected'); el.textContent = 'Summer Sale Banner'; } });
-    at(13500, function() { var el = document.getElementById('camp-seg-dd');  if (el) { el.classList.add('selected'); el.textContent = 'Cross-Brand Summer Buyers \xb7 48,200 profiles'; } });
-    at(14000, function() { var r = document.getElementById('cbr0'); if (r) { r.classList.add('checked'); var d = r.querySelector('.camp-domain'); if (d) d.textContent = 'wayfair.com'; } });
-    at(14300, function() { var r = document.getElementById('cbr1'); if (r) { r.classList.add('checked'); var d = r.querySelector('.camp-domain'); if (d) d.textContent = 'jossandmain.com'; } });
-    at(14600, function() { var r = document.getElementById('cbr2'); if (r) { r.classList.add('checked'); var d = r.querySelector('.camp-domain'); if (d) d.textContent = 'birchlane.com'; } });
-    at(14900, function() { moveCursor(document.getElementById('camp-send-btn'), 380); });
-    at(15450, function() {
+    at(21500, function() { var el = document.getElementById('camp-tmpl-dd'); if (el) { el.classList.add('selected'); el.textContent = 'Summer Sale Banner'; } });
+    at(22400, function() { var el = document.getElementById('camp-seg-dd');  if (el) { el.classList.add('selected'); el.textContent = 'Cross-Brand Summer Buyers \xb7 48,200 profiles'; } });
+    at(23300, function() { var r = document.getElementById('cbr0'); if (r) { r.classList.add('checked'); var d = r.querySelector('.camp-domain'); if (d) d.textContent = 'wayfair.com'; } });
+    at(23700, function() { var r = document.getElementById('cbr1'); if (r) { r.classList.add('checked'); var d = r.querySelector('.camp-domain'); if (d) d.textContent = 'jossandmain.com'; } });
+    at(24100, function() { var r = document.getElementById('cbr2'); if (r) { r.classList.add('checked'); var d = r.querySelector('.camp-domain'); if (d) d.textContent = 'birchlane.com'; } });
+    at(24600, function() { moveCursor(document.getElementById('camp-send-btn'), 380); });
+    at(25400, function() {
       var f = document.getElementById('camp-form'); if (f) f.style.display = 'none';
       var s = document.getElementById('camp-success'); if (s) s.style.display = 'flex';
       showAnn('\u2713 One campaign \xb7 3 brands \xb7 3 sending domains \xb7 sent in one action');
     });
-    at(16400, function() { hideAnn(); });
-    at(16500, function() { moveCursor(document.getElementById('sb-profiles'), 380); });
+    at(26700, function() { hideAnn(); });
+    at(27200, function() { moveCursor(document.getElementById('sb-profiles'), 380); });
 
-    // ── STEP 5: Profiles (17000–20000ms) ──
-    at(17000, function() { activateStep(5, 'sb-profiles'); });
+    // ── STEP 5: Profiles (28000–35000ms) ──
+    at(28200, function() { activateStep(5, 'sb-profiles'); });
     [0,180,360,540,720].forEach(function(t, i) {
-      at(17000 + t, function() { var rows = document.querySelectorAll('#step5 #s5-list .trow'); if (rows[i]) rows[i].classList.add('loaded'); });
+      at(28200 + t, function() { var rows = document.querySelectorAll('#step5 #s5-list .trow'); if (rows[i]) rows[i].classList.add('loaded'); });
     });
-    at(18200, function() { moveCursor(document.getElementById('s5-row-mary'), 380); });
-    at(18700, function() { var r = document.getElementById('s5-row-mary'); if (r) r.classList.add('highlighted'); });
-    at(18900, function() {
+    at(30200, function() { moveCursor(document.getElementById('s5-row-mary'), 380); });
+    at(30800, function() { var r = document.getElementById('s5-row-mary'); if (r) r.classList.add('highlighted'); });
+    at(31100, function() {
       var l = document.getElementById('s5-list'); if (l) l.style.display = 'none';
-      var d = document.getElementById('s5-detail'); if (d) d.style.display = '';
+      var dv = document.getElementById('s5-detail'); if (dv) dv.style.display = '';
       showAnn('\u2713 One unified profile \xb7 consent tracked separately per brand');
     });
-    at(19700, function() { hideAnn(); });
+    at(33000, function() { hideAnn(); });
 
     // ── Loop ──
-    at(20000, function() { s5AutoPlay(gen); });
+    at(S5_LOOP, function() { s5AutoPlay(gen, 0); });
   }
 
   // Init
