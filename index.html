@@ -364,13 +364,14 @@
     /* ════════════════════════════════
        SLIDE 5 — Browser Demo
     ════════════════════════════════ */
-    #s5 { background: #FAF8F5; justify-content: flex-start; padding-top: 40px; }
+    #s5 { background: #FAF8F5; justify-content: center; padding: 40px 40px 80px; gap: 0; }
+    #s5 .slide-hdr { margin-bottom: 0; }
     #s5 .slide-hdr h2 { color: #232122; }
     .s5-sub { font-size: clamp(12px, 1.3vw, 15px); color: #999999; margin-top: 3px; }
 
     /* ── Browser shell ── */
     .browser-wrap {
-      flex: 1; width: 100%; max-width: 960px; margin: 10px auto 0;
+      width: 100%; max-width: 960px; margin: 10px auto 0;
       display: flex; flex-direction: column; min-height: 0;
     }
     .browser-chrome {
@@ -631,16 +632,21 @@
 
     /* ── S5 demo row layout ── */
     .s5-demo-row {
-      display: flex; flex-direction: row; align-items: flex-start;
-      gap: 24px; width: 100%; flex: 1; min-height: 0;
+      display: flex; flex-direction: row; align-items: stretch;
+      gap: 20px;
+      width: 100%; max-width: 1100px;
+      height: calc(100vh - 218px);
+      max-height: 660px;
+      margin-top: 24px;
+      flex-shrink: 0;
     }
     .s5-demo-row .browser-wrap {
-      flex: 1; min-width: 0; max-width: none; margin: 0;
+      flex: 1; min-width: 0; max-width: none; margin: 0; height: 100%;
     }
 
     /* ── External chapter nav panel ── */
     .s5-chapter-panel {
-      width: 148px; flex-shrink: 0;
+      width: 160px; flex-shrink: 0;
       background: white;
       border-radius: 12px;
       box-shadow: 0 2px 12px rgba(0,0,0,0.08);
@@ -1208,7 +1214,6 @@
 
     /* ── S5: browser demo ── */
     #s5 .s5-sub     { font-size: clamp(13px, 1.4vw, 16px); color: #999999; margin-bottom: 4px; }
-    #s5             { justify-content: flex-start; padding-bottom: 80px; }
 
     /* ── S6: milestone columns ── */
     #s6             { padding-bottom: 80px; }
