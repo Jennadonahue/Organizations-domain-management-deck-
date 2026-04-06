@@ -401,7 +401,7 @@
       font-size: 10px; color: rgba(255,255,255,0.5);
       border: 1px solid rgba(255,255,255,0.2); border-radius: 5px; padding: 2px 8px; cursor: default;
     }
-    .browser-main { flex: 1; display: flex; overflow: hidden; min-height: 0; }
+    .browser-main { flex: 1; display: flex; overflow: hidden; min-height: 0; position: relative; }
 
     /* ── Sidebar ── */
     .browser-sidebar {
@@ -463,7 +463,7 @@
     .demo-table td { padding: 6px 8px; border-bottom: 1px solid #F5F5F5; color: #232122; font-size: 11px; }
     .trow { opacity: 0; }
     .trow.loaded { animation: fadeInRow 0.3s forwards; }
-    #s3-detail .trow { opacity: 1; animation: none; }
+    #s5-detail .trow { opacity: 1; animation: none; }
     @keyframes fadeInRow { to { opacity: 1; } }
     .trow.highlighted { background: #FEF0EE; }
     .td-muted { color: #999; font-size: 10px; }
@@ -596,14 +596,120 @@
 
     /* ── Cursor ── */
     .demo-cursor {
-      position: absolute; width: 20px; height: 20px; pointer-events: none;
-      z-index: 30; opacity: 0; font-size: 16px; line-height: 1;
+      position: absolute; width: 10px; height: 10px;
+      background: #232122; border-radius: 50%;
+      pointer-events: none; z-index: 30; opacity: 0;
       transition: left 0.45s cubic-bezier(0.25,0.46,0.45,0.94),
-                  top  0.45s cubic-bezier(0.25,0.46,0.45,0.94);
+                  top  0.45s cubic-bezier(0.25,0.46,0.45,0.94),
+                  opacity 0.2s ease;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.35);
+      transform-origin: center;
     }
-    .demo-cursor.visible { opacity: 1; }
-    @keyframes cursorClick { 0%,100% { transform: scale(1); } 50% { transform: scale(0.65); } }
-    .demo-cursor.clicking { animation: cursorClick 0.28s ease; }
+    @keyframes cursorPulse {
+      0%   { transform: scale(1); }
+      35%  { transform: scale(2.2); box-shadow: 0 0 0 5px rgba(35,33,34,0.18); }
+      100% { transform: scale(1); }
+    }
+    .demo-cursor.clicking { animation: cursorPulse 0.32s ease; }
+
+    /* ── Annotation pill ── */
+    .demo-annotation {
+      position: absolute; bottom: 14px; left: 50%;
+      transform: translateX(-50%);
+      background: #232122; color: #fff;
+      font-size: 11px; font-weight: 600;
+      padding: 5px 14px; border-radius: 20px;
+      white-space: nowrap; opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none; z-index: 25;
+    }
+    .demo-annotation.visible { opacity: 1; }
+
+    /* ── Progress bar ── */
+    .demo-progress-bar { height: 3px; background: rgba(248,100,85,0.15); flex-shrink: 0; }
+    .demo-progress-fill { height: 100%; width: 0%; background: #F86455; transition: none; }
+
+    /* ── Step 3: Segment builder ── */
+    .seg-builder { padding: 4px 0; display: flex; flex-direction: column; gap: 6px; }
+    .seg-name-input {
+      width: 100%; box-sizing: border-box;
+      border: 1px solid #E5E5E5; border-radius: 6px;
+      padding: 6px 10px; font-size: 12px; font-weight: 700;
+      color: #232122; font-family: inherit; background: white; outline: none;
+    }
+    .seg-condition {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; background: #F9F9F9;
+      border: 1px solid #E5E5E5; border-radius: 6px;
+      font-size: 11px; color: #555;
+    }
+    .seg-dropdown {
+      background: white; border: 1px solid #E5E5E5; border-radius: 5px;
+      padding: 3px 8px; font-size: 11px; font-weight: 700; color: #232122;
+      min-width: 90px; transition: background 0.2s, border-color 0.2s;
+    }
+    .seg-dropdown.selecting { background: #FEF0EE; border-color: #F86455; }
+    .seg-dropdown-sm {
+      background: white; border: 1px solid #E5E5E5; border-radius: 5px;
+      padding: 3px 8px; font-size: 11px; color: #555;
+    }
+    .seg-and { font-size: 9px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 1px; padding-left: 10px; }
+    .seg-estimate {
+      background: #F5F5F5; color: #555; font-size: 11px;
+      padding: 5px 10px; border-radius: 6px; display: inline-block;
+      transition: opacity 0.4s ease;
+    }
+    .seg-save-btn {
+      background: #232122; color: white; border: none; border-radius: 6px;
+      padding: 7px 18px; font-size: 11px; font-weight: 700;
+      font-family: inherit; cursor: default; align-self: flex-start;
+    }
+
+    /* ── Step 4: Campaign form ── */
+    .camp-form { display: flex; flex-direction: column; gap: 8px; }
+    .camp-field { display: flex; flex-direction: column; gap: 3px; }
+    .camp-label { font-size: 9px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
+    .camp-input-wrap {
+      border: 1px solid #E5E5E5; border-radius: 6px;
+      padding: 6px 10px; font-size: 12px; font-weight: 700;
+      color: #232122; min-height: 30px; display: flex; align-items: center; gap: 1px;
+    }
+    .camp-cursor-blink { color: #F86455; font-weight: 300; animation: blink 0.8s step-end infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .camp-dropdown {
+      border: 1px solid #E5E5E5; border-radius: 6px; padding: 6px 10px;
+      font-size: 11px; color: #999; background: white; transition: all 0.3s;
+    }
+    .camp-dropdown.selected { color: #232122; font-weight: 700; border-color: #232122; }
+    .camp-brand-rows { display: flex; flex-direction: column; gap: 4px; }
+    .camp-brand-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 8px; border: 1px solid #E5E5E5; border-radius: 6px;
+      font-size: 11px; color: #555; transition: all 0.3s;
+    }
+    .camp-brand-row.checked { border-color: #232122; color: #232122; background: #FAFAFA; }
+    .camp-cb {
+      width: 13px; height: 13px; border: 2px solid #ddd; border-radius: 3px;
+      display: inline-block; position: relative; flex-shrink: 0; transition: all 0.2s;
+    }
+    .camp-brand-row.checked .camp-cb { background: #232122; border-color: #232122; }
+    .camp-brand-row.checked .camp-cb::after { content:'✓'; color:white; font-size:9px; position:absolute; top:-1px; left:1px; }
+    .camp-domain { margin-left: auto; font-size: 9px; color: #aaa; font-style: italic; opacity: 0; transition: opacity 0.3s; }
+    .camp-brand-row.checked .camp-domain { opacity: 1; }
+    .camp-brand-name { flex: 1; }
+    .camp-send-btn {
+      background: #232122; color: white; border: none; border-radius: 6px;
+      padding: 8px 18px; font-size: 12px; font-weight: 700;
+      font-family: inherit; cursor: default; align-self: flex-start; margin-top: 2px;
+    }
+    .camp-success {
+      display: none; flex-direction: column; align-items: center;
+      justify-content: center; padding: 16px; text-align: center; gap: 6px;
+    }
+    .camp-success-check { font-size: 30px; color: #2D9E6B; font-weight: 700; }
+    .camp-success-title { font-size: 14px; font-weight: 800; color: #232122; }
+    .camp-success-rows { width: 100%; }
+    .camp-success-row { font-size: 11px; color: #666; padding: 4px 0; border-bottom: 1px solid #F5F5F5; }
 
     /* ════════════════════════════════
        SLIDE 6 — Milestone Columns
@@ -1349,7 +1455,7 @@
   <div class="slide" id="s5" data-theme="light">
     <div class="slide-hdr" style="max-width:880px;width:100%">
       <h2>The Right Solution: Klaviyo Organizations</h2>
-      <p class="s5-sub">Clean separation where it matters. Central control where it counts.</p>
+      <p class="s5-sub">A walkthrough of what this looks like in practice</p>
     </div>
     <!-- Browser mockup -->
     <div class="browser-wrap">
@@ -1366,6 +1472,7 @@
           <span class="acct-right">Switch to Brand Account ▾</span>
         </div>
         <div class="browser-main">
+          <div class="demo-cursor" id="demo-cursor"></div>
           <!-- Sidebar -->
           <div class="browser-sidebar">
             <div class="sb-item" id="sb-home">🏠 Home</div>
@@ -1385,7 +1492,6 @@
           </div>
           <!-- Steps -->
           <div class="browser-content">
-            <div class="demo-cursor" id="demo-cursor">🖱</div>
 
             <!-- STEP 1: Accounts -->
             <div class="step active" id="step1">
@@ -1457,23 +1563,82 @@
               </div>
               <!-- Deploy modal -->
               <div class="deploy-modal" id="deploy-modal">
-                <div class="modal-hdr">Deploy to brands</div>
+                <div class="modal-hdr">Deploy Summer Sale Banner</div>
                 <div class="modal-cb-row"><span class="modal-cb" id="mcb0"></span>Wayfair</div>
                 <div class="modal-cb-row"><span class="modal-cb" id="mcb1"></span>Joss &amp; Main</div>
-                <div class="modal-cb-row"><span class="modal-cb" id="mcb2"></span>AllModern</div>
-                <div class="modal-cb-row"><span class="modal-cb" id="mcb3"></span>Birch Lane</div>
-                <div class="modal-cb-row"><span class="modal-cb" id="mcb4"></span>Perigold</div>
-                <div class="modal-cb-row"><span class="modal-cb" id="mcb5"></span>Wayfair Professional</div>
+                <div class="modal-cb-row"><span class="modal-cb" id="mcb2"></span>Birch Lane</div>
                 <button class="modal-deploy-btn" id="modal-deploy-btn">Deploy to 3 brands</button>
               </div>
               <!-- Toast -->
               <div class="deploy-toast" id="deploy-toast">✓ Deployed successfully to 3 brands</div>
             </div>
 
-            <!-- STEP 3: Profiles -->
+            <!-- STEP 3: Segments -->
             <div class="step" id="step3">
+              <div class="sc-header">Segments</div>
+              <div class="sc-subtitle">Build segments across all accounts in your organization</div>
+              <div class="seg-builder">
+                <input class="seg-name-input" value="Cross-Brand Summer Buyers" readonly>
+                <div class="seg-condition">
+                  <span class="seg-label">Purchased from</span>
+                  <div class="seg-dropdown" id="seg-dd1">— select —</div>
+                  <span class="seg-label">in last</span>
+                  <div class="seg-dropdown-sm">90 days</div>
+                </div>
+                <div class="seg-and">AND</div>
+                <div class="seg-condition">
+                  <span class="seg-label">Purchased from</span>
+                  <div class="seg-dropdown" id="seg-dd2">— select —</div>
+                  <span class="seg-label">in last</span>
+                  <div class="seg-dropdown-sm">90 days</div>
+                </div>
+                <div class="seg-estimate" id="seg-estimate" style="opacity:0">Estimated profiles: 48,200</div>
+                <button class="seg-save-btn" id="seg-save-btn">Save Segment</button>
+              </div>
+              <div class="deploy-toast" id="seg-toast">&#10003; Segment saved &mdash; available across all brand accounts</div>
+            </div>
+
+            <!-- STEP 4: Campaigns -->
+            <div class="step" id="step4">
+              <div class="sc-header">New Campaign</div>
+              <div class="camp-form" id="camp-form">
+                <div class="camp-field">
+                  <label class="camp-label">Campaign Name</label>
+                  <div class="camp-input-wrap"><span id="camp-name-val"></span><span class="camp-cursor-blink">|</span></div>
+                </div>
+                <div class="camp-field">
+                  <label class="camp-label">Template</label>
+                  <div class="camp-dropdown" id="camp-tmpl-dd">Select template...</div>
+                </div>
+                <div class="camp-field">
+                  <label class="camp-label">Segment</label>
+                  <div class="camp-dropdown" id="camp-seg-dd">Select segment...</div>
+                </div>
+                <div class="camp-field">
+                  <label class="camp-label">Send to brands</label>
+                  <div class="camp-brand-rows">
+                    <div class="camp-brand-row" id="cbr0"><span class="camp-cb"></span><span class="camp-brand-name">Wayfair</span><span class="camp-domain"></span></div>
+                    <div class="camp-brand-row" id="cbr1"><span class="camp-cb"></span><span class="camp-brand-name">Joss &amp; Main</span><span class="camp-domain"></span></div>
+                    <div class="camp-brand-row" id="cbr2"><span class="camp-cb"></span><span class="camp-brand-name">Birch Lane</span><span class="camp-domain"></span></div>
+                  </div>
+                </div>
+                <button class="camp-send-btn" id="camp-send-btn">Send to 3 brands</button>
+              </div>
+              <div class="camp-success" id="camp-success">
+                <div class="camp-success-check">&#10003;</div>
+                <div class="camp-success-title">Campaign sent to 3 brands</div>
+                <div class="camp-success-rows">
+                  <div class="camp-success-row">Wayfair &middot; sent from wayfair.com &middot; 18,400 recipients</div>
+                  <div class="camp-success-row">Joss &amp; Main &middot; sent from jossandmain.com &middot; 15,200 recipients</div>
+                  <div class="camp-success-row">Birch Lane &middot; sent from birchlane.com &middot; 14,600 recipients</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 5: Profiles -->
+            <div class="step" id="step5">
               <!-- View A: list -->
-              <div id="s3-list">
+              <div id="s5-list">
                 <div class="sc-header">Profiles</div>
                 <div class="sc-subtitle">Manage customer profiles across all accounts in your portfolio</div>
                 <table class="demo-table">
@@ -1481,16 +1646,16 @@
                     <th>Name</th><th>Email</th><th># Accounts</th><th>Associated Accounts</th>
                   </tr></thead>
                   <tbody>
-                    <tr class="trow loaded"><td>Amy Compton</td><td class="td-muted">amy.compton@wayfair-demo.com</td><td>3</td><td class="td-muted">Wayfair, AllModern, Joss &amp; Main</td></tr>
-                    <tr class="trow loaded"><td>Julia Shea</td><td class="td-muted">julia.shea@wayfair-demo.com</td><td>2</td><td class="td-muted">AllModern, Birch Lane</td></tr>
-                    <tr class="trow loaded" id="row-mary"><td><strong>Mary Bates</strong></td><td class="td-muted">mary.bates@wayfair-demo.com</td><td>2</td><td class="td-muted">Birch Lane, Wayfair</td></tr>
-                    <tr class="trow loaded"><td>Kathryn Dennis</td><td class="td-muted">kathryn.dennis@wayfair-demo.com</td><td>3</td><td class="td-muted">Joss &amp; Main, Perigold, Wayfair</td></tr>
-                    <tr class="trow loaded"><td>Jordan Pham</td><td class="td-muted">jordan.pham@wayfair-demo.com</td><td>3</td><td class="td-muted">Wayfair, Wayfair Professional, Birch Lane</td></tr>
+                    <tr class="trow"><td>Amy Compton</td><td class="td-muted">amy.compton@wayfair-demo.com</td><td>3</td><td class="td-muted">Wayfair, AllModern, Joss &amp; Main</td></tr>
+                    <tr class="trow"><td>Julia Shea</td><td class="td-muted">julia.shea@wayfair-demo.com</td><td>2</td><td class="td-muted">AllModern, Birch Lane</td></tr>
+                    <tr class="trow" id="s5-row-mary"><td><strong>Mary Bates</strong></td><td class="td-muted">mary.bates@wayfair-demo.com</td><td>2</td><td class="td-muted">Birch Lane, Wayfair</td></tr>
+                    <tr class="trow"><td>Kathryn Dennis</td><td class="td-muted">kathryn.dennis@wayfair-demo.com</td><td>3</td><td class="td-muted">Joss &amp; Main, Perigold, Wayfair</td></tr>
+                    <tr class="trow"><td>Jordan Pham</td><td class="td-muted">jordan.pham@wayfair-demo.com</td><td>3</td><td class="td-muted">Wayfair, Wayfair Professional, Birch Lane</td></tr>
                   </tbody>
                 </table>
               </div>
               <!-- View B: profile detail -->
-              <div id="s3-detail" style="display:none; overflow-y:auto;">
+              <div id="s5-detail" style="display:none; overflow-y:auto;">
                 <button class="back-btn">← Back to Profiles</button>
                 <div class="phdr-card">
                   <div class="phdr-avatar">MB</div>
@@ -1531,17 +1696,13 @@
               </div>
             </div>
 
+            <div class="demo-annotation" id="demo-annotation"></div>
           </div><!-- /browser-content -->
         </div><!-- /browser-main -->
+        <div class="demo-progress-bar"><div class="demo-progress-fill" id="demo-progress-fill"></div></div>
       </div><!-- /browser-body -->
     </div><!-- /browser-wrap -->
 
-    <!-- Demo navigation -->
-    <div class="demo-nav">
-      <button class="demo-nav-btn" id="demo-back" onclick="demoPrev()" disabled>← Back</button>
-      <span class="demo-step-lbl" id="demo-step-lbl">Step 1 of 3</span>
-      <button class="demo-nav-btn" id="demo-next" onclick="demoNext()">Next →</button>
-    </div>
   </div>
 
   <!-- SLIDE 6 — Milestone Columns -->
@@ -1686,175 +1847,185 @@
     if (Math.abs(dx) > 50) goTo(cur + (dx < 0 ? 1 : -1));
   }, { passive: true });
 
-  // ── Slide 5: click-through demo walkthrough ──
-  let demoStep = 0;
-  let demoAutoTimer = null;
-  let s3InDetail = false;
+  // ── Slide 5: auto-playing 20s timeline demo ──
+  let autoTimers = [];
+  let s5Gen = 0;
 
-  const DEMO_STEP_LABELS = ['Step 1 of 3', 'Step 2 of 3', 'Step 3 of 3'];
-  const DEMO_SIDEBAR_ACTIVE = ['sb-usermgmt', 'sb-templates', 'sb-profiles'];
-
-  function demoUpdateUI() {
-    const backBtn = document.getElementById('demo-back');
-    const nextBtn = document.getElementById('demo-next');
-    const lbl     = document.getElementById('demo-step-lbl');
-    if (backBtn) backBtn.disabled = (demoStep === 0 && !s3InDetail);
-    if (nextBtn) {
-      nextBtn.disabled = false;
-      nextBtn.textContent = (demoStep === 2 && s3InDetail) ? 'Done ✓' : 'Next →';
-      if (demoStep === 2 && s3InDetail) nextBtn.disabled = true;
-    }
-    if (lbl) lbl.textContent = DEMO_STEP_LABELS[demoStep];
-    // Update sidebar active
-    document.querySelectorAll('#s5 .sb-item, #s5 .sb-sub').forEach(el => el.classList.remove('active'));
-    const sbEl = document.getElementById(DEMO_SIDEBAR_ACTIVE[demoStep]);
-    if (sbEl) sbEl.classList.add('active');
-  }
-
-  function demoGoTo(n) {
-    const oldEl = document.getElementById('step' + (demoStep + 1));
-    if (oldEl) oldEl.classList.remove('active');
-    demoStep = Math.max(0, Math.min(2, n));
-    const newEl = document.getElementById('step' + (demoStep + 1));
-    if (newEl) newEl.classList.add('active');
-    s3InDetail = false;
-    demoUpdateUI();
-    clearTimeout(demoAutoTimer);
-    if (demoStep === 0) demoInitStep1();
-    if (demoStep === 1) demoInitStep2();
-    if (demoStep === 2) demoInitStep3();
-  }
-
-  function demoNext() {
-    if (demoStep < 2) {
-      // Animate cursor clicking next sidebar item before advancing
-      const nextSbId = DEMO_SIDEBAR_ACTIVE[demoStep + 1];
-      const nextSbEl = document.getElementById(nextSbId);
-      demoMoveCursor(nextSbEl, () => demoGoTo(demoStep + 1));
-    }
-  }
-
-  function demoPrev() {
-    if (s3InDetail) {
-      s3ShowList();
-    } else if (demoStep > 0) {
-      demoGoTo(demoStep - 1);
-    }
-  }
-
-  // ── Step 1: Accounts table ──
-  function demoInitStep1() {
-    const rows = document.querySelectorAll('#step1 .trow');
-    rows.forEach((r, i) => {
-      r.classList.remove('loaded');
-      r.style.animationDelay = '';
-      void r.offsetHeight;
-      setTimeout(() => r.classList.add('loaded'), i * 120);
-    });
-  }
-
-  // ── Step 2: Templates + deploy modal ──
-  function demoInitStep2() {
-    // Reset state
-    const modal = document.getElementById('deploy-modal');
-    const toast = document.getElementById('deploy-toast');
-    document.querySelectorAll('#deploy-modal .modal-cb').forEach(cb => cb.classList.remove('checked'));
-    if (modal) modal.classList.remove('open');
-    if (toast) toast.classList.remove('visible');
-    // After 800ms: cursor clicks deploy button
-    demoAutoTimer = setTimeout(() => {
-      const deployBtn = document.getElementById('tmpl-deploy-btn');
-      demoMoveCursor(deployBtn, () => {
-        if (modal) modal.classList.add('open');
-        // Check brands one at a time: Wayfair(0), Perigold(4), Wayfair Pro(5)
-        [[0,800],[4,1500],[5,2200]].forEach(([idx, delay]) => {
-          setTimeout(() => {
-            const cb = document.getElementById('mcb' + idx);
-            if (cb) cb.classList.add('checked');
-          }, delay);
-        });
-        // Cursor clicks deploy button after all checked
-        setTimeout(() => {
-          const mBtn = document.getElementById('modal-deploy-btn');
-          demoMoveCursor(mBtn, () => {
-            if (modal) modal.classList.remove('open');
-            if (toast) { toast.classList.add('visible'); setTimeout(() => toast.classList.remove('visible'), 2200); }
-          });
-        }, 3000);
-      });
-    }, 800);
-  }
-
-  // ── Step 3: Profiles ──
-  function demoInitStep3() {
-    s3ShowList();
-    // After 1200ms: cursor clicks Mary Bates row
-    demoAutoTimer = setTimeout(() => {
-      const maryRow = document.getElementById('row-mary');
-      demoMoveCursor(maryRow, () => {
-        if (maryRow) maryRow.classList.add('highlighted');
-        setTimeout(() => s3ShowDetail(), 350);
-      });
-    }, 1200);
-  }
-
-  function s3ShowList() {
-    s3InDetail = false;
-    const list   = document.getElementById('s3-list');
-    const detail = document.getElementById('s3-detail');
-    if (list)   list.style.display   = '';
-    if (detail) detail.style.display = 'none';
-    const maryRow = document.getElementById('row-mary');
-    if (maryRow) maryRow.classList.remove('highlighted');
-    demoUpdateUI();
-  }
-
-  function s3ShowDetail() {
-    s3InDetail = true;
-    const list   = document.getElementById('s3-list');
-    const detail = document.getElementById('s3-detail');
-    if (list)   list.style.display   = 'none';
-    if (detail) detail.style.display = '';
-    demoUpdateUI();
-  }
-
-  // ── Cursor helper ──
-  function demoMoveCursor(targetEl, cb) {
-    const cursor  = document.getElementById('demo-cursor');
-    const content = document.querySelector('#s5 .browser-content');
-    if (!cursor || !targetEl || !content) { if (cb) cb(); return; }
-    const cr = content.getBoundingClientRect();
-    const tr = targetEl.getBoundingClientRect();
-    const left = tr.left - cr.left + tr.width / 2 - 8;
-    const top  = tr.top  - cr.top  + tr.height / 2 - 4;
-    cursor.style.left = (left - 30) + 'px'; // start offset for natural feel
-    cursor.style.top  = (top  - 20) + 'px';
-    cursor.classList.add('visible');
-    // Move to target
-    setTimeout(() => {
-      cursor.style.left = left + 'px';
-      cursor.style.top  = top  + 'px';
-      // Click after arriving
-      setTimeout(() => {
-        cursor.classList.add('clicking');
-        setTimeout(() => {
-          cursor.classList.remove('clicking');
-          cursor.classList.remove('visible');
-          if (cb) cb();
-        }, 320);
-      }, 500);
-    }, 30);
+  function s5Stop() {
+    s5Gen++;
+    autoTimers.forEach(clearTimeout);
+    autoTimers = [];
+    const c = document.getElementById('demo-cursor');
+    if (c) { c.style.opacity = '0'; c.classList.remove('clicking'); }
+    const ann = document.getElementById('demo-annotation');
+    if (ann) ann.classList.remove('visible');
   }
 
   function s5Start() {
-    demoStep = 0;
-    s3InDetail = false;
-    demoGoTo(0);
+    s5Stop();
+    s5AutoPlay(s5Gen);
   }
-  function s5Stop() {
-    clearTimeout(demoAutoTimer);
-    const c = document.getElementById('demo-cursor');
-    if (c) c.classList.remove('visible');
+
+  function s5AutoPlay(gen) {
+    if (gen !== s5Gen) return;
+
+    function at(delay, fn) {
+      const id = setTimeout(function() { if (gen === s5Gen) fn(); }, delay);
+      autoTimers.push(id);
+    }
+
+    // ── Reset all visual state ──
+    document.querySelectorAll('#s5 .step').forEach(function(s) { s.classList.remove('active'); });
+    document.querySelectorAll('#s5 .sb-item, #s5 .sb-sub').forEach(function(e) { e.classList.remove('active'); });
+    document.querySelectorAll('#step1 .trow').forEach(function(r) { r.classList.remove('loaded'); });
+    var modal2 = document.getElementById('deploy-modal');
+    if (modal2) modal2.classList.remove('open');
+    document.querySelectorAll('#deploy-modal .modal-cb').forEach(function(cb) { cb.classList.remove('checked'); });
+    var toast2 = document.getElementById('deploy-toast');
+    if (toast2) toast2.classList.remove('visible');
+    var dd1 = document.getElementById('seg-dd1'); if (dd1) { dd1.textContent = '\u2014 select \u2014'; dd1.classList.remove('selecting'); }
+    var dd2 = document.getElementById('seg-dd2'); if (dd2) { dd2.textContent = '\u2014 select \u2014'; dd2.classList.remove('selecting'); }
+    var est = document.getElementById('seg-estimate'); if (est) est.style.opacity = '0';
+    var toast3 = document.getElementById('seg-toast'); if (toast3) toast3.classList.remove('visible');
+    var nameVal = document.getElementById('camp-name-val'); if (nameVal) nameVal.textContent = '';
+    var tmplDd = document.getElementById('camp-tmpl-dd'); if (tmplDd) { tmplDd.textContent = 'Select template...'; tmplDd.classList.remove('selected'); }
+    var segDd  = document.getElementById('camp-seg-dd');  if (segDd)  { segDd.textContent  = 'Select segment...';  segDd.classList.remove('selected'); }
+    ['cbr0','cbr1','cbr2'].forEach(function(id) {
+      var row = document.getElementById(id); if (!row) return;
+      row.classList.remove('checked');
+      var d = row.querySelector('.camp-domain'); if (d) d.textContent = '';
+    });
+    var campForm = document.getElementById('camp-form'); if (campForm) campForm.style.display = '';
+    var campSuccess = document.getElementById('camp-success'); if (campSuccess) campSuccess.style.display = 'none';
+    var s5list = document.getElementById('s5-list'); if (s5list) s5list.style.display = '';
+    var s5det  = document.getElementById('s5-detail'); if (s5det) s5det.style.display = 'none';
+    var maryRow = document.getElementById('s5-row-mary'); if (maryRow) maryRow.classList.remove('highlighted');
+    document.querySelectorAll('#step5 .trow').forEach(function(r) { r.classList.remove('loaded'); });
+    var ann = document.getElementById('demo-annotation'); if (ann) ann.classList.remove('visible');
+
+    // ── Progress bar ──
+    var fill = document.getElementById('demo-progress-fill');
+    if (fill) {
+      fill.style.transition = 'none'; fill.style.width = '0%';
+      void fill.offsetHeight;
+      fill.style.transition = 'width 20s linear'; fill.style.width = '100%';
+    }
+
+    // ── Helpers ──
+    function activateStep(n, sbId) {
+      document.querySelectorAll('#s5 .step').forEach(function(s) { s.classList.remove('active'); });
+      var el = document.getElementById('step' + n); if (el) el.classList.add('active');
+      document.querySelectorAll('#s5 .sb-item, #s5 .sb-sub').forEach(function(e) { e.classList.remove('active'); });
+      var sb = document.getElementById(sbId); if (sb) sb.classList.add('active');
+    }
+
+    function moveCursor(targetEl, moveDur) {
+      var cursor = document.getElementById('demo-cursor');
+      var container = document.querySelector('#s5 .browser-main');
+      if (!cursor || !targetEl || !container) return;
+      var cr = container.getBoundingClientRect();
+      var tr = targetEl.getBoundingClientRect();
+      var x = tr.left - cr.left + tr.width  / 2 - 5;
+      var y = tr.top  - cr.top  + tr.height / 2 - 5;
+      cursor.style.transition = 'none';
+      cursor.style.left = (x - 18) + 'px';
+      cursor.style.top  = (y - 12) + 'px';
+      cursor.style.opacity = '0';
+      void cursor.offsetHeight;
+      cursor.style.transition = 'left ' + moveDur + 'ms cubic-bezier(.25,.46,.45,.94), top ' + moveDur + 'ms cubic-bezier(.25,.46,.45,.94), opacity 0.15s ease';
+      cursor.style.opacity = '1';
+      cursor.style.left = x + 'px';
+      cursor.style.top  = y + 'px';
+      at(moveDur + 80, function() {
+        cursor.classList.add('clicking');
+        at(340, function() { cursor.classList.remove('clicking'); cursor.style.opacity = '0'; });
+      });
+    }
+
+    function showAnn(text) {
+      var a = document.getElementById('demo-annotation');
+      if (!a) return; a.textContent = text; a.classList.add('visible');
+    }
+    function hideAnn() {
+      var a = document.getElementById('demo-annotation'); if (a) a.classList.remove('visible');
+    }
+    function selectDropdown(id, val) {
+      var el = document.getElementById(id); if (!el) return;
+      el.classList.add('selecting');
+      at(260, function() { el.textContent = val; el.classList.remove('selecting'); });
+    }
+
+    // ── STEP 1: Accounts (0–3000ms) ──
+    at(0,    function() { activateStep(1, 'sb-accounts'); });
+    [0,200,400,600,800,1000].forEach(function(t, i) {
+      at(t, function() { var rows = document.querySelectorAll('#step1 .trow'); if (rows[i]) rows[i].classList.add('loaded'); });
+    });
+    at(1400, function() { showAnn('\u2713 All 6 brands managed from one Organization account'); });
+    at(2300, function() { hideAnn(); });
+    at(2400, function() { moveCursor(document.getElementById('sb-templates'), 420); });
+
+    // ── STEP 2: Templates (3000–7000ms) ──
+    at(3000, function() { activateStep(2, 'sb-templates'); });
+    at(4600, function() { moveCursor(document.getElementById('tmpl-deploy-btn'), 400); });
+    at(5200, function() { var m = document.getElementById('deploy-modal'); if (m) m.classList.add('open'); });
+    at(5450, function() { var cb = document.getElementById('mcb0'); if (cb) cb.classList.add('checked'); });
+    at(5650, function() { var cb = document.getElementById('mcb1'); if (cb) cb.classList.add('checked'); });
+    at(5850, function() { var cb = document.getElementById('mcb2'); if (cb) cb.classList.add('checked'); });
+    at(6150, function() { moveCursor(document.getElementById('modal-deploy-btn'), 360); });
+    at(6650, function() {
+      var m = document.getElementById('deploy-modal'); if (m) m.classList.remove('open');
+      var t = document.getElementById('deploy-toast'); if (t) t.classList.add('visible');
+      showAnn('\u2713 One template, deployed to 3 brands instantly');
+    });
+    at(7400, function() { var t = document.getElementById('deploy-toast'); if (t) t.classList.remove('visible'); hideAnn(); });
+    at(7200, function() { moveCursor(document.getElementById('sb-segments'), 380); });
+
+    // ── STEP 3: Segments (7800–11000ms) ──
+    at(7800, function() { activateStep(3, 'sb-segments'); });
+    at(8500, function() { selectDropdown('seg-dd1', 'Wayfair'); });
+    at(9100, function() { selectDropdown('seg-dd2', 'Birch Lane'); });
+    at(9600, function() { var e = document.getElementById('seg-estimate'); if (e) { void e.offsetHeight; e.style.transition = 'opacity 0.4s'; e.style.opacity = '1'; } });
+    at(9800, function() { moveCursor(document.getElementById('seg-save-btn'), 380); });
+    at(10350, function() { var t = document.getElementById('seg-toast'); if (t) t.classList.add('visible'); showAnn('\u2713 Cross-brand segment built from org-level profile data'); });
+    at(10950, function() { var t = document.getElementById('seg-toast'); if (t) t.classList.remove('visible'); hideAnn(); });
+    at(10800, function() { moveCursor(document.getElementById('sb-campaigns'), 380); });
+
+    // ── STEP 4: Campaigns (11000–17000ms) ──
+    at(11000, function() { activateStep(4, 'sb-campaigns'); });
+    var campText = 'Summer Sale \u2014 Multi-Brand';
+    campText.split('').forEach(function(ch, i) {
+      at(11300 + i * 55, function() { var el = document.getElementById('camp-name-val'); if (el) el.textContent += ch; });
+    });
+    at(13000, function() { var el = document.getElementById('camp-tmpl-dd'); if (el) { el.classList.add('selected'); el.textContent = 'Summer Sale Banner'; } });
+    at(13500, function() { var el = document.getElementById('camp-seg-dd');  if (el) { el.classList.add('selected'); el.textContent = 'Cross-Brand Summer Buyers \xb7 48,200 profiles'; } });
+    at(14000, function() { var r = document.getElementById('cbr0'); if (r) { r.classList.add('checked'); var d = r.querySelector('.camp-domain'); if (d) d.textContent = 'wayfair.com'; } });
+    at(14300, function() { var r = document.getElementById('cbr1'); if (r) { r.classList.add('checked'); var d = r.querySelector('.camp-domain'); if (d) d.textContent = 'jossandmain.com'; } });
+    at(14600, function() { var r = document.getElementById('cbr2'); if (r) { r.classList.add('checked'); var d = r.querySelector('.camp-domain'); if (d) d.textContent = 'birchlane.com'; } });
+    at(14900, function() { moveCursor(document.getElementById('camp-send-btn'), 380); });
+    at(15450, function() {
+      var f = document.getElementById('camp-form'); if (f) f.style.display = 'none';
+      var s = document.getElementById('camp-success'); if (s) s.style.display = 'flex';
+      showAnn('\u2713 One campaign \xb7 3 brands \xb7 3 sending domains \xb7 sent in one action');
+    });
+    at(16400, function() { hideAnn(); });
+    at(16500, function() { moveCursor(document.getElementById('sb-profiles'), 380); });
+
+    // ── STEP 5: Profiles (17000–20000ms) ──
+    at(17000, function() { activateStep(5, 'sb-profiles'); });
+    [0,180,360,540,720].forEach(function(t, i) {
+      at(17000 + t, function() { var rows = document.querySelectorAll('#step5 #s5-list .trow'); if (rows[i]) rows[i].classList.add('loaded'); });
+    });
+    at(18200, function() { moveCursor(document.getElementById('s5-row-mary'), 380); });
+    at(18700, function() { var r = document.getElementById('s5-row-mary'); if (r) r.classList.add('highlighted'); });
+    at(18900, function() {
+      var l = document.getElementById('s5-list'); if (l) l.style.display = 'none';
+      var d = document.getElementById('s5-detail'); if (d) d.style.display = '';
+      showAnn('\u2713 One unified profile \xb7 consent tracked separately per brand');
+    });
+    at(19700, function() { hideAnn(); });
+
+    // ── Loop ──
+    at(20000, function() { s5AutoPlay(gen); });
   }
 
   // Init
