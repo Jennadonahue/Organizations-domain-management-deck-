@@ -629,38 +629,73 @@
     .demo-progress-bar { height: 3px; background: rgba(248,100,85,0.15); flex-shrink: 0; }
     .demo-progress-fill { height: 100%; width: 0%; background: #F86455; transition: none; }
 
-    /* ── Chapter nav panel ── */
-    .chapter-nav {
-      width: 160px; flex-shrink: 0;
-      background: #F5F5F5;
-      border-left: 1px solid #E5E5E5;
+    /* ── S5 demo row layout ── */
+    .s5-demo-row {
+      display: flex; flex-direction: row; align-items: flex-start;
+      gap: 24px; width: 100%; flex: 1; min-height: 0;
+    }
+    .s5-demo-row .browser-wrap {
+      flex: 1; min-width: 0; max-width: none; margin: 0;
+    }
+
+    /* ── External chapter nav panel ── */
+    .s5-chapter-panel {
+      width: 148px; flex-shrink: 0;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 16px;
       display: flex; flex-direction: column;
-      overflow: hidden;
+      align-self: center;
     }
-    .chapter-nav-hdr {
-      font-size: 11px; font-weight: 700; color: #999999;
-      text-transform: uppercase; letter-spacing: 1.5px;
-      padding: 12px 12px 8px;
-      flex-shrink: 0;
+    .s5-chap-hdr {
+      font-size: 10px; font-weight: 700; color: #999999;
+      text-transform: uppercase; letter-spacing: 2px;
+      margin-bottom: 12px;
     }
-    .chapter-btn {
+    .s5-chap-btn {
       width: 100%; text-align: left;
-      padding: 10px 12px 10px 15px;
+      display: flex; align-items: center; gap: 9px;
+      padding: 10px 8px 10px 12px;
       font-size: 13px; font-family: inherit;
       background: transparent; border: none;
       border-left: 3px solid transparent;
       color: #666666; font-weight: 400;
-      cursor: pointer;
+      cursor: pointer; border-radius: 6px;
       transition: background 0.15s, color 0.15s;
       line-height: 1.3;
     }
-    .chapter-btn:hover { background: #EEEEEE; color: #232122; }
-    .chapter-btn.active {
-      background: white;
+    .s5-chap-btn:hover { background: #EEEEEE; color: #232122; }
+    .s5-chap-btn.active {
+      background: #FFF5F4;
       border-left-color: #F86455;
       color: #F86455;
       font-weight: 700;
     }
+    .s5-chap-num {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 1.5px solid #CCCCCC;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 700; flex-shrink: 0;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .s5-chap-btn.active .s5-chap-num {
+      background: #F86455; border-color: #F86455; color: white;
+    }
+    .s5-chap-label { flex: 1; }
+    .s5-chap-divider {
+      height: 1px; background: #E5E5E5;
+      margin: 10px 0;
+    }
+    .s5-chap-replay {
+      width: 100%; text-align: center;
+      background: transparent; border: none;
+      font-size: 12px; color: #999999;
+      font-family: inherit; cursor: pointer;
+      padding: 6px 0;
+      transition: color 0.15s;
+    }
+    .s5-chap-replay:hover { color: #232122; }
 
     /* ── Step 3: Segment builder ── */
     .seg-builder { padding: 4px 0; display: flex; flex-direction: column; gap: 6px; }
@@ -1490,6 +1525,8 @@
       <h2>The Right Solution: Klaviyo Organizations</h2>
       <p class="s5-sub">A walkthrough of what this looks like in practice</p>
     </div>
+    <!-- Browser + chapter nav row -->
+    <div class="s5-demo-row">
     <!-- Browser mockup -->
     <div class="browser-wrap">
       <div class="browser-chrome">
@@ -1731,20 +1768,34 @@
 
             <div class="demo-annotation" id="demo-annotation"></div>
           </div><!-- /browser-content -->
-          <!-- Chapter nav panel -->
-          <div class="chapter-nav" id="chapter-nav">
-            <div class="chapter-nav-hdr">Jump to</div>
-            <button class="chapter-btn active" id="chap0" onclick="s5JumpTo(0)">&#9312; Accounts</button>
-            <button class="chapter-btn" id="chap1" onclick="s5JumpTo(1)">&#9313; Templates</button>
-            <button class="chapter-btn" id="chap2" onclick="s5JumpTo(2)">&#9314; Segments</button>
-            <button class="chapter-btn" id="chap3" onclick="s5JumpTo(3)">&#9315; Campaign Send</button>
-            <button class="chapter-btn" id="chap4" onclick="s5JumpTo(4)">&#9316; Profiles</button>
-          </div>
         </div><!-- /browser-main -->
         <div class="demo-progress-bar"><div class="demo-progress-fill" id="demo-progress-fill"></div></div>
       </div><!-- /browser-body -->
     </div><!-- /browser-wrap -->
 
+    <!-- External chapter nav panel -->
+    <div class="s5-chapter-panel" id="chapter-nav">
+      <div class="s5-chap-hdr">CHAPTERS</div>
+      <button class="s5-chap-btn active" id="chap0" onclick="s5JumpTo(0)">
+        <span class="s5-chap-num">1</span><span class="s5-chap-label">Accounts</span>
+      </button>
+      <button class="s5-chap-btn" id="chap1" onclick="s5JumpTo(1)">
+        <span class="s5-chap-num">2</span><span class="s5-chap-label">Templates</span>
+      </button>
+      <button class="s5-chap-btn" id="chap2" onclick="s5JumpTo(2)">
+        <span class="s5-chap-num">3</span><span class="s5-chap-label">Segments</span>
+      </button>
+      <button class="s5-chap-btn" id="chap3" onclick="s5JumpTo(3)">
+        <span class="s5-chap-num">4</span><span class="s5-chap-label">Campaign Send</span>
+      </button>
+      <button class="s5-chap-btn" id="chap4" onclick="s5JumpTo(4)">
+        <span class="s5-chap-num">5</span><span class="s5-chap-label">Profiles</span>
+      </button>
+      <div class="s5-chap-divider"></div>
+      <button class="s5-chap-replay" onclick="s5JumpTo(0)">&#8635; Replay</button>
+    </div>
+
+    </div><!-- /s5-demo-row -->
   </div>
 
   <!-- SLIDE 6 — Milestone Columns -->
@@ -1936,7 +1987,7 @@
 
     // ── Helpers ──
     function updateChapterNav(idx) {
-      document.querySelectorAll('#s5 .chapter-btn').forEach(function(b, i) {
+      document.querySelectorAll('#s5 .s5-chap-btn').forEach(function(b, i) {
         b.classList.toggle('active', i === idx);
       });
     }
