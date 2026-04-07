@@ -873,9 +873,24 @@
     /* ════════════════════════════════
        MINI-SLIDE 1 — Command Center
     ════════════════════════════════ */
-    #sm1 { background: #FAF8F5; justify-content: center; padding: 28px 40px 80px; gap: 0; }
-    #sm2 { background: #FAF8F5; justify-content: center; padding: 28px 40px 80px; gap: 0; }
-    #sm3 { background: #FAF8F5; justify-content: center; padding: 28px 40px 80px; gap: 0; }
+    #sm1 { background: #FAF8F5; justify-content: center; padding: 16px 40px 80px; gap: 0; }
+    #sm2 { background: #FAF8F5; justify-content: center; padding: 16px 40px 80px; gap: 0; }
+    #sm3 { background: #FAF8F5; justify-content: center; padding: 16px 40px 80px; gap: 0; }
+
+    /* ── sm1/2/3 slide title header ── */
+    .sm-slide-hdr {
+      display: flex; flex-direction: column; align-items: center;
+      flex-shrink: 0; gap: 4px; margin-bottom: 16px;
+      max-width: 840px; width: 100%; text-align: center;
+    }
+    .sm-slide-hdr h2 {
+      font-size: clamp(24px, 2.5vw, 32px); font-weight: 800;
+      color: #232122; margin: 0; line-height: 1.2;
+    }
+    .sm-slide-hdr p {
+      font-size: clamp(13px, 1.3vw, 15px);
+      color: #999999; margin: 0; line-height: 1.5;
+    }
 
     /* ── sm3 profile detail ── */
     #sm3-step2 { transform: translateX(30px); transition: opacity 0.3s ease, transform 0.3s ease; }
@@ -972,7 +987,7 @@
     .sm1-demo-row {
       display: flex; flex-direction: row; align-items: stretch;
       gap: 20px; width: 100%; max-width: 1100px;
-      flex: 1; min-height: 0; max-height: 510px;
+      flex: 1; min-height: 0; max-height: 450px;
     }
     .sm1-demo-row .s5-browser-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
     .sm1-demo-row .browser-wrap   { flex: 1; min-width: 0; max-width: none; margin: 0; min-height: 0; }
@@ -1883,7 +1898,13 @@
   <!-- MINI-SLIDE 1 — Command Center Demo -->
   <div class="slide" id="sm1" data-theme="light">
 
-    <!-- Top ~30%: ask → need reframe -->
+    <!-- Slide header -->
+    <div class="sm-slide-hdr">
+      <h2>One Command Center</h2>
+      <p>Managing all brands, users, and permissions from a single Organization account</p>
+    </div>
+
+    <!-- Top: ask → need reframe -->
     <div class="sm1-top">
       <span class="sm1-pill">What They Ask For</span>
       <p class="sm1-ask-text">&ldquo;Remove the one sending domain limit so we can run all our brands in one account&rdquo;</p>
@@ -2023,7 +2044,13 @@
   <!-- MINI-SLIDE 2 — Centralized Assets and Campaigns -->
   <div class="slide" id="sm2" data-theme="light">
 
-    <!-- Top ~30%: ask → need reframe -->
+    <!-- Slide header -->
+    <div class="sm-slide-hdr">
+      <h2>Centralized Assets and Campaigns</h2>
+      <p>Build a template or segment once and deploy it across every brand in one action</p>
+    </div>
+
+    <!-- Top: ask → need reframe -->
     <div class="sm1-top">
       <span class="sm1-pill">What They Ask For</span>
       <p class="sm1-ask-text">&ldquo;One account to build and send everything from&rdquo;</p>
@@ -2226,7 +2253,13 @@
   <!-- MINI-SLIDE 3 — Unified Profiles -->
   <div class="slide" id="sm3" data-theme="light">
 
-    <!-- Top reframe -->
+    <!-- Slide header -->
+    <div class="sm-slide-hdr">
+      <h2>Unified Customer Profiles</h2>
+      <p>See every customer across all brands in one place &mdash; with consent tracked separately per brand</p>
+    </div>
+
+    <!-- Top: ask → need reframe -->
     <div class="sm1-top">
       <span class="sm1-pill">What They Ask For</span>
       <p class="sm1-ask-text">&ldquo;One place to see all customer data across every brand&rdquo;</p>
