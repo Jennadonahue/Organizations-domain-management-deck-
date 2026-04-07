@@ -896,6 +896,7 @@
        MINI-SLIDE 1 — Command Center
     ════════════════════════════════ */
     #sm1 { background: #FAF8F5; justify-content: center; padding: 28px 40px 80px; gap: 0; }
+    #sm2 { background: #FAF8F5; justify-content: center; padding: 28px 40px 80px; gap: 0; }
 
     /* Top reframe section */
     .sm1-top {
@@ -1975,6 +1976,209 @@
     </div><!-- /sm1-demo-row -->
   </div><!-- /sm1 -->
 
+  <!-- MINI-SLIDE 2 — Centralized Assets and Campaigns -->
+  <div class="slide" id="sm2" data-theme="light">
+
+    <!-- Top ~30%: ask → need reframe -->
+    <div class="sm1-top">
+      <span class="sm1-pill">What They Ask For</span>
+      <p class="sm1-ask-text">&ldquo;One account to build and send everything from&rdquo;</p>
+      <span class="sm1-arrow">↓</span>
+      <span class="sm1-pill">What They Actually Need</span>
+      <p class="sm1-need-text">Build once, deploy across all brands in one action &mdash; each with its own sending domain</p>
+    </div>
+
+    <!-- Bottom ~70%: animated browser demo -->
+    <div class="sm1-demo-row">
+
+      <!-- Browser + playbar column -->
+      <div class="s5-browser-col">
+        <div class="browser-wrap">
+          <div class="browser-chrome">
+            <span class="bc-dot" style="background:#FF5F57"></span>
+            <span class="bc-dot" style="background:#FFBD2E"></span>
+            <span class="bc-dot" style="background:#28C840"></span>
+            <span class="bc-url">app.klaviyo.com</span>
+          </div>
+          <div class="browser-body">
+            <div class="acct-switcher">
+              <span class="acct-left">🏢 <strong>Wayfair Inc.</strong>&nbsp;<span class="acct-badge">Organization</span></span>
+              <span class="acct-right">Switch to Brand Account ▾</span>
+            </div>
+            <div class="browser-main">
+              <div class="demo-cursor" id="sm2-cursor"></div>
+              <!-- Sidebar -->
+              <div class="browser-sidebar">
+                <div class="sb-item">🏠 Home</div>
+                <div class="sb-item" id="sm2-sb-campaigns">📣 Campaigns</div>
+                <div class="sb-item">⚡ Flows</div>
+                <div class="sb-sec-hdr">Manage</div>
+                <div class="sb-sub" id="sm2-sb-templates">📄 Templates</div>
+                <div class="sb-sub" id="sm2-sb-segments">Segments</div>
+                <div class="sb-divider"></div>
+                <div class="sb-footer">WI &middot; Wayfair Inc. Organization</div>
+              </div>
+              <!-- Steps -->
+              <div class="browser-content">
+
+                <!-- STEP 1: Templates -->
+                <div class="step active" id="sm2-step1">
+                  <div class="sc-header">Templates</div>
+                  <div class="sc-subtitle">Create once, deploy across any brand</div>
+                  <div class="tmpl-grid">
+                    <div class="tmpl-card">
+                      <div class="tmpl-preview">
+                        <div class="tp-header" style="background:#F86455;">SUMMER SALE</div>
+                        <div class="tp-body">
+                          <div class="tp-line" style="width:60%"></div>
+                          <div class="tp-line" style="width:40%"></div>
+                          <div class="tp-btn" style="background:#F86455;"></div>
+                        </div>
+                      </div>
+                      <div class="tmpl-name">Summer Sale Banner</div>
+                      <div class="tmpl-used">Used by: Wayfair, AllModern</div>
+                      <button class="tmpl-deploy-btn" id="sm2-tmpl-deploy-btn">Deploy to brands</button>
+                    </div>
+                    <div class="tmpl-card">
+                      <div class="tmpl-preview">
+                        <div class="tp-header" style="background:#232122;">WELCOME</div>
+                        <div class="tp-body" style="align-items:center;">
+                          <div class="tp-avatar"></div>
+                          <div class="tp-line" style="width:70%"></div>
+                          <div class="tp-line" style="width:50%"></div>
+                          <div class="tp-btn" style="background:#232122;"></div>
+                        </div>
+                      </div>
+                      <div class="tmpl-name">Welcome Series</div>
+                      <div class="tmpl-used">Used by: All 6 brands</div>
+                      <button class="tmpl-deploy-btn">Deploy to brands</button>
+                    </div>
+                    <div class="tmpl-card">
+                      <div class="tmpl-preview" style="background:#fff;border:1px solid #E5E5E5;">
+                        <div class="tp-product-box">🛒 <span style="font-size:7px;color:#aaa;">Product item</span></div>
+                        <div class="tp-body">
+                          <div class="tp-line" style="width:65%"></div>
+                          <div class="tp-line" style="width:45%"></div>
+                          <div class="tp-btn" style="background:#F86455;"></div>
+                        </div>
+                      </div>
+                      <div class="tmpl-name">Abandoned Cart</div>
+                      <div class="tmpl-used">Used by: Joss &amp; Main, Birch Lane</div>
+                      <button class="tmpl-deploy-btn">Deploy to brands</button>
+                    </div>
+                  </div>
+                  <!-- Deploy modal -->
+                  <div class="deploy-modal" id="sm2-deploy-modal">
+                    <div class="modal-hdr">Deploy Summer Sale Banner</div>
+                    <div class="modal-cb-row"><span class="modal-cb" id="sm2-mcb0"></span>Wayfair</div>
+                    <div class="modal-cb-row"><span class="modal-cb" id="sm2-mcb1"></span>Joss &amp; Main</div>
+                    <div class="modal-cb-row"><span class="modal-cb" id="sm2-mcb2"></span>Birch Lane</div>
+                    <button class="modal-deploy-btn" id="sm2-modal-deploy-btn">Deploy to 3 brands</button>
+                  </div>
+                  <div class="deploy-toast" id="sm2-deploy-toast">&#10003; Deployed to 3 brands successfully</div>
+                </div>
+
+                <!-- STEP 2: Segments -->
+                <div class="step" id="sm2-step2">
+                  <div class="sc-header">Segments</div>
+                  <div class="sc-subtitle">Build segments across all accounts in your organization</div>
+                  <div class="seg-builder">
+                    <input class="seg-name-input" value="Cross-Brand Summer Buyers" readonly>
+                    <div class="seg-condition">
+                      <span class="seg-label">Purchased from</span>
+                      <div class="seg-dropdown" id="sm2-seg-dd1">&mdash; select &mdash;</div>
+                      <span class="seg-label">in last</span>
+                      <div class="seg-dropdown-sm">90 days</div>
+                    </div>
+                    <div class="seg-and">AND</div>
+                    <div class="seg-condition">
+                      <span class="seg-label">Purchased from</span>
+                      <div class="seg-dropdown" id="sm2-seg-dd2">&mdash; select &mdash;</div>
+                      <span class="seg-label">in last</span>
+                      <div class="seg-dropdown-sm">90 days</div>
+                    </div>
+                    <div class="seg-estimate" id="sm2-seg-estimate" style="opacity:0">Estimated profiles: 48,200</div>
+                    <button class="seg-save-btn" id="sm2-seg-save-btn">Save Segment</button>
+                  </div>
+                  <div class="deploy-toast" id="sm2-seg-toast">&#10003; Segment saved &mdash; available across all brand accounts</div>
+                </div>
+
+                <!-- STEP 3: Campaign Send -->
+                <div class="step" id="sm2-step3">
+                  <div class="sc-header">New Campaign</div>
+                  <div class="camp-form" id="sm2-camp-form">
+                    <div class="camp-field">
+                      <label class="camp-label">Campaign Name</label>
+                      <div class="camp-input-wrap"><span id="sm2-camp-name-val"></span><span class="camp-cursor-blink">|</span></div>
+                    </div>
+                    <div class="camp-field">
+                      <label class="camp-label">Template</label>
+                      <div class="camp-dropdown" id="sm2-camp-tmpl-dd">Select template...</div>
+                    </div>
+                    <div class="camp-field">
+                      <label class="camp-label">Segment</label>
+                      <div class="camp-dropdown" id="sm2-camp-seg-dd">Select segment...</div>
+                    </div>
+                    <div class="camp-field">
+                      <label class="camp-label">Send to brands</label>
+                      <div class="camp-brand-rows">
+                        <div class="camp-brand-row" id="sm2-cbr0"><span class="camp-cb"></span><span class="camp-brand-name">Wayfair</span><span class="camp-domain"></span></div>
+                        <div class="camp-brand-row" id="sm2-cbr1"><span class="camp-cb"></span><span class="camp-brand-name">Joss &amp; Main</span><span class="camp-domain"></span></div>
+                        <div class="camp-brand-row" id="sm2-cbr2"><span class="camp-cb"></span><span class="camp-brand-name">Birch Lane</span><span class="camp-domain"></span></div>
+                      </div>
+                    </div>
+                    <button class="camp-send-btn" id="sm2-camp-send-btn">Send to 3 brands</button>
+                  </div>
+                  <div class="camp-success" id="sm2-camp-success">
+                    <div class="camp-success-check">&#10003;</div>
+                    <div class="camp-success-title">Campaign sent to 3 brands</div>
+                    <div class="camp-success-rows">
+                      <div class="camp-success-row">Wayfair &middot; wayfair.com &middot; 18,400 recipients</div>
+                      <div class="camp-success-row">Joss &amp; Main &middot; jossandmain.com &middot; 15,200 recipients</div>
+                      <div class="camp-success-row">Birch Lane &middot; birchlane.com &middot; 14,600 recipients</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="demo-annotation" id="sm2-annotation"></div>
+              </div><!-- /browser-content -->
+            </div><!-- /browser-main -->
+          </div><!-- /browser-body -->
+        </div><!-- /browser-wrap -->
+
+        <!-- Playback bar -->
+        <div class="s5-playbar" id="sm2-playbar">
+          <button class="s5-play-btn" id="sm2-play-btn" title="Play / Pause">&#9646;&#9646;</button>
+          <div class="s5-scrub-track" id="sm2-scrub-track">
+            <div class="s5-scrub-fill" id="sm2-scrub-fill"></div>
+            <div class="s5-scrub-thumb" id="sm2-scrub-thumb"></div>
+          </div>
+          <span class="s5-time-display" id="sm2-time">0:00 / 0:15</span>
+        </div>
+      </div><!-- /s5-browser-col -->
+
+      <!-- Chapter nav panel -->
+      <div class="s5-chap-col">
+        <p class="s5-chap-hint">Click to jump to any step</p>
+        <div class="s5-chapter-panel" id="sm2-chapter-nav">
+          <div class="s5-chap-hdr">CHAPTERS <span class="s5-live-dot"></span></div>
+          <button class="s5-chap-btn active" id="sm2-chap0" onclick="sm2JumpTo(0)">
+            <span class="s5-chap-num">1</span><span class="s5-chap-label">Templates</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+          </button>
+          <button class="s5-chap-btn" id="sm2-chap1" onclick="sm2JumpTo(1)">
+            <span class="s5-chap-num">2</span><span class="s5-chap-label">Segments</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+          </button>
+          <button class="s5-chap-btn" id="sm2-chap2" onclick="sm2JumpTo(2)">
+            <span class="s5-chap-num">3</span><span class="s5-chap-label">Campaign Send</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+          </button>
+          <div class="s5-chap-divider"></div>
+          <button class="s5-chap-replay" onclick="sm2JumpTo(0)">&#8635; Replay</button>
+        </div>
+      </div>
+
+    </div><!-- /sm1-demo-row -->
+  </div><!-- /sm2 -->
+
   <!-- SLIDE 5 — Introducing Organizations -->
   <div class="slide" id="s5" data-theme="light">
     <div class="slide-hdr" style="max-width:880px;width:100%">
@@ -2390,9 +2594,11 @@
     // Start/stop slide demos
     const S5_IDX  = slides.findIndex(s => s.id === 's5');
     const SM1_IDX = slides.findIndex(s => s.id === 'sm1');
-    if (cur === S5_IDX)  { s5Start();  sm1Stop(); }
-    else if (cur === SM1_IDX) { sm1Start(); s5Stop(); }
-    else { s5Stop(); sm1Stop(); }
+    const SM2_IDX = slides.findIndex(s => s.id === 'sm2');
+    if      (cur === S5_IDX)  { s5Start();  sm1Stop(); sm2Stop(); }
+    else if (cur === SM1_IDX) { sm1Start(); s5Stop();  sm2Stop(); }
+    else if (cur === SM2_IDX) { sm2Start(); s5Stop();  sm1Stop(); }
+    else                      { s5Stop();   sm1Stop(); sm2Stop(); }
     // Slide 3 (s4) — one-time toggle pulse on first visit
     if (cur === slides.findIndex(s => s.id === 's4') && !s4HasLoaded) {
       s4HasLoaded = true;
@@ -3063,6 +3269,341 @@
 
     // ── Loop ──
     at(SM1_LOOP, function() { sm1IsPaused = false; sm1AutoPlay(gen, 0); });
+  }
+
+  // ─────────────────────────────────────────────
+  //  MINI-SLIDE 2 — Centralized Assets (15s loop)
+  // ─────────────────────────────────────────────
+  var sm2Timers       = [];
+  var sm2Gen          = 0;
+  var SM2_LOOP        = 15000;
+  var SM2_STEP_TIMES  = [0, 5000, 10000];
+  var sm2IsPaused     = false;
+  var sm2PauseMs      = 0;
+  var sm2TimeBase     = 0;
+  var sm2UiInterval   = null;
+  var sm2PlaybarReady = false;
+
+  function sm2GetMs() {
+    if (sm2IsPaused) return sm2PauseMs;
+    return Math.min(Date.now() - sm2TimeBase, SM2_LOOP);
+  }
+
+  function sm2StartUiLoop() {
+    if (sm2UiInterval) clearInterval(sm2UiInterval);
+    sm2UiInterval = setInterval(function() {
+      var ms    = sm2GetMs();
+      var pct   = ms / SM2_LOOP * 100;
+      var fill  = document.getElementById('sm2-scrub-fill');
+      var thumb = document.getElementById('sm2-scrub-thumb');
+      var disp  = document.getElementById('sm2-time');
+      if (fill)  fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (disp) {
+        var sec = Math.floor(ms / 1000);
+        var m = Math.floor(sec / 60), s = sec % 60;
+        var tot = Math.floor(SM2_LOOP / 1000);
+        var tm = Math.floor(tot / 60), ts = tot % 60;
+        disp.textContent = m + ':' + (s < 10 ? '0' : '') + s + ' / ' + tm + ':' + (ts < 10 ? '0' : '') + ts;
+      }
+    }, 50);
+  }
+
+  function sm2StopUiLoop() {
+    if (sm2UiInterval) { clearInterval(sm2UiInterval); sm2UiInterval = null; }
+  }
+
+  function sm2Stop() {
+    sm2Gen++;
+    sm2Timers.forEach(clearTimeout); sm2Timers = [];
+    sm2StopUiLoop();
+    sm2IsPaused = false;
+    var c = document.getElementById('sm2-cursor');
+    if (c) { c.style.opacity = '0'; c.classList.remove('clicking'); }
+    var ann = document.getElementById('sm2-annotation');
+    if (ann) ann.classList.remove('visible');
+  }
+
+  function sm2Pause() {
+    if (sm2IsPaused) return;
+    sm2PauseMs = sm2GetMs();
+    sm2IsPaused = true;
+    sm2Timers.forEach(clearTimeout); sm2Timers = [];
+    var c = document.getElementById('sm2-cursor');
+    if (c && parseFloat(c.style.opacity) > 0) {
+      var cst = window.getComputedStyle(c);
+      c.style.transition = 'none';
+      c.style.left = cst.left; c.style.top = cst.top;
+    }
+    var btn = document.getElementById('sm2-play-btn');
+    if (btn) btn.textContent = '\u25B6';
+  }
+
+  function sm2Resume() {
+    if (!sm2IsPaused) return;
+    sm2IsPaused = false;
+    sm2TimeBase = Date.now() - sm2PauseMs;
+    sm2AutoPlay(sm2Gen, sm2PauseMs, true);
+    var btn = document.getElementById('sm2-play-btn');
+    if (btn) btn.textContent = '\u25AE\u25AE';
+  }
+
+  function sm2Start() {
+    sm2Stop();
+    sm2IsPaused = false;
+    sm2AutoPlay(sm2Gen, 0);
+    sm2StartUiLoop();
+    sm2PlaybarSetup();
+    var btn = document.getElementById('sm2-play-btn');
+    if (btn) btn.textContent = '\u25AE\u25AE';
+  }
+
+  function sm2JumpTo(n) {
+    if (n < 0 || n > 2) return;
+    sm2Stop();
+    sm2IsPaused = false;
+    sm2AutoPlay(sm2Gen, SM2_STEP_TIMES[n]);
+    sm2StartUiLoop();
+    var btn = document.getElementById('sm2-play-btn');
+    if (btn) btn.textContent = '\u25AE\u25AE';
+  }
+
+  function sm2PlaybarSetup() {
+    if (sm2PlaybarReady) return;
+    sm2PlaybarReady = true;
+
+    var playBtn = document.getElementById('sm2-play-btn');
+    if (playBtn) {
+      playBtn.addEventListener('click', function() {
+        if (sm2IsPaused) { sm2Resume(); } else { sm2Pause(); }
+      });
+    }
+
+    var track = document.getElementById('sm2-scrub-track');
+    if (!track) return;
+    var sm2Dragging   = false;
+    var sm2WasPlaying = false;
+
+    function scrubMsSm2(e) {
+      var rect = track.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      return Math.max(0, Math.min(SM2_LOOP, (x / rect.width) * SM2_LOOP));
+    }
+
+    track.addEventListener('mousedown', function(e) {
+      sm2Dragging = true;
+      sm2WasPlaying = !sm2IsPaused;
+      track.classList.add('dragging');
+      if (!sm2IsPaused) {
+        sm2PauseMs  = sm2GetMs();
+        sm2IsPaused = true;
+        sm2Timers.forEach(clearTimeout); sm2Timers = [];
+      }
+      sm2PauseMs = scrubMsSm2(e);
+      var idx = 0;
+      for (var k = 0; k < SM2_STEP_TIMES.length; k++) { if (SM2_STEP_TIMES[k] <= sm2PauseMs) idx = k; }
+      document.querySelectorAll('#sm2 .s5-chap-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (!sm2Dragging) return;
+      sm2PauseMs = scrubMsSm2(e);
+      var idx = 0;
+      for (var k = 0; k < SM2_STEP_TIMES.length; k++) { if (SM2_STEP_TIMES[k] <= sm2PauseMs) idx = k; }
+      document.querySelectorAll('#sm2 .s5-chap-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+    });
+
+    document.addEventListener('mouseup', function() {
+      if (!sm2Dragging) return;
+      sm2Dragging = false;
+      track.classList.remove('dragging');
+      var ms = sm2PauseMs;
+      if (sm2WasPlaying) {
+        sm2Stop();
+        sm2IsPaused = false;
+        sm2AutoPlay(sm2Gen, ms);
+        sm2StartUiLoop();
+        var btn = document.getElementById('sm2-play-btn');
+        if (btn) btn.textContent = '\u25AE\u25AE';
+      }
+    });
+  }
+
+  function sm2AutoPlay(gen, startOffset, skipReset) {
+    if (gen !== sm2Gen) return;
+    startOffset = startOffset || 0;
+    sm2TimeBase = Date.now() - startOffset;
+
+    function at(absTime, fn) {
+      var delay = absTime - startOffset;
+      if (delay < 0) return;
+      var id = setTimeout(function() { if (gen === sm2Gen) fn(); }, delay);
+      sm2Timers.push(id);
+    }
+    function after(relMs, fn) {
+      var id = setTimeout(function() { if (gen === sm2Gen) fn(); }, relMs);
+      sm2Timers.push(id);
+    }
+
+    function updateChapNav(idx) {
+      document.querySelectorAll('#sm2 .s5-chap-btn').forEach(function(b, i) {
+        b.classList.toggle('active', i === idx);
+      });
+    }
+
+    function activateStep(stepId, sbId, sbIsSub, chapIdx) {
+      document.querySelectorAll('#sm2 .step').forEach(function(s) { s.classList.remove('active'); });
+      var el = document.getElementById(stepId); if (el) el.classList.add('active');
+      document.querySelectorAll('#sm2 .sb-item, #sm2 .sb-sub').forEach(function(e) { e.classList.remove('active'); });
+      var sb = document.getElementById(sbId); if (sb) sb.classList.add('active');
+      updateChapNav(chapIdx);
+    }
+
+    function moveCursor(targetEl, moveDur) {
+      var cursor    = document.getElementById('sm2-cursor');
+      var container = document.querySelector('#sm2 .browser-main');
+      if (!cursor || !targetEl || !container) return;
+      var cr = container.getBoundingClientRect();
+      var tr = targetEl.getBoundingClientRect();
+      var x  = tr.left - cr.left + tr.width  / 2 - 5;
+      var y  = tr.top  - cr.top  + tr.height / 2 - 5;
+      cursor.style.transition = 'none';
+      cursor.style.left = (x - 18) + 'px';
+      cursor.style.top  = (y - 12) + 'px';
+      cursor.style.opacity = '0';
+      void cursor.offsetHeight;
+      cursor.style.transition = 'left ' + moveDur + 'ms cubic-bezier(.25,.46,.45,.94), top ' + moveDur + 'ms cubic-bezier(.25,.46,.45,.94), opacity 0.15s ease';
+      cursor.style.opacity = '1';
+      cursor.style.left = x + 'px';
+      cursor.style.top  = y + 'px';
+      after(moveDur + 80, function() {
+        cursor.classList.add('clicking');
+        after(340, function() { cursor.classList.remove('clicking'); cursor.style.opacity = '0'; });
+      });
+    }
+
+    function showAnn(text) {
+      var a = document.getElementById('sm2-annotation');
+      if (!a) return; a.textContent = text; a.classList.add('visible');
+    }
+    function hideAnn() {
+      var a = document.getElementById('sm2-annotation'); if (a) a.classList.remove('visible');
+    }
+    function selectDropdown(id, val) {
+      var el = document.getElementById(id); if (!el) return;
+      el.classList.add('selecting');
+      after(260, function() { el.textContent = val; el.classList.remove('selecting'); });
+    }
+
+    if (!skipReset) {
+      // Reset all sm2 state
+      document.querySelectorAll('#sm2 .step').forEach(function(s) { s.classList.remove('active'); });
+      document.querySelectorAll('#sm2 .sb-item, #sm2 .sb-sub').forEach(function(e) { e.classList.remove('active'); });
+      var modal = document.getElementById('sm2-deploy-modal'); if (modal) modal.classList.remove('open');
+      ['sm2-mcb0','sm2-mcb1','sm2-mcb2'].forEach(function(id) { var el = document.getElementById(id); if (el) el.classList.remove('checked'); });
+      var dt = document.getElementById('sm2-deploy-toast'); if (dt) dt.classList.remove('visible');
+      var dd1 = document.getElementById('sm2-seg-dd1'); if (dd1) { dd1.textContent = '\u2014 select \u2014'; dd1.classList.remove('selecting'); }
+      var dd2 = document.getElementById('sm2-seg-dd2'); if (dd2) { dd2.textContent = '\u2014 select \u2014'; dd2.classList.remove('selecting'); }
+      var est = document.getElementById('sm2-seg-estimate'); if (est) { est.style.opacity = '0'; est.textContent = 'Estimated profiles: 48,200'; }
+      var st = document.getElementById('sm2-seg-toast'); if (st) st.classList.remove('visible');
+      var nv = document.getElementById('sm2-camp-name-val'); if (nv) nv.textContent = '';
+      var td = document.getElementById('sm2-camp-tmpl-dd'); if (td) { td.textContent = 'Select template...'; td.classList.remove('selected'); }
+      var sd = document.getElementById('sm2-camp-seg-dd');  if (sd) { sd.textContent = 'Select segment...';  sd.classList.remove('selected'); }
+      ['sm2-cbr0','sm2-cbr1','sm2-cbr2'].forEach(function(id) {
+        var row = document.getElementById(id); if (!row) return;
+        row.classList.remove('checked');
+        var d = row.querySelector('.camp-domain'); if (d) d.textContent = '';
+      });
+      var cf = document.getElementById('sm2-camp-form');    if (cf) cf.style.display = '';
+      var cs = document.getElementById('sm2-camp-success'); if (cs) cs.style.display = 'none';
+      var ann = document.getElementById('sm2-annotation'); if (ann) ann.classList.remove('visible');
+
+      // Pre-fill state when jumping mid-loop
+      if (startOffset > 0) {
+        var jIdx = 0;
+        for (var k = 0; k < SM2_STEP_TIMES.length; k++) { if (SM2_STEP_TIMES[k] <= startOffset) jIdx = k; }
+        var stepIds = ['sm2-step1', 'sm2-step2', 'sm2-step3'];
+        var sbIds   = ['sm2-sb-templates', 'sm2-sb-segments', 'sm2-sb-campaigns'];
+        activateStep(stepIds[jIdx], sbIds[jIdx], true, jIdx);
+        // Pre-fill completed chapter state
+        if (jIdx >= 1) {
+          ['sm2-mcb0','sm2-mcb1','sm2-mcb2'].forEach(function(id) { var el = document.getElementById(id); if (el) el.classList.add('checked'); });
+        }
+        if (jIdx >= 2) {
+          var d1 = document.getElementById('sm2-seg-dd1'); if (d1) d1.textContent = 'Wayfair';
+          var d2 = document.getElementById('sm2-seg-dd2'); if (d2) d2.textContent = 'Birch Lane';
+          var e2 = document.getElementById('sm2-seg-estimate'); if (e2) { e2.style.opacity = '1'; e2.textContent = 'Estimated profiles: 48,200'; }
+        }
+      }
+    }
+
+    // ── CHAPTER 1: Templates (0–5000ms) ──
+    at(0, function() { activateStep('sm2-step1', 'sm2-sb-templates', true, 0); });
+    at(400, function() { moveCursor(document.getElementById('sm2-tmpl-deploy-btn'), 520); });
+    at(1100, function() { var m = document.getElementById('sm2-deploy-modal'); if (m) m.classList.add('open'); });
+    at(1350, function() { var cb = document.getElementById('sm2-mcb0'); if (cb) cb.classList.add('checked'); });
+    at(1650, function() { var cb = document.getElementById('sm2-mcb1'); if (cb) cb.classList.add('checked'); });
+    at(1950, function() { var cb = document.getElementById('sm2-mcb2'); if (cb) cb.classList.add('checked'); });
+    at(2300, function() { moveCursor(document.getElementById('sm2-modal-deploy-btn'), 360); });
+    at(3050, function() {
+      var m = document.getElementById('sm2-deploy-modal'); if (m) m.classList.remove('open');
+      var t = document.getElementById('sm2-deploy-toast'); if (t) t.classList.add('visible');
+      showAnn('\u2713 One template deployed to 3 brands instantly');
+    });
+    at(4150, function() { var t = document.getElementById('sm2-deploy-toast'); if (t) t.classList.remove('visible'); hideAnn(); });
+    at(4550, function() { moveCursor(document.getElementById('sm2-sb-segments'), 380); });
+
+    // ── CHAPTER 2: Segments (5000–10000ms) ──
+    at(5000, function() { activateStep('sm2-step2', 'sm2-sb-segments', true, 1); });
+    at(5500, function() { selectDropdown('sm2-seg-dd1', 'Wayfair'); });
+    at(6100, function() { selectDropdown('sm2-seg-dd2', 'Birch Lane'); });
+    at(6800, function() {
+      var est = document.getElementById('sm2-seg-estimate');
+      if (!est) return;
+      var t0 = Date.now(), dur = 700, target = 48200, myGen = gen;
+      est.style.opacity = '1'; est.style.transition = 'none';
+      (function tick() {
+        if (sm2Gen !== myGen) return;
+        var p = Math.min((Date.now() - t0) / dur, 1);
+        var v = Math.round(p * target);
+        var s = v >= 1000 ? Math.floor(v / 1000) + ',' + String(v % 1000).padStart(3, '0') : String(v);
+        est.textContent = 'Estimated profiles: ' + s;
+        if (p < 1) requestAnimationFrame(tick);
+      })();
+    });
+    at(7100, function() { moveCursor(document.getElementById('sm2-seg-save-btn'), 380); });
+    at(7850, function() {
+      var t = document.getElementById('sm2-seg-toast'); if (t) t.classList.add('visible');
+      showAnn('\u2713 Cross-brand segment built from org-level profile data');
+    });
+    at(8900, function() { var t = document.getElementById('sm2-seg-toast'); if (t) t.classList.remove('visible'); hideAnn(); });
+    at(9500, function() { moveCursor(document.getElementById('sm2-sb-campaigns'), 380); });
+
+    // ── CHAPTER 3: Campaign Send (10000–15000ms) ──
+    at(10000, function() { activateStep('sm2-step3', 'sm2-sb-campaigns', false, 2); });
+    var campText2 = 'Summer Sale \u2014 Multi-Brand';
+    campText2.split('').forEach(function(ch, i) {
+      at(10300 + i * 40, function() {
+        var el = document.getElementById('sm2-camp-name-val'); if (el) el.textContent += ch;
+      });
+    });
+    // 25 chars × 40ms = 1000ms → done by 11300ms
+    at(11600, function() { var el = document.getElementById('sm2-camp-tmpl-dd'); if (el) { el.classList.add('selected'); el.textContent = 'Summer Sale Banner'; } });
+    at(12100, function() { var el = document.getElementById('sm2-camp-seg-dd');  if (el) { el.classList.add('selected'); el.textContent = 'Cross-Brand Summer Buyers \xb7 48,200 profiles'; } });
+    at(12500, function() { var r = document.getElementById('sm2-cbr0'); if (r) { r.classList.add('checked'); var d = r.querySelector('.camp-domain'); if (d) d.textContent = 'wayfair.com'; } });
+    at(12800, function() { var r = document.getElementById('sm2-cbr1'); if (r) { r.classList.add('checked'); var d = r.querySelector('.camp-domain'); if (d) d.textContent = 'jossandmain.com'; } });
+    at(13100, function() { var r = document.getElementById('sm2-cbr2'); if (r) { r.classList.add('checked'); var d = r.querySelector('.camp-domain'); if (d) d.textContent = 'birchlane.com'; } });
+    at(13400, function() { moveCursor(document.getElementById('sm2-camp-send-btn'), 380); });
+    at(14100, function() {
+      var f = document.getElementById('sm2-camp-form');    if (f) f.style.display = 'none';
+      var s = document.getElementById('sm2-camp-success'); if (s) s.style.display = 'flex';
+      showAnn('\u2713 One campaign \xb7 3 brands \xb7 3 sending domains \xb7 one action');
+    });
+    at(14800, function() { hideAnn(); });
+
+    // ── Loop ──
+    at(SM2_LOOP, function() { sm2IsPaused = false; sm2AutoPlay(gen, 0); });
   }
 
   // Init
