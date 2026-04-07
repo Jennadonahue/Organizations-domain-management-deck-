@@ -1189,7 +1189,11 @@
       cursor: pointer;
       user-select: none;
     }
-    .xcard-header:hover { background: rgba(35,33,33,0.02); }
+    .xcard-header:hover { background: #FAFAFA; }
+    .xcard:not(.open):hover {
+      box-shadow: inset 3px 0 0 0 #F86455, 0 2px 10px rgba(0,0,0,0.07);
+      transition: box-shadow 0.15s ease, background 0.15s ease;
+    }
     .xcard-num {
       flex-shrink: 0;
       width: 32px;
@@ -1220,13 +1224,43 @@
     }
     .xcard-toggle {
       flex-shrink: 0;
-      font-size: 22px;
-      font-weight: 300;
+      font-size: 20px;
+      font-weight: 700;
       color: #F86455;
       line-height: 1;
       width: 24px;
       text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
     }
+    /* ── expand / collapse hint text ── */
+    .xcard-expand-hint {
+      font-size: 11px;
+      font-style: italic;
+      color: #999999;
+      flex-shrink: 0;
+      white-space: nowrap;
+      margin-right: 2px;
+      transition: opacity 0.2s;
+    }
+    /* ── hint bar above card list ── */
+    .xcard-hint-bar {
+      font-size: 12px;
+      font-style: italic;
+      color: #999999;
+      text-align: center;
+      margin: 0 0 10px;
+    }
+    /* ── toggle pulse on first slide-3 visit ── */
+    @keyframes xcardTogglePulse {
+      0%,100% { box-shadow: 0 0 0 0px rgba(248,100,85,0); }
+      25%      { box-shadow: 0 0 0 5px rgba(248,100,85,0.3); }
+      50%      { box-shadow: 0 0 0 0px rgba(248,100,85,0); }
+      75%      { box-shadow: 0 0 0 5px rgba(248,100,85,0.3); }
+    }
+    .xcard-toggle.pulsing { animation: xcardTogglePulse 1.5s ease forwards; }
     .xcard-body {
       max-height: 0;
       overflow: hidden;
@@ -1522,6 +1556,7 @@
       <h2>Why One Account Can&rsquo;t Support Multiple Brands</h2>
       <p class="s4-setup">Klaviyo&rsquo;s account model is intentionally built around a single brand. Here&rsquo;s what breaks when you force multiple brands into one.</p>
     </div>
+    <p class="xcard-hint-bar">Click any row to expand the full problem and solution</p>
     <div class="xcard-list">
 
       <div class="xcard">
@@ -1531,7 +1566,7 @@
             <strong class="xcard-title">Consent and suppression breaks across brands</strong>
             <span class="xcard-summary">One unsubscribe silences a customer across every brand &mdash; even ones they never opted out of.</span>
           </div>
-          <span class="xcard-toggle">+</span>
+          <span class="xcard-expand-hint">Click to expand</span><span class="xcard-toggle">+</span>
         </div>
         <div class="xcard-body">
           <div class="xcard-sections">
@@ -1555,7 +1590,7 @@
             <strong class="xcard-title">Sender reputation bleeds between brands</strong>
             <span class="xcard-summary">One brand&rsquo;s spam complaints damage deliverability for every other brand sharing the account.</span>
           </div>
-          <span class="xcard-toggle">+</span>
+          <span class="xcard-expand-hint">Click to expand</span><span class="xcard-toggle">+</span>
         </div>
         <div class="xcard-body">
           <div class="xcard-sections">
@@ -1579,7 +1614,7 @@
             <strong class="xcard-title">Reporting and attribution becomes unreliable</strong>
             <span class="xcard-summary">Revenue and engagement blend together &mdash; you can&rsquo;t tell which brand is winning or losing.</span>
           </div>
-          <span class="xcard-toggle">+</span>
+          <span class="xcard-expand-hint">Click to expand</span><span class="xcard-toggle">+</span>
         </div>
         <div class="xcard-body">
           <div class="xcard-sections">
@@ -1603,7 +1638,7 @@
             <strong class="xcard-title">Channel configuration can&rsquo;t be separated per brand</strong>
             <span class="xcard-summary">Every brand shares the same domains, phone numbers, and settings &mdash; with no way to configure them independently.</span>
           </div>
-          <span class="xcard-toggle">+</span>
+          <span class="xcard-expand-hint">Click to expand</span><span class="xcard-toggle">+</span>
         </div>
         <div class="xcard-body">
           <div class="xcard-sections">
@@ -1627,7 +1662,7 @@
             <strong class="xcard-title">Integrations require a 1:1 connection per brand</strong>
             <span class="xcard-summary">Each ecommerce store needs its own dedicated Klaviyo account &mdash; one Shopify store maps to one Klaviyo account with no exceptions.</span>
           </div>
-          <span class="xcard-toggle">+</span>
+          <span class="xcard-expand-hint">Click to expand</span><span class="xcard-toggle">+</span>
         </div>
         <div class="xcard-body">
           <div class="xcard-sections">
@@ -2106,7 +2141,18 @@
     // Start/stop slide 5 browser demo
     const S5_IDX = slides.findIndex(s => s.id === 's5');
     if (cur === S5_IDX) s5Start(); else s5Stop();
+    // Slide 3 (s4) — one-time toggle pulse on first visit
+    if (cur === slides.findIndex(s => s.id === 's4') && !s4HasLoaded) {
+      s4HasLoaded = true;
+      var firstToggle = document.querySelector('#s4 .xcard:first-child .xcard-toggle');
+      if (firstToggle) {
+        firstToggle.classList.add('pulsing');
+        setTimeout(function() { firstToggle.classList.remove('pulsing'); }, 1600);
+      }
+    }
   }
+
+  var s4HasLoaded = false;
 
   prevBtn.addEventListener('click', () => goTo(cur - 1));
   nextBtn.addEventListener('click', () => goTo(cur + 1));
@@ -2491,7 +2537,7 @@
   // Init
   goTo(0);
 
-  // Slide 4 — expandable cards (only one open at a time)
+  // Slide 3 (s4) — expandable cards (only one open at a time)
   function toggleXCard(header) {
     const card = header.closest('.xcard');
     const list = card.closest('.xcard-list');
@@ -2499,10 +2545,12 @@
     list.querySelectorAll('.xcard').forEach(c => {
       c.classList.remove('open');
       c.querySelector('.xcard-toggle').textContent = '+';
+      var h = c.querySelector('.xcard-expand-hint'); if (h) h.textContent = 'Click to expand';
     });
     if (!isOpen) {
       card.classList.add('open');
       card.querySelector('.xcard-toggle').textContent = '−';
+      var h = card.querySelector('.xcard-expand-hint'); if (h) h.textContent = 'Click to collapse';
     }
   }
 </script>
