@@ -1230,7 +1230,7 @@
     .xcard-body {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.3s ease, padding 0.3s ease;
+      transition: max-height 0.4s ease, padding 0.4s ease;
       padding: 0 20px 0 68px;
     }
     .xcard-body p {
@@ -1240,9 +1240,20 @@
       margin: 0 0 20px;
     }
     .xcard.open .xcard-body {
-      max-height: 300px;
+      max-height: 800px;
       padding: 4px 20px 20px 68px;
     }
+    /* ── xcard expanded: problem / solution sections ── */
+    .xcard-sections { display: flex; flex-direction: column; gap: 12px; }
+    .xcard-section { padding: 8px; border-radius: 6px; border-left: 3px solid transparent; }
+    .xcard-section-problem  { background: #FFF5F5; border-left-color: #FFCCCC; }
+    .xcard-section-solution { background: #F0FAF5; border-left-color: #86EFAC; }
+    .xcard-section-divider  { border: none; border-top: 1px solid #E5E5E5; margin: 0; }
+    .xcard-section-label {
+      font-size: 10px; font-weight: 700; color: #444444;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+    }
+    .xcard-section p { font-size: 13px; color: #555555; line-height: 1.6; margin: 0; }
 
     /* Slide 4 — Block quote: Violet accent */
     .bquote { border-left-color: var(--violet); }
@@ -1523,7 +1534,17 @@
           <span class="xcard-toggle">+</span>
         </div>
         <div class="xcard-body">
-          <p>Klaviyo&rsquo;s suppression logic operates at the account level. If a customer unsubscribes from Brand A, that suppression does not automatically transfer to Brand B in a separate account &mdash; which is the correct behavior. But inside a single account, one unsubscribe suppresses that profile globally, meaning a customer who opts out of Brand A emails is silently suppressed from Brand B, C, and D with no way to separate consent by brand. This creates compliance risk and kills cross-brand marketing effectiveness.</p>
+          <div class="xcard-sections">
+            <div class="xcard-section xcard-section-problem">
+              <div class="xcard-section-label">❌ The Problem</div>
+              <p>In a single account, Klaviyo&rsquo;s suppression logic operates globally. If a customer unsubscribes from one brand&rsquo;s emails, that suppression applies across every brand in the account &mdash; even brands the customer never interacted with. There is no way to scope consent to a specific brand inside one account. This creates compliance risk, destroys cross-brand marketing effectiveness, and cannot be fixed with features &mdash; it is an architectural limitation.</p>
+            </div>
+            <hr class="xcard-section-divider">
+            <div class="xcard-section xcard-section-solution">
+              <div class="xcard-section-label">✅ How Organizations Solves It</div>
+              <p>Organizations preserves a dedicated account per brand, meaning suppression lists are fully isolated by design. An unsubscribe from Wayfair has zero impact on Birch Lane &mdash; they are separate accounts with separate consent records. The Consent Management Framework (Milestone 1 &mdash; Committed) introduces org-level infrastructure for storing and managing consent, enabling brand-specific opt-in forms and opt-out pages that respect each brand&rsquo;s boundaries. Customers can be subscribed to Brand A and unsubscribed from Brand B simultaneously with no bleed &mdash; something that is architecturally impossible in a single account.</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1537,7 +1558,17 @@
           <span class="xcard-toggle">+</span>
         </div>
         <div class="xcard-body">
-          <p>Sending domain reputation is tied to the account. If Brand A runs a poorly targeted campaign that generates high spam complaints or bounces, it degrades the sender score for the shared domain &mdash; directly hurting the deliverability of Brand B and Brand C. There is no way to isolate one brand&rsquo;s sending behavior from another inside a single account. Separate accounts with separate sending domains is the only way to protect each brand&rsquo;s reputation independently.</p>
+          <div class="xcard-sections">
+            <div class="xcard-section xcard-section-problem">
+              <div class="xcard-section-label">❌ The Problem</div>
+              <p>Sender reputation in Klaviyo is tied to the sending domain, which is configured at the account level. When multiple brands share one account and one sending domain, a poorly performing campaign from Brand A &mdash; high spam complaints, elevated bounce rates, low engagement &mdash; directly degrades the shared sender score. Brand B and Brand C suffer the deliverability consequences of Brand A&rsquo;s audience problems, with no way to isolate or protect their own reputation. This is not a configuration issue &mdash; it is a fundamental constraint of shared infrastructure.</p>
+            </div>
+            <hr class="xcard-section-divider">
+            <div class="xcard-section xcard-section-solution">
+              <div class="xcard-section-label">✅ How Organizations Solves It</div>
+              <p>Because each brand has its own dedicated Klaviyo account, each brand gets its own sending domain with fully isolated sender reputation. A spam complaint on wayfair.com has zero impact on birchlane.com &mdash; they are separate domains with separate reputations tracked independently. This is exactly what customers are asking for when they request multiple sending domains &mdash; they want brand isolation. Organizations delivers that isolation correctly, across accounts rather than inside one. Centralized Channel Settings Management (Milestone 2) lets org admins configure and assign sending domains across all accounts from one place &mdash; so you get both isolation and centralized management.</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1551,7 +1582,17 @@
           <span class="xcard-toggle">+</span>
         </div>
         <div class="xcard-body">
-          <p>All analytics in Klaviyo are scoped to a single account. Revenue attribution, flow performance, campaign engagement, and profile metrics would all be aggregated across every brand in the account with no clean way to separate them. Leadership loses the ability to evaluate brand-level performance, identify underperforming brands, or make data-driven investment decisions across the portfolio. Clean reporting requires clean data separation &mdash; which requires separate accounts.</p>
+          <div class="xcard-sections">
+            <div class="xcard-section xcard-section-problem">
+              <div class="xcard-section-label">❌ The Problem</div>
+              <p>All analytics in Klaviyo are scoped to a single account. Revenue attribution, flow performance, campaign engagement, and profile metrics are all aggregated across every brand in the account with no clean way to separate them. A $500 order &mdash; was it driven by Brand A&rsquo;s campaign or Brand B&rsquo;s flow? There is no reliable answer. Leadership loses the ability to evaluate brand-level performance, identify underperforming brands, or make data-driven investment decisions across the portfolio. The data is irreparably blended at the point of collection.</p>
+            </div>
+            <hr class="xcard-section-divider">
+            <div class="xcard-section xcard-section-solution">
+              <div class="xcard-section-label">✅ How Organizations Solves It</div>
+              <p>Cross Brand Reporting (Milestone 1 &mdash; Committed) introduces org-level analytics that sit on top of clean, brand-separated data. Because each brand has its own account, revenue attribution, engagement metrics, and profile data are collected cleanly at the brand level first. The org layer then aggregates those clean data sets into a portfolio view &mdash; giving leadership both the big picture and the ability to drill into any individual brand. Cross Brand Activation (Milestone 2) goes further by enabling cross-brand segmentation using the Global Profile, so you can identify customers who exist across multiple brands and build campaigns around that behavior without compromising brand-level reporting integrity.</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1565,7 +1606,17 @@
           <span class="xcard-toggle">+</span>
         </div>
         <div class="xcard-body">
-          <p>Sending domains, click-tracking domains, SMS phone numbers, sender IDs, and third-party app integrations are all configured at the account level. There is no sub-brand or brand-level configuration layer inside a single account. This means every brand is locked into shared infrastructure &mdash; you cannot give Brand A its own sending domain while Brand B uses a different one, and you cannot connect Brand A to a different Shopify store than Brand B. This is a hard architectural limit, not a missing feature.</p>
+          <div class="xcard-sections">
+            <div class="xcard-section xcard-section-problem">
+              <div class="xcard-section-label">❌ The Problem</div>
+              <p>Sending domains, click-tracking domains, SMS phone numbers, sender IDs, and third-party app integrations are all configured at the account level in Klaviyo. There is no sub-brand or brand-level configuration layer inside a single account. Every brand is locked into shared infrastructure &mdash; you cannot give Brand A its own sending domain while Brand B uses a different one, you cannot connect Brand A to a different Shopify store than Brand B, and you cannot assign separate SMS numbers per brand. This is a hard architectural limit. Customers managing 50+ brands like COTY face this as a daily operational burden &mdash; logging into every account one by one to update configurations that should be manageable in one place.</p>
+            </div>
+            <hr class="xcard-section-divider">
+            <div class="xcard-section xcard-section-solution">
+              <div class="xcard-section-label">✅ How Organizations Solves It</div>
+              <p>Centralized Channel Settings Management (Milestone 2) allows org admins to configure sending domains, click-tracking domains, SMS phone numbers, and sender IDs at the organization level and push them to the relevant accounts. Instead of logging into 50 accounts to update a domain setting, you do it once and it propagates. Critically, each brand still has its own isolated configuration &mdash; they are not shared &mdash; but the management of those configurations is centralized at the org level. This directly eliminates the manual tax customers like COTY described. Each brand gets its own sending domain, its own channel settings, and its own integration &mdash; all manageable from a single org control panel.</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1579,7 +1630,17 @@
           <span class="xcard-toggle">+</span>
         </div>
         <div class="xcard-body">
-          <p>Klaviyo&rsquo;s integrations are built on a strict 1:1 architecture. Each ecommerce platform connection &mdash; whether Shopify, BigCommerce, Magento, or others &mdash; must be linked to a single dedicated Klaviyo account. There is no way to connect multiple Shopify stores to one Klaviyo account and maintain clean data separation, accurate order tracking, and reliable sync. Forcing multiple brands and their respective stores into one account breaks the integration entirely &mdash; product catalogs merge, order data conflicts, and revenue attribution becomes unreliable. Separate accounts per brand is not a workaround, it is a hard technical requirement of how Klaviyo integrations are built.</p>
+          <div class="xcard-sections">
+            <div class="xcard-section xcard-section-problem">
+              <div class="xcard-section-label">❌ The Problem</div>
+              <p>Klaviyo&rsquo;s integrations are built on a strict 1:1 architecture. Each ecommerce platform connection &mdash; Shopify, BigCommerce, Magento, and others &mdash; must be linked to a single dedicated Klaviyo account. There is no way to connect multiple Shopify stores to one Klaviyo account and maintain clean data separation, accurate order tracking, and reliable revenue sync. Forcing multiple brands and their respective stores into one account breaks the integration entirely &mdash; product catalogs merge, order data conflicts across brands, and revenue attribution becomes unreliable at the brand level. This is not a missing feature. It is a deliberate constraint that protects data integrity.</p>
+            </div>
+            <hr class="xcard-section-divider">
+            <div class="xcard-section xcard-section-solution">
+              <div class="xcard-section-label">✅ How Organizations Solves It</div>
+              <p>Organizations preserves the 1:1 integration architecture by design &mdash; each Shopify store, BigCommerce site, or other ecommerce platform remains connected to its own dedicated Klaviyo account. This ensures product catalogs stay clean per brand, order data syncs accurately, and revenue attribution is reliable at the brand level. What Organizations adds on top is the umbrella layer &mdash; all those 1:1 connected accounts roll up into one Organization where leadership has unified visibility, centralized user management, and cross-brand analytics. Customers get the integration integrity they need AND the centralized control they want, without compromising either.</p>
+            </div>
+          </div>
         </div>
       </div>
 
