@@ -897,6 +897,75 @@
     ════════════════════════════════ */
     #sm1 { background: #FAF8F5; justify-content: center; padding: 28px 40px 80px; gap: 0; }
     #sm2 { background: #FAF8F5; justify-content: center; padding: 28px 40px 80px; gap: 0; }
+    #sm3 { background: #FAF8F5; justify-content: center; padding: 28px 40px 80px; gap: 0; }
+
+    /* ── sm3 profile detail ── */
+    #sm3-step2 { transform: translateX(30px); transition: opacity 0.3s ease, transform 0.3s ease; }
+    #sm3-step2.active { transform: translateX(0); }
+    .sm3-back-btn {
+      display: inline-flex; align-items: center;
+      background: #232122; color: white; border: none; border-radius: 20px;
+      padding: 5px 14px; font-size: 11px; font-weight: 700;
+      cursor: default; margin-bottom: 8px; font-family: inherit;
+    }
+    .sm3-phdr {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 12px; background: white; border-radius: 10px;
+      border: 1px solid #E5E5E5; margin-bottom: 8px; position: relative;
+    }
+    .sm3-avatar {
+      width: 36px; height: 36px; border-radius: 50%; background: #E0E0E0;
+      color: #666; font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .sm3-pname { font-size: 13px; font-weight: 800; color: #232122; }
+    .sm3-pmeta { font-size: 10px; color: #888; margin-top: 1px; }
+    .sm3-merge-btn {
+      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      border: 1.5px solid #232122; background: transparent; border-radius: 6px;
+      padding: 4px 10px; font-size: 10px; font-weight: 700; cursor: default; font-family: inherit;
+    }
+    .sm3-stats { display: flex; gap: 8px; margin-bottom: 8px; }
+    .sm3-stat-card {
+      flex: 1; background: white; border: 1px solid #E5E5E5; border-radius: 8px;
+      padding: 8px 10px; text-align: center; opacity: 0; transition: opacity 0.4s ease;
+    }
+    .sm3-stat-card.loaded { opacity: 1; }
+    .sm3-stat-val { font-size: 16px; font-weight: 800; color: #232122; }
+    .sm3-stat-lbl { font-size: 9px; color: #888; margin-top: 2px; }
+    .sm3-sec-hdr {
+      font-size: 9px; font-weight: 700; color: #aaa;
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px;
+    }
+    .sm3-assoc-section { margin-bottom: 8px; }
+    .sm3-assoc-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 0; border-bottom: 1px solid #F5F5F5; font-size: 11px;
+    }
+    .sm3-assoc-row:last-child { border-bottom: none; }
+    .sm3-assoc-name { font-weight: 700; flex: 1; }
+    .sm3-assoc-rev { color: #888; font-size: 10px; }
+    .sm3-consent-section { margin-bottom: 8px; opacity: 0; transition: opacity 0.5s ease; }
+    .sm3-consent-section.loaded { opacity: 1; }
+    .sm3-timeline-section { opacity: 0; transition: opacity 0.5s ease; }
+    .sm3-timeline-section.loaded { opacity: 1; }
+    .sm3-tl-item {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 5px 0; border-bottom: 1px solid #F5F5F5;
+      opacity: 0; transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .sm3-tl-item.loaded { opacity: 1; transform: translateY(0); }
+    .sm3-tl-item:last-child { border-bottom: none; }
+    .sm3-tl-icon { font-size: 13px; flex-shrink: 0; }
+    .sm3-tl-body { flex: 1; min-width: 0; }
+    .sm3-tl-title { font-size: 11px; font-weight: 700; color: #232122; }
+    .sm3-tl-date { font-size: 10px; color: #888; }
+    .sm3-brand-tag {
+      display: inline-flex; align-items: center;
+      background: #F5F5F5; border: 1px solid #E5E5E5; border-radius: 4px;
+      padding: 2px 6px; font-size: 9px; font-weight: 600; color: #555; flex-shrink: 0;
+    }
 
     /* Top reframe section */
     .sm1-top {
@@ -2179,6 +2248,154 @@
     </div><!-- /sm1-demo-row -->
   </div><!-- /sm2 -->
 
+  <!-- MINI-SLIDE 3 — Unified Profiles -->
+  <div class="slide" id="sm3" data-theme="light">
+
+    <!-- Top reframe -->
+    <div class="sm1-top">
+      <span class="sm1-pill">What They Ask For</span>
+      <p class="sm1-ask-text">&ldquo;One place to see all customer data across every brand&rdquo;</p>
+      <span class="sm1-arrow">↓</span>
+      <span class="sm1-pill">What They Actually Need</span>
+      <p class="sm1-need-text">Unified customer profiles across all brands &mdash; with consent tracked separately per brand</p>
+    </div>
+
+    <!-- Demo row -->
+    <div class="sm1-demo-row">
+
+      <!-- Browser + playbar -->
+      <div class="s5-browser-col">
+        <div class="browser-wrap">
+          <div class="browser-chrome">
+            <span class="bc-dot" style="background:#FF5F57"></span>
+            <span class="bc-dot" style="background:#FFBD2E"></span>
+            <span class="bc-dot" style="background:#28C840"></span>
+            <span class="bc-url">app.klaviyo.com</span>
+          </div>
+          <div class="browser-body">
+            <div class="acct-switcher">
+              <span class="acct-left">🏢 <strong>Wayfair Inc.</strong>&nbsp;<span class="acct-badge">Organization</span></span>
+              <span class="acct-right">Switch to Brand Account ▾</span>
+            </div>
+            <div class="browser-main">
+              <div class="demo-cursor" id="sm3-cursor"></div>
+              <!-- Sidebar -->
+              <div class="browser-sidebar">
+                <div class="sb-item">🏠 Home</div>
+                <div class="sb-item">📣 Campaigns</div>
+                <div class="sb-item">⚡ Flows</div>
+                <div class="sb-sec-hdr">Manage</div>
+                <div class="sb-sub" id="sm3-sb-profiles">👤 Profiles</div>
+                <div class="sb-sub">Segments</div>
+                <div class="sb-divider"></div>
+                <div class="sb-footer">WI &middot; Wayfair Inc. Organization</div>
+              </div>
+              <!-- Steps -->
+              <div class="browser-content">
+
+                <!-- STEP 1: Profiles List (ch1) -->
+                <div class="step active" id="sm3-step1">
+                  <div class="sc-header">Profiles</div>
+                  <div class="sc-subtitle">Manage customer profiles across all accounts in your portfolio</div>
+                  <table class="demo-table">
+                    <thead><tr>
+                      <th>Name</th><th>Email</th><th># of Accounts</th><th>Associated Accounts</th>
+                    </tr></thead>
+                    <tbody>
+                      <tr class="trow"><td>Amy Compton</td><td class="td-muted">amy.compton@wayfair-demo.com</td><td>3</td><td class="td-muted">Wayfair, AllModern, Joss &amp; Main</td></tr>
+                      <tr class="trow"><td>Julia Shea</td><td class="td-muted">julia.shea@wayfair-demo.com</td><td>2</td><td class="td-muted">AllModern, Birch Lane</td></tr>
+                      <tr class="trow" id="sm3-row-mary"><td><strong>Mary Bates</strong></td><td class="td-muted">mary.bates@wayfair-demo.com</td><td>2</td><td class="td-muted">Birch Lane, Wayfair</td></tr>
+                      <tr class="trow"><td>Kathryn Dennis</td><td class="td-muted">kathryn.dennis@wayfair-demo.com</td><td>3</td><td class="td-muted">Joss &amp; Main, Perigold, Wayfair</td></tr>
+                      <tr class="trow"><td>Jordan Pham</td><td class="td-muted">jordan.pham@wayfair-demo.com</td><td>3</td><td class="td-muted">Wayfair, Wayfair Professional, Birch Lane</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- STEP 2: Merged Profile Detail (ch2 + ch3 — step scrolls to reveal consent/timeline) -->
+                <div class="step" id="sm3-step2">
+                  <button class="sm3-back-btn">&#8592; Back to Profiles</button>
+                  <!-- Profile header -->
+                  <div class="sm3-phdr">
+                    <div class="sm3-avatar">MB</div>
+                    <div>
+                      <div class="sm3-pname">Mary Bates</div>
+                      <div class="sm3-pmeta">mary.bates@wayfair-demo.com &middot; +1 (972) 347-2922</div>
+                      <div class="sm3-pmeta">Johnfort, TX, United States</div>
+                    </div>
+                    <button class="sm3-merge-btn">Merge Profile</button>
+                  </div>
+                  <!-- Stat cards (count up in ch2) -->
+                  <div class="sm3-stats">
+                    <div class="sm3-stat-card" id="sm3-stat0"><div class="sm3-stat-val" id="sm3-sval0">0</div><div class="sm3-stat-lbl">Total Orders</div></div>
+                    <div class="sm3-stat-card" id="sm3-stat1"><div class="sm3-stat-val" id="sm3-sval1">$0.00</div><div class="sm3-stat-lbl">Total Spent</div></div>
+                    <div class="sm3-stat-card" id="sm3-stat2"><div class="sm3-stat-val" id="sm3-sval2">0</div><div class="sm3-stat-lbl">Associated Accounts</div></div>
+                  </div>
+                  <!-- Associated accounts -->
+                  <div class="sm3-assoc-section">
+                    <div class="sm3-sec-hdr">Associated Child Accounts</div>
+                    <div class="sm3-assoc-row"><span class="sm3-assoc-name">Wayfair</span><span class="pill-green">Active</span><span class="sm3-assoc-rev">$140,000 Total Revenue</span></div>
+                    <div class="sm3-assoc-row"><span class="sm3-assoc-name">Birch Lane</span><span class="pill-green">Active</span><span class="sm3-assoc-rev">$80,000 Total Revenue</span></div>
+                  </div>
+                  <!-- Consent table (fades in ch3) -->
+                  <div class="sm3-consent-section" id="sm3-consent">
+                    <div class="sm3-sec-hdr">Consent</div>
+                    <table class="demo-table">
+                      <thead><tr><th>Account</th><th>Email</th><th>SMS Transactional</th><th>SMS Marketing</th></tr></thead>
+                      <tbody>
+                        <tr class="trow" id="sm3-cr0"><td>Wayfair</td><td><span class="pill-green">Subscribed</span></td><td><span class="pill-green">Subscribed</span></td><td><span class="pill-red">Unsubscribed</span></td></tr>
+                        <tr class="trow" id="sm3-cr1"><td>Birch Lane</td><td><span class="pill-green">Subscribed</span></td><td><span class="pill-gray">Never Subscribed</span></td><td><span class="pill-gray">Never Subscribed</span></td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- Timeline (fades in ch3) -->
+                  <div class="sm3-timeline-section" id="sm3-timeline">
+                    <div class="sm3-sec-hdr">Timeline</div>
+                    <div class="sm3-tl-item" id="sm3-tl0"><span class="sm3-tl-icon">🛒</span><div class="sm3-tl-body"><div class="sm3-tl-title">Placed Order</div><div class="sm3-tl-date">Jul 16, 2025 &middot; $120.50</div></div><span class="sm3-brand-tag">Wayfair</span></div>
+                    <div class="sm3-tl-item" id="sm3-tl1"><span class="sm3-tl-icon">👁</span><div class="sm3-tl-body"><div class="sm3-tl-title">Viewed Product</div><div class="sm3-tl-date">Jul 16, 2025 &middot; Women&#39;s Ski Jacket</div></div><span class="sm3-brand-tag">Birch Lane</span></div>
+                    <div class="sm3-tl-item" id="sm3-tl2"><span class="sm3-tl-icon">⚡</span><div class="sm3-tl-body"><div class="sm3-tl-title">Active on Site</div><div class="sm3-tl-date">Jul 16, 2025</div></div><span class="sm3-brand-tag">Birch Lane</span></div>
+                    <div class="sm3-tl-item" id="sm3-tl3"><span class="sm3-tl-icon">✉</span><div class="sm3-tl-body"><div class="sm3-tl-title">Received Email</div><div class="sm3-tl-date">Jul 15, 2025 &middot; &ldquo;Summer Sale Starts Now!&rdquo;</div></div><span class="sm3-brand-tag">Wayfair</span></div>
+                  </div>
+                </div>
+
+                <div class="demo-annotation" id="sm3-annotation"></div>
+              </div><!-- /browser-content -->
+            </div><!-- /browser-main -->
+          </div><!-- /browser-body -->
+        </div><!-- /browser-wrap -->
+
+        <!-- Playbar -->
+        <div class="s5-playbar" id="sm3-playbar">
+          <button class="s5-play-btn" id="sm3-play-btn" title="Play / Pause">&#9646;&#9646;</button>
+          <div class="s5-scrub-track" id="sm3-scrub-track">
+            <div class="s5-scrub-fill" id="sm3-scrub-fill"></div>
+            <div class="s5-scrub-thumb" id="sm3-scrub-thumb"></div>
+          </div>
+          <span class="s5-time-display" id="sm3-time">0:00 / 0:15</span>
+        </div>
+      </div><!-- /s5-browser-col -->
+
+      <!-- Chapter nav -->
+      <div class="s5-chap-col">
+        <p class="s5-chap-hint">Click to jump to any step</p>
+        <div class="s5-chapter-panel" id="sm3-chapter-nav">
+          <div class="s5-chap-hdr">CHAPTERS <span class="s5-live-dot"></span></div>
+          <button class="s5-chap-btn active" id="sm3-chap0" onclick="sm3JumpTo(0)">
+            <span class="s5-chap-num">1</span><span class="s5-chap-label">Profiles List</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+          </button>
+          <button class="s5-chap-btn" id="sm3-chap1" onclick="sm3JumpTo(1)">
+            <span class="s5-chap-num">2</span><span class="s5-chap-label">Merged Profile</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+          </button>
+          <button class="s5-chap-btn" id="sm3-chap2" onclick="sm3JumpTo(2)">
+            <span class="s5-chap-num">3</span><span class="s5-chap-label">Consent &amp; Timeline</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+          </button>
+          <div class="s5-chap-divider"></div>
+          <button class="s5-chap-replay" onclick="sm3JumpTo(0)">&#8635; Replay</button>
+        </div>
+      </div>
+
+    </div><!-- /sm1-demo-row -->
+  </div><!-- /sm3 -->
+
   <!-- SLIDE 5 — Introducing Organizations -->
   <div class="slide" id="s5" data-theme="light">
     <div class="slide-hdr" style="max-width:880px;width:100%">
@@ -2595,10 +2812,12 @@
     const S5_IDX  = slides.findIndex(s => s.id === 's5');
     const SM1_IDX = slides.findIndex(s => s.id === 'sm1');
     const SM2_IDX = slides.findIndex(s => s.id === 'sm2');
-    if      (cur === S5_IDX)  { s5Start();  sm1Stop(); sm2Stop(); }
-    else if (cur === SM1_IDX) { sm1Start(); s5Stop();  sm2Stop(); }
-    else if (cur === SM2_IDX) { sm2Start(); s5Stop();  sm1Stop(); }
-    else                      { s5Stop();   sm1Stop(); sm2Stop(); }
+    const SM3_IDX = slides.findIndex(s => s.id === 'sm3');
+    if      (cur === S5_IDX)  { s5Start();  sm1Stop(); sm2Stop(); sm3Stop(); }
+    else if (cur === SM1_IDX) { sm1Start(); s5Stop();  sm2Stop(); sm3Stop(); }
+    else if (cur === SM2_IDX) { sm2Start(); s5Stop();  sm1Stop(); sm3Stop(); }
+    else if (cur === SM3_IDX) { sm3Start(); s5Stop();  sm1Stop(); sm2Stop(); }
+    else                      { s5Stop();   sm1Stop(); sm2Stop(); sm3Stop(); }
     // Slide 3 (s4) — one-time toggle pulse on first visit
     if (cur === slides.findIndex(s => s.id === 's4') && !s4HasLoaded) {
       s4HasLoaded = true;
@@ -3604,6 +3823,369 @@
 
     // ── Loop ──
     at(SM2_LOOP, function() { sm2IsPaused = false; sm2AutoPlay(gen, 0); });
+  }
+
+  // ─────────────────────────────────────────────
+  //  MINI-SLIDE 3 — Unified Profiles (15s loop)
+  // ─────────────────────────────────────────────
+  var sm3Timers       = [];
+  var sm3Gen          = 0;
+  var SM3_LOOP        = 15000;
+  var SM3_STEP_TIMES  = [0, 4000, 10000];
+  var sm3IsPaused     = false;
+  var sm3PauseMs      = 0;
+  var sm3TimeBase     = 0;
+  var sm3UiInterval   = null;
+  var sm3PlaybarReady = false;
+
+  function sm3GetMs() {
+    if (sm3IsPaused) return sm3PauseMs;
+    return Math.min(Date.now() - sm3TimeBase, SM3_LOOP);
+  }
+
+  function sm3StartUiLoop() {
+    if (sm3UiInterval) clearInterval(sm3UiInterval);
+    sm3UiInterval = setInterval(function() {
+      var ms    = sm3GetMs();
+      var pct   = ms / SM3_LOOP * 100;
+      var fill  = document.getElementById('sm3-scrub-fill');
+      var thumb = document.getElementById('sm3-scrub-thumb');
+      var disp  = document.getElementById('sm3-time');
+      if (fill)  fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (disp) {
+        var sec = Math.floor(ms / 1000);
+        var m = Math.floor(sec / 60), s = sec % 60;
+        var tot = Math.floor(SM3_LOOP / 1000);
+        var tm = Math.floor(tot / 60), ts = tot % 60;
+        disp.textContent = m + ':' + (s < 10 ? '0' : '') + s + ' / ' + tm + ':' + (ts < 10 ? '0' : '') + ts;
+      }
+    }, 50);
+  }
+
+  function sm3StopUiLoop() {
+    if (sm3UiInterval) { clearInterval(sm3UiInterval); sm3UiInterval = null; }
+  }
+
+  function sm3Stop() {
+    sm3Gen++;
+    sm3Timers.forEach(clearTimeout); sm3Timers = [];
+    sm3StopUiLoop();
+    sm3IsPaused = false;
+    var c = document.getElementById('sm3-cursor');
+    if (c) { c.style.opacity = '0'; c.classList.remove('clicking'); }
+    var ann = document.getElementById('sm3-annotation');
+    if (ann) ann.classList.remove('visible');
+  }
+
+  function sm3Pause() {
+    if (sm3IsPaused) return;
+    sm3PauseMs = sm3GetMs();
+    sm3IsPaused = true;
+    sm3Timers.forEach(clearTimeout); sm3Timers = [];
+    var c = document.getElementById('sm3-cursor');
+    if (c && parseFloat(c.style.opacity) > 0) {
+      var cst = window.getComputedStyle(c);
+      c.style.transition = 'none';
+      c.style.left = cst.left; c.style.top = cst.top;
+    }
+    var btn = document.getElementById('sm3-play-btn');
+    if (btn) btn.textContent = '\u25B6';
+  }
+
+  function sm3Resume() {
+    if (!sm3IsPaused) return;
+    sm3IsPaused = false;
+    sm3TimeBase = Date.now() - sm3PauseMs;
+    sm3AutoPlay(sm3Gen, sm3PauseMs, true);
+    var btn = document.getElementById('sm3-play-btn');
+    if (btn) btn.textContent = '\u25AE\u25AE';
+  }
+
+  function sm3Start() {
+    sm3Stop();
+    sm3IsPaused = false;
+    sm3AutoPlay(sm3Gen, 0);
+    sm3StartUiLoop();
+    sm3PlaybarSetup();
+    var btn = document.getElementById('sm3-play-btn');
+    if (btn) btn.textContent = '\u25AE\u25AE';
+  }
+
+  function sm3JumpTo(n) {
+    if (n < 0 || n > 2) return;
+    sm3Stop();
+    sm3IsPaused = false;
+    sm3AutoPlay(sm3Gen, SM3_STEP_TIMES[n]);
+    sm3StartUiLoop();
+    var btn = document.getElementById('sm3-play-btn');
+    if (btn) btn.textContent = '\u25AE\u25AE';
+  }
+
+  function sm3PlaybarSetup() {
+    if (sm3PlaybarReady) return;
+    sm3PlaybarReady = true;
+
+    var playBtn = document.getElementById('sm3-play-btn');
+    if (playBtn) {
+      playBtn.addEventListener('click', function() {
+        if (sm3IsPaused) { sm3Resume(); } else { sm3Pause(); }
+      });
+    }
+
+    var track = document.getElementById('sm3-scrub-track');
+    if (!track) return;
+    var sm3Dragging   = false;
+    var sm3WasPlaying = false;
+
+    function scrubMsSm3(e) {
+      var rect = track.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      return Math.max(0, Math.min(SM3_LOOP, (x / rect.width) * SM3_LOOP));
+    }
+
+    track.addEventListener('mousedown', function(e) {
+      sm3Dragging = true;
+      sm3WasPlaying = !sm3IsPaused;
+      track.classList.add('dragging');
+      if (!sm3IsPaused) {
+        sm3PauseMs  = sm3GetMs();
+        sm3IsPaused = true;
+        sm3Timers.forEach(clearTimeout); sm3Timers = [];
+      }
+      sm3PauseMs = scrubMsSm3(e);
+      var idx = 0;
+      for (var k = 0; k < SM3_STEP_TIMES.length; k++) { if (SM3_STEP_TIMES[k] <= sm3PauseMs) idx = k; }
+      document.querySelectorAll('#sm3 .s5-chap-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (!sm3Dragging) return;
+      sm3PauseMs = scrubMsSm3(e);
+      var idx = 0;
+      for (var k = 0; k < SM3_STEP_TIMES.length; k++) { if (SM3_STEP_TIMES[k] <= sm3PauseMs) idx = k; }
+      document.querySelectorAll('#sm3 .s5-chap-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+    });
+
+    document.addEventListener('mouseup', function() {
+      if (!sm3Dragging) return;
+      sm3Dragging = false;
+      track.classList.remove('dragging');
+      var ms = sm3PauseMs;
+      if (sm3WasPlaying) {
+        sm3Stop();
+        sm3IsPaused = false;
+        sm3AutoPlay(sm3Gen, ms);
+        sm3StartUiLoop();
+        var btn = document.getElementById('sm3-play-btn');
+        if (btn) btn.textContent = '\u25AE\u25AE';
+      }
+    });
+  }
+
+  function sm3AutoPlay(gen, startOffset, skipReset) {
+    if (gen !== sm3Gen) return;
+    startOffset = startOffset || 0;
+    sm3TimeBase = Date.now() - startOffset;
+
+    function at(absTime, fn) {
+      var delay = absTime - startOffset;
+      if (delay < 0) return;
+      var id = setTimeout(function() { if (gen === sm3Gen) fn(); }, delay);
+      sm3Timers.push(id);
+    }
+    function after(relMs, fn) {
+      var id = setTimeout(function() { if (gen === sm3Gen) fn(); }, relMs);
+      sm3Timers.push(id);
+    }
+
+    function updateChapNav(idx) {
+      document.querySelectorAll('#sm3 .s5-chap-btn').forEach(function(b, i) {
+        b.classList.toggle('active', i === idx);
+      });
+    }
+
+    function activateStep(stepId, chapIdx) {
+      document.querySelectorAll('#sm3 .step').forEach(function(s) { s.classList.remove('active'); });
+      var el = document.getElementById(stepId); if (el) el.classList.add('active');
+      var sb = document.getElementById('sm3-sb-profiles'); if (sb) sb.classList.add('active');
+      updateChapNav(chapIdx);
+    }
+
+    function moveCursor(targetEl, moveDur) {
+      var cursor    = document.getElementById('sm3-cursor');
+      var container = document.querySelector('#sm3 .browser-main');
+      if (!cursor || !targetEl || !container) return;
+      var cr = container.getBoundingClientRect();
+      var tr = targetEl.getBoundingClientRect();
+      var x  = tr.left - cr.left + tr.width  / 2 - 5;
+      var y  = tr.top  - cr.top  + tr.height / 2 - 5;
+      cursor.style.transition = 'none';
+      cursor.style.left = (x - 18) + 'px';
+      cursor.style.top  = (y - 12) + 'px';
+      cursor.style.opacity = '0';
+      void cursor.offsetHeight;
+      cursor.style.transition = 'left ' + moveDur + 'ms cubic-bezier(.25,.46,.45,.94), top ' + moveDur + 'ms cubic-bezier(.25,.46,.45,.94), opacity 0.15s ease';
+      cursor.style.opacity = '1';
+      cursor.style.left = x + 'px';
+      cursor.style.top  = y + 'px';
+      after(moveDur + 80, function() {
+        cursor.classList.add('clicking');
+        after(340, function() { cursor.classList.remove('clicking'); cursor.style.opacity = '0'; });
+      });
+    }
+
+    function showAnn(text) {
+      var a = document.getElementById('sm3-annotation');
+      if (!a) return; a.textContent = text; a.classList.add('visible');
+    }
+    function hideAnn() {
+      var a = document.getElementById('sm3-annotation'); if (a) a.classList.remove('visible');
+    }
+
+    if (!skipReset) {
+      // Reset all sm3 state
+      document.querySelectorAll('#sm3 .step').forEach(function(s) { s.classList.remove('active'); });
+      document.querySelectorAll('#sm3 .sb-sub').forEach(function(e) { e.classList.remove('active'); });
+      document.querySelectorAll('#sm3-step1 .trow').forEach(function(r) { r.classList.remove('loaded'); });
+      ['sm3-stat0','sm3-stat1','sm3-stat2'].forEach(function(id) {
+        var el = document.getElementById(id); if (el) el.classList.remove('loaded');
+      });
+      var sv0 = document.getElementById('sm3-sval0'); if (sv0) sv0.textContent = '0';
+      var sv1 = document.getElementById('sm3-sval1'); if (sv1) sv1.textContent = '$0.00';
+      var sv2 = document.getElementById('sm3-sval2'); if (sv2) sv2.textContent = '0';
+      var cs = document.getElementById('sm3-consent');
+      if (cs) {
+        cs.classList.remove('loaded');
+        cs.querySelectorAll('.trow').forEach(function(r) { r.classList.remove('loaded'); });
+      }
+      var tl = document.getElementById('sm3-timeline'); if (tl) tl.classList.remove('loaded');
+      ['sm3-tl0','sm3-tl1','sm3-tl2','sm3-tl3'].forEach(function(id) {
+        var el = document.getElementById(id); if (el) el.classList.remove('loaded');
+      });
+      var s2 = document.getElementById('sm3-step2'); if (s2) s2.scrollTop = 0;
+      var ann = document.getElementById('sm3-annotation'); if (ann) ann.classList.remove('visible');
+
+      // Pre-fill state when jumping mid-loop
+      if (startOffset > 0) {
+        var jIdx = 0;
+        for (var k = 0; k < SM3_STEP_TIMES.length; k++) { if (SM3_STEP_TIMES[k] <= startOffset) jIdx = k; }
+        if (jIdx === 0) {
+          activateStep('sm3-step1', 0);
+        } else {
+          activateStep('sm3-step2', jIdx);
+          document.querySelectorAll('#sm3-step1 .trow').forEach(function(r) { r.classList.add('loaded'); });
+          ['sm3-stat0','sm3-stat1','sm3-stat2'].forEach(function(id) {
+            var el = document.getElementById(id); if (el) el.classList.add('loaded');
+          });
+          var pv0 = document.getElementById('sm3-sval0'); if (pv0) pv0.textContent = '8';
+          var pv1 = document.getElementById('sm3-sval1'); if (pv1) pv1.textContent = '$500.50';
+          var pv2 = document.getElementById('sm3-sval2'); if (pv2) pv2.textContent = '2';
+        }
+        if (jIdx >= 2) {
+          var cns = document.getElementById('sm3-consent');
+          if (cns) {
+            cns.classList.add('loaded');
+            cns.querySelectorAll('.trow').forEach(function(r) { r.classList.add('loaded'); });
+          }
+          var tls = document.getElementById('sm3-timeline');
+          if (tls) {
+            tls.classList.add('loaded');
+            ['sm3-tl0','sm3-tl1','sm3-tl2','sm3-tl3'].forEach(function(id) {
+              var el = document.getElementById(id); if (el) el.classList.add('loaded');
+            });
+          }
+        }
+      }
+    }
+
+    // ── CHAPTER 1: Profiles List (0–4000ms) ──
+    at(0, function() { activateStep('sm3-step1', 0); });
+    [0, 180, 360, 540, 720].forEach(function(t, i) {
+      at(t, function() {
+        var rows = document.querySelectorAll('#sm3-step1 .trow');
+        if (rows[i]) rows[i].classList.add('loaded');
+      });
+    });
+    at(1500, function() { showAnn('\u2713 Every customer visible across all brands in one view'); });
+    at(3000, function() { hideAnn(); moveCursor(document.getElementById('sm3-row-mary'), 420); });
+
+    // ── CHAPTER 2: Merged Profile (4000–10000ms) ──
+    at(4000, function() { activateStep('sm3-step2', 1); });
+    // Count up Total Orders: 0 → 8
+    at(4500, function() {
+      var card = document.getElementById('sm3-stat0');
+      var el   = document.getElementById('sm3-sval0');
+      if (!card || !el) return;
+      card.classList.add('loaded');
+      var t0 = Date.now(), dur = 600, target = 8, myGen = gen;
+      (function tick() {
+        if (sm3Gen !== myGen) return;
+        var p = Math.min((Date.now() - t0) / dur, 1);
+        el.textContent = String(Math.round(p * target));
+        if (p < 1) requestAnimationFrame(tick);
+      })();
+    });
+    // Count up Total Spent: $0.00 → $500.50
+    at(4900, function() {
+      var card = document.getElementById('sm3-stat1');
+      var el   = document.getElementById('sm3-sval1');
+      if (!card || !el) return;
+      card.classList.add('loaded');
+      var t0 = Date.now(), dur = 700, target = 50050, myGen = gen;
+      (function tick() {
+        if (sm3Gen !== myGen) return;
+        var p = Math.min((Date.now() - t0) / dur, 1);
+        var cents = Math.round(p * target);
+        el.textContent = '$' + Math.floor(cents / 100) + '.' + String(cents % 100).padStart(2, '0');
+        if (p < 1) requestAnimationFrame(tick);
+      })();
+    });
+    // Count up Associated Accounts: 0 → 2
+    at(5300, function() {
+      var card = document.getElementById('sm3-stat2');
+      var el   = document.getElementById('sm3-sval2');
+      if (!card || !el) return;
+      card.classList.add('loaded');
+      var t0 = Date.now(), dur = 400, target = 2, myGen = gen;
+      (function tick() {
+        if (sm3Gen !== myGen) return;
+        var p = Math.min((Date.now() - t0) / dur, 1);
+        el.textContent = String(Math.round(p * target));
+        if (p < 1) requestAnimationFrame(tick);
+      })();
+    });
+    at(6500, function() { showAnn('\u2713 Full cross-brand profile \u2014 orders and revenue unified'); });
+    at(9000, function() { hideAnn(); });
+    at(9400, function() {
+      var s2 = document.getElementById('sm3-step2');
+      if (s2) s2.scrollBy({ top: 120, behavior: 'smooth' });
+    });
+
+    // ── CHAPTER 3: Consent & Timeline (10000–15000ms) ──
+    at(10000, function() {
+      updateChapNav(2);
+      var cs = document.getElementById('sm3-consent'); if (cs) cs.classList.add('loaded');
+    });
+    at(10300, function() { var r = document.getElementById('sm3-cr0'); if (r) r.classList.add('loaded'); });
+    at(10650, function() { var r = document.getElementById('sm3-cr1'); if (r) r.classList.add('loaded'); });
+    at(11300, function() { showAnn('\u2713 Consent tracked independently per brand \u2014 no bleed'); });
+    at(12100, function() {
+      hideAnn();
+      var tl = document.getElementById('sm3-timeline'); if (tl) tl.classList.add('loaded');
+      var s2 = document.getElementById('sm3-step2');
+      if (s2) s2.scrollBy({ top: 100, behavior: 'smooth' });
+    });
+    at(12400, function() { var r = document.getElementById('sm3-tl0'); if (r) r.classList.add('loaded'); });
+    at(12700, function() { var r = document.getElementById('sm3-tl1'); if (r) r.classList.add('loaded'); });
+    at(13000, function() { var r = document.getElementById('sm3-tl2'); if (r) r.classList.add('loaded'); });
+    at(13300, function() { var r = document.getElementById('sm3-tl3'); if (r) r.classList.add('loaded'); });
+    at(13800, function() { showAnn('\u2713 Full activity timeline tagged by brand \u2014 in one view'); });
+    at(14700, function() { hideAnn(); });
+
+    // ── Loop ──
+    at(SM3_LOOP, function() { sm3IsPaused = false; sm3AutoPlay(gen, 0); });
   }
 
   // Init
