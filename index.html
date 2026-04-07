@@ -57,18 +57,19 @@
     /* ── Navigation pill ── */
     #nav {
       position: fixed;
-      bottom: 22px;
+      bottom: 0;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 7px 10px;
+      padding: 7px 10px 14px;
       background: rgba(35,33,33,0.82);
       backdrop-filter: blur(14px);
-      border-radius: 40px;
+      border-radius: 40px 40px 0 0;
       z-index: 200;
       border: 1px solid rgba(255,255,255,0.1);
+      border-bottom: none;
       box-shadow: 0 4px 24px rgba(0,0,0,0.25);
     }
 
@@ -1274,7 +1275,7 @@
       margin: 0 0 20px;
     }
     .xcard.open .xcard-body {
-      max-height: 800px;
+      max-height: 2000px;
       padding: 4px 20px 20px 68px;
     }
     /* ── xcard expanded: problem / solution sections ── */
@@ -1362,6 +1363,55 @@
 
     /* ── S4: expandable cards ── */
     #s4 .s4-setup   { font-size: clamp(13px, 1.4vw, 16px); color: rgba(35,33,33,0.6); margin-bottom: 16px; }
+
+    /* ── S4: slide-level scroll — all 5 cards accessible ── */
+    /* The slide itself is the scrollport; children keep natural heights */
+    #s4 {
+      overflow-y: scroll;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+    /* Stop flex from compressing any direct child below its natural height */
+    #s4 > * { flex-shrink: 0; }
+    /* Card list: natural flow, no fixed height, cleared padding for fixed chrome */
+    #s4 .xcard-list {
+      flex: none;
+      overflow: visible;
+      min-height: unset;
+      padding-top: 60px;
+      padding-bottom: 120px;
+    }
+    /* ── S4 scroll indicator (fixed so it stays at viewport bottom while scrolling) ── */
+    #s4-scroll-ind {
+      position: fixed;
+      bottom: 72px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: auto !important;
+      max-width: none !important;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      z-index: 20;
+    }
+    #s4-scroll-ind.hidden { opacity: 0; }
+    #s4-scroll-ind .s4-chev {
+      font-size: 24px;
+      color: #CCCCCC;
+      line-height: 1;
+      display: block;
+      transform: rotate(90deg);
+    }
+    #s4-scroll-ind .s4-scroll-lbl {
+      font-size: 9px;
+      color: #CCCCCC;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
 
     /* ── S5: browser demo ── */
     #s5 .s5-sub     { font-size: clamp(13px, 1.4vw, 16px); color: #999999; margin-bottom: 4px; }
@@ -1588,7 +1638,7 @@
           <span class="xcard-num">2</span>
           <div class="xcard-title-wrap">
             <strong class="xcard-title">Sender reputation bleeds between brands</strong>
-            <span class="xcard-summary">One brand&rsquo;s spam complaints damage deliverability for every other brand sharing the account.</span>
+            <span class="xcard-summary">One brand&rsquo;s poor performance damages deliverability for every other brand &mdash; across both domain and IP reputation.</span>
           </div>
           <span class="xcard-expand-hint">Click to expand</span><span class="xcard-toggle">+</span>
         </div>
@@ -1596,12 +1646,12 @@
           <div class="xcard-sections">
             <div class="xcard-section xcard-section-problem">
               <div class="xcard-section-label">❌ The Problem</div>
-              <p>Sender reputation in Klaviyo is tied to the sending domain, which is configured at the account level. When multiple brands share one account and one sending domain, a poorly performing campaign from Brand A &mdash; high spam complaints, elevated bounce rates, low engagement &mdash; directly degrades the shared sender score. Brand B and Brand C suffer the deliverability consequences of Brand A&rsquo;s audience problems, with no way to isolate or protect their own reputation. This is not a configuration issue &mdash; it is a fundamental constraint of shared infrastructure.</p>
+              <p>Sender reputation is determined by two factors: domain reputation and IP reputation. Even if Klaviyo supported multiple sending domains inside one account &mdash; giving each brand its own domain &mdash; all brands would still share the same IP pool. A poorly performing campaign from Brand A generates spam complaints and low engagement that degrades the shared IP reputation, directly hurting deliverability for Brand B and Brand C regardless of their individual domain health. Fixing the domain problem alone doesn&rsquo;t fix the IP problem. And IP pools are just one example &mdash; the same issue applies to every piece of sending infrastructure across every channel: SMS sender IDs, phone numbers, app integrations. Each layer of infrastructure compounds the problem.</p>
             </div>
             <hr class="xcard-section-divider">
             <div class="xcard-section xcard-section-solution">
               <div class="xcard-section-label">✅ How Organizations Solves It</div>
-              <p>Because each brand has its own dedicated Klaviyo account, each brand gets its own sending domain with fully isolated sender reputation. A spam complaint on wayfair.com has zero impact on birchlane.com &mdash; they are separate domains with separate reputations tracked independently. This is exactly what customers are asking for when they request multiple sending domains &mdash; they want brand isolation. Organizations delivers that isolation correctly, across accounts rather than inside one. Centralized Channel Settings Management (Milestone 2) lets org admins configure and assign sending domains across all accounts from one place &mdash; so you get both isolation and centralized management.</p>
+              <p>Because each brand has its own dedicated Klaviyo account, each brand gets fully isolated sending infrastructure &mdash; its own sending domain, its own IP pool, and its own channel configuration. Brand A&rsquo;s deliverability problems cannot touch Brand B. This is why supporting multiple domains inside a single account would not actually solve the problem &mdash; it would only address domain reputation while leaving IP reputation, SMS infrastructure, and every other channel still shared and vulnerable. Organizations solves the whole problem, not just the visible surface of it.</p>
             </div>
           </div>
         </div>
@@ -1680,6 +1730,13 @@
       </div>
 
     </div>
+
+    <!-- Scroll indicator: fades once user reaches the bottom of the card list -->
+    <div id="s4-scroll-ind" aria-hidden="true">
+      <span class="s4-chev">›</span>
+      <span class="s4-scroll-lbl">scroll</span>
+    </div>
+
   </div>
 
   <!-- SLIDE 4 — Real Need -->
@@ -2551,8 +2608,37 @@
       card.classList.add('open');
       card.querySelector('.xcard-toggle').textContent = '−';
       var h = card.querySelector('.xcard-expand-hint'); if (h) h.textContent = 'Click to collapse';
+      // Card 5: auto-scroll down 200px so expanded content clears the fixed nav bar
+      var numEl = card.querySelector('.xcard-num');
+      if (numEl && numEl.textContent.trim() === '5') {
+        setTimeout(function() {
+          var slide = document.getElementById('s4');
+          if (slide) slide.scrollBy({ top: 200, behavior: 'smooth' });
+        }, 80);
+      }
     }
+    // Re-evaluate scroll indicator after card expand/collapse animation completes
+    setTimeout(function() { if (window._checkS4Scroll) window._checkS4Scroll(); }, 420);
   }
+
+  // ── S4 scroll indicator setup ──
+  // #s4 is now the scrollport (not .xcard-list), so listen there
+  (function() {
+    var slide = document.getElementById('s4');
+    var ind   = document.getElementById('s4-scroll-ind');
+    if (!slide || !ind) return;
+
+    function check() {
+      var atBottom = slide.scrollTop + slide.clientHeight >= slide.scrollHeight - 24;
+      ind.classList.toggle('hidden', atBottom);
+    }
+
+    slide.addEventListener('scroll', check, { passive: true });
+    // Expose so toggleXCard can trigger a re-check after expand animation
+    window._checkS4Scroll = check;
+    // Initial check after paint
+    requestAnimationFrame(check);
+  })();
 </script>
 
 </body>
