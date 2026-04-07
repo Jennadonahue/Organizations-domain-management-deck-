@@ -893,6 +893,64 @@
     .camp-success-row { font-size: 11px; color: #666; padding: 4px 0; border-bottom: 1px solid #F5F5F5; }
 
     /* ════════════════════════════════
+       MINI-SLIDE 1 — Command Center
+    ════════════════════════════════ */
+    #sm1 { background: #FAF8F5; justify-content: center; padding: 28px 40px 80px; gap: 0; }
+
+    /* Top reframe section */
+    .sm1-top {
+      display: flex; flex-direction: column; align-items: center;
+      flex-shrink: 0; gap: 7px; margin-bottom: 14px;
+      max-width: 840px; width: 100%;
+    }
+    .sm1-pill {
+      display: inline-flex; align-items: center;
+      background: #F86455; color: white;
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 20px;
+    }
+    .sm1-ask-text {
+      font-size: 15px; color: #666666; font-style: italic;
+      text-align: center; line-height: 1.5; margin: 0;
+    }
+    .sm1-arrow { font-size: 22px; color: #F86455; line-height: 1; margin: 0; }
+    .sm1-need-text {
+      font-size: 15px; font-weight: 700; color: #232122;
+      text-align: center; line-height: 1.5; margin: 0;
+    }
+
+    /* Demo row — fills remaining height */
+    .sm1-demo-row {
+      display: flex; flex-direction: row; align-items: stretch;
+      gap: 20px; width: 100%; max-width: 1100px;
+      flex: 1; min-height: 0; max-height: 510px;
+    }
+    .sm1-demo-row .s5-browser-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+    .sm1-demo-row .browser-wrap   { flex: 1; min-width: 0; max-width: none; margin: 0; min-height: 0; }
+
+    /* Toggle rows for Settings step */
+    .sm1-toggle-section { padding: 4px 0; }
+    .sm1-toggle-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 9px 0; border-bottom: 1px solid #F5F5F5;
+    }
+    .sm1-toggle-row:last-child { border-bottom: none; }
+    .sm1-toggle-label { flex: 1; font-size: 11px; font-weight: 600; color: #232122; }
+    .sm1-toggle {
+      width: 32px; height: 18px; border-radius: 9px;
+      background: #2D9E6B; position: relative; flex-shrink: 0;
+      opacity: 0; transition: opacity 0.4s ease;
+    }
+    .sm1-toggle.on { opacity: 1; }
+    .sm1-toggle::after {
+      content: ''; position: absolute;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: white; top: 2px; right: 2px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    /* ════════════════════════════════
        SLIDE 6 — Milestone Columns
     ════════════════════════════════ */
     #s6 { background: var(--bg); justify-content: flex-start; padding-top: 40px; }
@@ -1777,6 +1835,146 @@
     </div>
   </div>
 
+  <!-- MINI-SLIDE 1 — Command Center Demo -->
+  <div class="slide" id="sm1" data-theme="light">
+
+    <!-- Top ~30%: ask → need reframe -->
+    <div class="sm1-top">
+      <span class="sm1-pill">What They Ask For</span>
+      <p class="sm1-ask-text">&ldquo;Remove the one sending domain limit so we can run all our brands in one account&rdquo;</p>
+      <span class="sm1-arrow">↓</span>
+      <span class="sm1-pill">What They Actually Need</span>
+      <p class="sm1-need-text">A single command center to manage assets, campaigns, and profiles across all brands</p>
+    </div>
+
+    <!-- Bottom ~70%: animated browser demo -->
+    <div class="sm1-demo-row">
+
+      <!-- Browser + playbar column -->
+      <div class="s5-browser-col">
+        <div class="browser-wrap">
+          <div class="browser-chrome">
+            <span class="bc-dot" style="background:#FF5F57"></span>
+            <span class="bc-dot" style="background:#FFBD2E"></span>
+            <span class="bc-dot" style="background:#28C840"></span>
+            <span class="bc-url">app.klaviyo.com</span>
+          </div>
+          <div class="browser-body">
+            <div class="acct-switcher">
+              <span class="acct-left">🏢 <strong>Wayfair Inc.</strong>&nbsp;<span class="acct-badge">Organization</span></span>
+              <span class="acct-right">Switch to Brand Account ▾</span>
+            </div>
+            <div class="browser-main">
+              <div class="demo-cursor" id="sm1-cursor"></div>
+              <!-- Sidebar -->
+              <div class="browser-sidebar">
+                <div class="sb-item">🏠 Home</div>
+                <div class="sb-item">📣 Campaigns</div>
+                <div class="sb-sec-hdr">Manage</div>
+                <div class="sb-sub" id="sm1-sb-accounts">Accounts</div>
+                <div class="sb-sub" id="sm1-sb-users">User Management</div>
+                <div class="sb-sub" id="sm1-sb-settings">⚙ Settings</div>
+                <div class="sb-divider"></div>
+                <div class="sb-footer">WI &middot; Wayfair Inc. Organization</div>
+              </div>
+              <!-- Steps -->
+              <div class="browser-content">
+
+                <!-- STEP 1: Accounts -->
+                <div class="step active" id="sm1-step1">
+                  <div class="sc-header">Accounts</div>
+                  <div class="sc-subtitle">Manage all brands from one place</div>
+                  <table class="demo-table">
+                    <thead><tr>
+                      <th>Brand Name</th><th>Status</th><th>Profiles</th><th>Last Active</th>
+                    </tr></thead>
+                    <tbody id="sm1-acct-tbody">
+                      <tr class="trow"><td>Wayfair</td><td><span class="pill-green">Active</span></td><td>2,400,000</td><td class="td-muted">Today</td></tr>
+                      <tr class="trow"><td>Joss &amp; Main</td><td><span class="pill-green">Active</span></td><td>380,000</td><td class="td-muted">Today</td></tr>
+                      <tr class="trow"><td>AllModern</td><td><span class="pill-green">Active</span></td><td>290,000</td><td class="td-muted">2 days ago</td></tr>
+                      <tr class="trow"><td>Birch Lane</td><td><span class="pill-green">Active</span></td><td>210,000</td><td class="td-muted">Today</td></tr>
+                      <tr class="trow"><td>Perigold</td><td><span class="pill-green">Active</span></td><td>95,000</td><td class="td-muted">3 days ago</td></tr>
+                      <tr class="trow"><td>Wayfair Professional</td><td><span class="pill-green">Active</span></td><td>140,000</td><td class="td-muted">Today</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- STEP 2: User Management -->
+                <div class="step" id="sm1-step2">
+                  <div class="sc-header">User Management</div>
+                  <div class="sc-subtitle">Manage users and permissions across all brands</div>
+                  <table class="demo-table">
+                    <thead><tr>
+                      <th>Name</th><th>Email</th><th>Role</th><th>Brand Access</th>
+                    </tr></thead>
+                    <tbody>
+                      <tr class="trow"><td><strong>Sarah Chen</strong></td><td class="td-muted">sarah@wayfair.com</td><td><span class="pill-green">Admin</span></td><td>All Brands</td></tr>
+                      <tr class="trow"><td><strong>Marcus Lee</strong></td><td class="td-muted">marcus@wayfair.com</td><td><span class="pill-gray">Editor</span></td><td>Wayfair, AllModern</td></tr>
+                      <tr class="trow"><td><strong>Priya Patel</strong></td><td class="td-muted">priya@wayfair.com</td><td><span class="pill-gray">Viewer</span></td><td>Birch Lane, Perigold</td></tr>
+                      <tr class="trow"><td><strong>James Wu</strong></td><td class="td-muted">james@wayfair.com</td><td><span class="pill-gray">Editor</span></td><td>Wayfair Professional</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- STEP 3: Settings -->
+                <div class="step" id="sm1-step3">
+                  <div class="sc-header">Organization Settings</div>
+                  <div class="sc-subtitle">Configure security and access controls across all accounts</div>
+                  <div class="sm1-toggle-section">
+                    <div class="sm1-toggle-row">
+                      <span class="sm1-toggle-label">SSO Enabled</span>
+                      <div class="sm1-toggle" id="sm1-tog1"></div>
+                    </div>
+                    <div class="sm1-toggle-row">
+                      <span class="sm1-toggle-label">Two-Factor Authentication</span>
+                      <div class="sm1-toggle" id="sm1-tog2"></div>
+                    </div>
+                    <div class="sm1-toggle-row">
+                      <span class="sm1-toggle-label">Brand-level access restrictions</span>
+                      <div class="sm1-toggle" id="sm1-tog3"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="demo-annotation" id="sm1-annotation"></div>
+              </div><!-- /browser-content -->
+            </div><!-- /browser-main -->
+          </div><!-- /browser-body -->
+        </div><!-- /browser-wrap -->
+
+        <!-- Playback bar -->
+        <div class="s5-playbar" id="sm1-playbar">
+          <button class="s5-play-btn" id="sm1-play-btn" title="Play / Pause">&#9646;&#9646;</button>
+          <div class="s5-scrub-track" id="sm1-scrub-track">
+            <div class="s5-scrub-fill" id="sm1-scrub-fill"></div>
+            <div class="s5-scrub-thumb" id="sm1-scrub-thumb"></div>
+          </div>
+          <span class="s5-time-display" id="sm1-time">0:00 / 0:12</span>
+        </div>
+      </div><!-- /s5-browser-col -->
+
+      <!-- Chapter nav panel -->
+      <div class="s5-chap-col">
+        <p class="s5-chap-hint">Click to jump to any step</p>
+        <div class="s5-chapter-panel" id="sm1-chapter-nav">
+          <div class="s5-chap-hdr">CHAPTERS <span class="s5-live-dot"></span></div>
+          <button class="s5-chap-btn active" id="sm1-chap0" onclick="sm1JumpTo(0)">
+            <span class="s5-chap-num">1</span><span class="s5-chap-label">Accounts</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+          </button>
+          <button class="s5-chap-btn" id="sm1-chap1" onclick="sm1JumpTo(1)">
+            <span class="s5-chap-num">2</span><span class="s5-chap-label">User Management</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+          </button>
+          <button class="s5-chap-btn" id="sm1-chap2" onclick="sm1JumpTo(2)">
+            <span class="s5-chap-num">3</span><span class="s5-chap-label">Settings</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+          </button>
+          <div class="s5-chap-divider"></div>
+          <button class="s5-chap-replay" onclick="sm1JumpTo(0)">&#8635; Replay</button>
+        </div>
+      </div>
+
+    </div><!-- /sm1-demo-row -->
+  </div><!-- /sm1 -->
+
   <!-- SLIDE 5 — Introducing Organizations -->
   <div class="slide" id="s5" data-theme="light">
     <div class="slide-hdr" style="max-width:880px;width:100%">
@@ -2189,9 +2387,12 @@
     nextBtn.disabled = cur === total - 1;
     // Adapt dot colours for slide background
     dotsEl.className = slides[cur].dataset.theme === 'dark' ? 'dark-dots' : '';
-    // Start/stop slide 5 browser demo
-    const S5_IDX = slides.findIndex(s => s.id === 's5');
-    if (cur === S5_IDX) s5Start(); else s5Stop();
+    // Start/stop slide demos
+    const S5_IDX  = slides.findIndex(s => s.id === 's5');
+    const SM1_IDX = slides.findIndex(s => s.id === 'sm1');
+    if (cur === S5_IDX)  { s5Start();  sm1Stop(); }
+    else if (cur === SM1_IDX) { sm1Start(); s5Stop(); }
+    else { s5Stop(); sm1Stop(); }
     // Slide 3 (s4) — one-time toggle pulse on first visit
     if (cur === slides.findIndex(s => s.id === 's4') && !s4HasLoaded) {
       s4HasLoaded = true;
@@ -2583,6 +2784,285 @@
 
     // ── Loop ──
     at(S5_LOOP, function() { s5IsPaused = false; s5AutoPlay(gen, 0); });
+  }
+
+  // ─────────────────────────────────────────────
+  //  MINI-SLIDE 1 — Command Center (12s loop)
+  // ─────────────────────────────────────────────
+  var sm1Timers       = [];
+  var sm1Gen          = 0;
+  var SM1_LOOP        = 12000;
+  var SM1_STEP_TIMES  = [0, 4000, 8000];
+  var sm1IsPaused     = false;
+  var sm1PauseMs      = 0;
+  var sm1TimeBase     = 0;
+  var sm1UiInterval   = null;
+  var sm1PlaybarReady = false;
+
+  function sm1GetMs() {
+    if (sm1IsPaused) return sm1PauseMs;
+    return Math.min(Date.now() - sm1TimeBase, SM1_LOOP);
+  }
+
+  function sm1StartUiLoop() {
+    if (sm1UiInterval) clearInterval(sm1UiInterval);
+    sm1UiInterval = setInterval(function() {
+      var ms    = sm1GetMs();
+      var pct   = ms / SM1_LOOP * 100;
+      var fill  = document.getElementById('sm1-scrub-fill');
+      var thumb = document.getElementById('sm1-scrub-thumb');
+      var disp  = document.getElementById('sm1-time');
+      if (fill)  fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = pct + '%';
+      if (disp) {
+        var sec = Math.floor(ms / 1000);
+        var m = Math.floor(sec / 60), s = sec % 60;
+        var tot = Math.floor(SM1_LOOP / 1000);
+        var tm = Math.floor(tot / 60), ts = tot % 60;
+        disp.textContent = m + ':' + (s < 10 ? '0' : '') + s + ' / ' + tm + ':' + (ts < 10 ? '0' : '') + ts;
+      }
+    }, 50);
+  }
+
+  function sm1StopUiLoop() {
+    if (sm1UiInterval) { clearInterval(sm1UiInterval); sm1UiInterval = null; }
+  }
+
+  function sm1Stop() {
+    sm1Gen++;
+    sm1Timers.forEach(clearTimeout); sm1Timers = [];
+    sm1StopUiLoop();
+    sm1IsPaused = false;
+    var c = document.getElementById('sm1-cursor');
+    if (c) { c.style.opacity = '0'; c.classList.remove('clicking'); }
+    var ann = document.getElementById('sm1-annotation');
+    if (ann) ann.classList.remove('visible');
+  }
+
+  function sm1Pause() {
+    if (sm1IsPaused) return;
+    sm1PauseMs = sm1GetMs();
+    sm1IsPaused = true;
+    sm1Timers.forEach(clearTimeout); sm1Timers = [];
+    var c = document.getElementById('sm1-cursor');
+    if (c && parseFloat(c.style.opacity) > 0) {
+      var cst = window.getComputedStyle(c);
+      c.style.transition = 'none';
+      c.style.left = cst.left; c.style.top = cst.top;
+    }
+    var btn = document.getElementById('sm1-play-btn');
+    if (btn) btn.textContent = '\u25B6';
+  }
+
+  function sm1Resume() {
+    if (!sm1IsPaused) return;
+    sm1IsPaused = false;
+    sm1TimeBase = Date.now() - sm1PauseMs;
+    sm1AutoPlay(sm1Gen, sm1PauseMs, true);
+    var btn = document.getElementById('sm1-play-btn');
+    if (btn) btn.textContent = '\u25AE\u25AE';
+  }
+
+  function sm1Start() {
+    sm1Stop();
+    sm1IsPaused = false;
+    sm1AutoPlay(sm1Gen, 0);
+    sm1StartUiLoop();
+    sm1PlaybarSetup();
+    var btn = document.getElementById('sm1-play-btn');
+    if (btn) btn.textContent = '\u25AE\u25AE';
+  }
+
+  function sm1JumpTo(n) {
+    if (n < 0 || n > 2) return;
+    sm1Stop();
+    sm1IsPaused = false;
+    sm1AutoPlay(sm1Gen, SM1_STEP_TIMES[n]);
+    sm1StartUiLoop();
+    var btn = document.getElementById('sm1-play-btn');
+    if (btn) btn.textContent = '\u25AE\u25AE';
+  }
+
+  function sm1PlaybarSetup() {
+    if (sm1PlaybarReady) return;
+    sm1PlaybarReady = true;
+
+    var playBtn = document.getElementById('sm1-play-btn');
+    if (playBtn) {
+      playBtn.addEventListener('click', function() {
+        if (sm1IsPaused) { sm1Resume(); } else { sm1Pause(); }
+      });
+    }
+
+    var track = document.getElementById('sm1-scrub-track');
+    if (!track) return;
+    var sm1Dragging   = false;
+    var sm1WasPlaying = false;
+
+    function scrubMsSm1(e) {
+      var rect = track.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      return Math.max(0, Math.min(SM1_LOOP, (x / rect.width) * SM1_LOOP));
+    }
+
+    track.addEventListener('mousedown', function(e) {
+      sm1Dragging = true;
+      sm1WasPlaying = !sm1IsPaused;
+      track.classList.add('dragging');
+      if (!sm1IsPaused) {
+        sm1PauseMs  = sm1GetMs();
+        sm1IsPaused = true;
+        sm1Timers.forEach(clearTimeout); sm1Timers = [];
+      }
+      sm1PauseMs = scrubMsSm1(e);
+      var idx = 0;
+      for (var k = 0; k < SM1_STEP_TIMES.length; k++) { if (SM1_STEP_TIMES[k] <= sm1PauseMs) idx = k; }
+      document.querySelectorAll('#sm1 .s5-chap-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (!sm1Dragging) return;
+      sm1PauseMs = scrubMsSm1(e);
+      var idx = 0;
+      for (var k = 0; k < SM1_STEP_TIMES.length; k++) { if (SM1_STEP_TIMES[k] <= sm1PauseMs) idx = k; }
+      document.querySelectorAll('#sm1 .s5-chap-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+    });
+
+    document.addEventListener('mouseup', function() {
+      if (!sm1Dragging) return;
+      sm1Dragging = false;
+      track.classList.remove('dragging');
+      var ms = sm1PauseMs;
+      if (sm1WasPlaying) {
+        sm1Stop();
+        sm1IsPaused = false;
+        sm1AutoPlay(sm1Gen, ms);
+        sm1StartUiLoop();
+        var btn = document.getElementById('sm1-play-btn');
+        if (btn) btn.textContent = '\u25AE\u25AE';
+      }
+    });
+  }
+
+  function sm1AutoPlay(gen, startOffset, skipReset) {
+    if (gen !== sm1Gen) return;
+    startOffset = startOffset || 0;
+    sm1TimeBase = Date.now() - startOffset;
+
+    function at(absTime, fn) {
+      var delay = absTime - startOffset;
+      if (delay < 0) return;
+      var id = setTimeout(function() { if (gen === sm1Gen) fn(); }, delay);
+      sm1Timers.push(id);
+    }
+    function after(relMs, fn) {
+      var id = setTimeout(function() { if (gen === sm1Gen) fn(); }, relMs);
+      sm1Timers.push(id);
+    }
+
+    function updateChapNav(idx) {
+      document.querySelectorAll('#sm1 .s5-chap-btn').forEach(function(b, i) {
+        b.classList.toggle('active', i === idx);
+      });
+    }
+
+    function activateStep(stepId, sbId, chapIdx) {
+      document.querySelectorAll('#sm1 .step').forEach(function(s) { s.classList.remove('active'); });
+      var el = document.getElementById(stepId); if (el) el.classList.add('active');
+      document.querySelectorAll('#sm1 .sb-sub').forEach(function(e) { e.classList.remove('active'); });
+      var sb = document.getElementById(sbId); if (sb) sb.classList.add('active');
+      updateChapNav(chapIdx);
+    }
+
+    function moveCursor(targetEl, moveDur) {
+      var cursor    = document.getElementById('sm1-cursor');
+      var container = document.querySelector('#sm1 .browser-main');
+      if (!cursor || !targetEl || !container) return;
+      var cr = container.getBoundingClientRect();
+      var tr = targetEl.getBoundingClientRect();
+      var x  = tr.left - cr.left + tr.width  / 2 - 5;
+      var y  = tr.top  - cr.top  + tr.height / 2 - 5;
+      cursor.style.transition = 'none';
+      cursor.style.left = (x - 18) + 'px';
+      cursor.style.top  = (y - 12) + 'px';
+      cursor.style.opacity = '0';
+      void cursor.offsetHeight;
+      cursor.style.transition = 'left ' + moveDur + 'ms cubic-bezier(.25,.46,.45,.94), top ' + moveDur + 'ms cubic-bezier(.25,.46,.45,.94), opacity 0.15s ease';
+      cursor.style.opacity = '1';
+      cursor.style.left = x + 'px';
+      cursor.style.top  = y + 'px';
+      after(moveDur + 80, function() {
+        cursor.classList.add('clicking');
+        after(340, function() { cursor.classList.remove('clicking'); cursor.style.opacity = '0'; });
+      });
+    }
+
+    function showAnn(text) {
+      var a = document.getElementById('sm1-annotation');
+      if (!a) return; a.textContent = text; a.classList.add('visible');
+    }
+    function hideAnn() {
+      var a = document.getElementById('sm1-annotation'); if (a) a.classList.remove('visible');
+    }
+
+    if (!skipReset) {
+      document.querySelectorAll('#sm1 .step').forEach(function(s) { s.classList.remove('active'); });
+      document.querySelectorAll('#sm1 .sb-sub').forEach(function(e) { e.classList.remove('active'); });
+      document.querySelectorAll('#sm1-acct-tbody .trow').forEach(function(r) { r.classList.remove('loaded'); });
+      document.querySelectorAll('#sm1-step2 .trow').forEach(function(r) { r.classList.remove('loaded'); });
+      ['sm1-tog1','sm1-tog2','sm1-tog3'].forEach(function(id) {
+        var el = document.getElementById(id); if (el) el.classList.remove('on');
+      });
+      var annEl = document.getElementById('sm1-annotation'); if (annEl) annEl.classList.remove('visible');
+
+      // If jumping mid-loop, pre-fill state for all chapters before the target
+      if (startOffset > 0) {
+        var jIdx = 0;
+        for (var k = 0; k < SM1_STEP_TIMES.length; k++) { if (SM1_STEP_TIMES[k] <= startOffset) jIdx = k; }
+        var stepIds = ['sm1-step1', 'sm1-step2', 'sm1-step3'];
+        var sbIds   = ['sm1-sb-accounts', 'sm1-sb-users', 'sm1-sb-settings'];
+        activateStep(stepIds[jIdx], sbIds[jIdx], jIdx);
+        if (jIdx >= 1) { document.querySelectorAll('#sm1-acct-tbody .trow').forEach(function(r) { r.classList.add('loaded'); }); }
+        if (jIdx >= 2) { document.querySelectorAll('#sm1-step2 .trow').forEach(function(r) { r.classList.add('loaded'); }); }
+        if (jIdx >= 3) { ['sm1-tog1','sm1-tog2','sm1-tog3'].forEach(function(id) { var el = document.getElementById(id); if (el) el.classList.add('on'); }); }
+      }
+    }
+
+    // ── CHAPTER 1: Accounts (0–4000ms) ──
+    at(0, function() { activateStep('sm1-step1', 'sm1-sb-accounts', 0); });
+    [0, 150, 300, 450, 600, 750].forEach(function(t, i) {
+      at(t, function() {
+        var rows = document.querySelectorAll('#sm1-acct-tbody .trow');
+        if (rows[i]) rows[i].classList.add('loaded');
+      });
+    });
+    at(1600, function() { showAnn('\u2713 All 6 brands visible from one Organization account'); });
+    at(3400, function() { hideAnn(); });
+    at(3500, function() { moveCursor(document.getElementById('sm1-sb-users'), 380); });
+
+    // ── CHAPTER 2: User Management (4000–8000ms) ──
+    at(4000, function() { activateStep('sm1-step2', 'sm1-sb-users', 1); });
+    [0, 180, 360, 540].forEach(function(t, i) {
+      at(4000 + t, function() {
+        var rows = document.querySelectorAll('#sm1-step2 .trow');
+        if (rows[i]) rows[i].classList.add('loaded');
+      });
+    });
+    at(5200, function() { showAnn('\u2713 Users and permissions managed once across all brands'); });
+    at(7300, function() { hideAnn(); });
+    at(7400, function() { moveCursor(document.getElementById('sm1-sb-settings'), 380); });
+
+    // ── CHAPTER 3: Settings (8000–12000ms) ──
+    at(8000, function() { activateStep('sm1-step3', 'sm1-sb-settings', 2); });
+    at(8600, function() { var el = document.getElementById('sm1-tog1'); if (el) el.classList.add('on'); });
+    at(9000, function() { var el = document.getElementById('sm1-tog2'); if (el) el.classList.add('on'); });
+    at(9400, function() { var el = document.getElementById('sm1-tog3'); if (el) el.classList.add('on'); });
+    at(10000, function() { showAnn('\u2713 Security configured once \u2014 applied across every brand'); });
+    at(11700, function() { hideAnn(); });
+
+    // ── Loop ──
+    at(SM1_LOOP, function() { sm1IsPaused = false; sm1AutoPlay(gen, 0); });
   }
 
   // Init
