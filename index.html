@@ -874,6 +874,69 @@
        MINI-SLIDE 1 — Command Center
     ════════════════════════════════ */
     #sm1 { background: #FAF8F5; justify-content: center; padding: 16px 40px 80px; gap: 0; }
+
+    /* sm1 step header row (title + action button side-by-side) */
+    .sm1-step-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 8px; margin-bottom: 8px;
+    }
+    .sm1-step-top .sc-subtitle { margin-bottom: 0; }
+    .sm1-action-btn {
+      display: inline-flex; align-items: center; gap: 3px;
+      background: #232122; color: white; border: none; border-radius: 6px;
+      padding: 5px 10px; font-size: 10px; font-weight: 700;
+      cursor: default; font-family: inherit; white-space: nowrap; flex-shrink: 0;
+    }
+    /* Blue editor badge */
+    .pill-blue {
+      display: inline-flex; align-items: center;
+      background: #EAF4FF; color: #0074D6; border: 1px solid #BAD9F9;
+      border-radius: 12px; padding: 1px 7px; font-size: 9px; font-weight: 700;
+    }
+    /* Add-User modal (overlays step) */
+    .sm1-modal {
+      position: absolute; inset: 0; z-index: 10; background: white;
+      display: none; flex-direction: column; padding: 12px; gap: 7px;
+      overflow-y: auto;
+    }
+    .sm1-modal.open { display: flex; }
+    .sm1-modal-hdr { font-size: 12px; font-weight: 800; color: #232122; padding-bottom: 6px; border-bottom: 1px solid #F0F0F0; }
+    .sm1-modal-fld { display: flex; flex-direction: column; gap: 3px; }
+    .sm1-modal-lbl { font-size: 9px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 0.06em; }
+    .sm1-modal-inp {
+      min-height: 26px; border: 1px solid #E5E5E5; border-radius: 5px;
+      padding: 3px 8px; font-size: 11px; display: flex; align-items: center;
+      color: #232122; background: #fff;
+    }
+    .sm1-modal-dd {
+      min-height: 26px; border: 1px solid #E5E5E5; border-radius: 5px;
+      padding: 3px 8px; font-size: 11px; display: flex; align-items: center;
+      color: #aaa; background: #fff; cursor: default;
+    }
+    .sm1-modal-dd.sel { color: #232122; }
+    .sm1-modal-cb-grp { display: flex; flex-direction: column; gap: 3px; }
+    .sm1-modal-cb-row { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #232122; padding: 2px 0; }
+    .sm1-modal-submit {
+      background: #232122; color: white; border: none; border-radius: 6px;
+      padding: 8px 14px; font-size: 11px; font-weight: 700;
+      cursor: default; font-family: inherit; margin-top: 2px;
+    }
+    /* New Template editor */
+    .sm1-tmpl-editor { display: none; flex-direction: column; gap: 7px; }
+    .sm1-tmpl-editor.open { display: flex; }
+    .sm1-email-mock {
+      background: #fff; border: 1px solid #E5E5E5; border-radius: 6px;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .sm1-email-mock-bar {
+      background: #F86455; padding: 6px 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .sm1-email-mock-bar span { font-size: 7px; font-weight: 800; color: white; letter-spacing: 0.12em; }
+    .sm1-email-mock-body { padding: 8px 10px; display: flex; flex-direction: column; gap: 5px; }
+    .sm1-email-ln { height: 6px; background: #F0F0F0; border-radius: 3px; }
+    .sm1-email-cta { height: 16px; background: #F86455; border-radius: 4px; width: 50%; margin: 2px auto 0; }
+    .sm1-deploy-hdr { font-size: 9px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
     #sm2 { background: #FAF8F5; justify-content: center; padding: 16px 40px 80px; gap: 0; }
     #sm3 { background: #FAF8F5; justify-content: center; padding: 16px 40px 80px; gap: 0; }
 
@@ -1901,7 +1964,7 @@
     <!-- Slide header -->
     <div class="sm-slide-hdr">
       <h2>One Command Center</h2>
-      <p>Managing all brands, users, and permissions from a single Organization account</p>
+      <p>One place to manage every brand account, user, template, and campaign send</p>
     </div>
 
     <!-- Top: ask → need reframe -->
@@ -1910,7 +1973,7 @@
       <p class="sm1-ask-text">&ldquo;Remove the one sending domain limit so we can run all our brands in one account&rdquo;</p>
       <span class="sm1-arrow">↓</span>
       <span class="sm1-pill">What They Actually Need</span>
-      <p class="sm1-need-text">A single command center to manage assets, campaigns, and profiles across all brands</p>
+      <p class="sm1-need-text">A single command center: add users, build templates, and send campaigns &mdash; all without switching accounts</p>
     </div>
 
     <!-- Bottom ~70%: animated browser demo -->
@@ -1935,11 +1998,12 @@
               <!-- Sidebar -->
               <div class="browser-sidebar">
                 <div class="sb-item">🏠 Home</div>
-                <div class="sb-item">📣 Campaigns</div>
                 <div class="sb-sec-hdr">Manage</div>
                 <div class="sb-sub" id="sm1-sb-accounts">Accounts</div>
                 <div class="sb-sub" id="sm1-sb-users">User Management</div>
-                <div class="sb-sub" id="sm1-sb-settings">⚙ Settings</div>
+                <div class="sb-sub" id="sm1-sb-templates">Templates</div>
+                <div class="sb-sec-hdr">Send</div>
+                <div class="sb-sub" id="sm1-sb-campaigns">📣 Campaigns</div>
                 <div class="sb-divider"></div>
                 <div class="sb-footer">WI &middot; Wayfair Inc. Organization</div>
               </div>
@@ -1967,8 +2031,13 @@
 
                 <!-- STEP 2: User Management -->
                 <div class="step" id="sm1-step2">
-                  <div class="sc-header">User Management</div>
-                  <div class="sc-subtitle">Manage users and permissions across all brands</div>
+                  <div class="sm1-step-top">
+                    <div>
+                      <div class="sc-header">User Management</div>
+                      <div class="sc-subtitle">Manage users and permissions across all brands</div>
+                    </div>
+                    <button class="sm1-action-btn" id="sm1-add-user-btn">+ Add User</button>
+                  </div>
                   <table class="demo-table">
                     <thead><tr>
                       <th>Name</th><th>Email</th><th>Role</th><th>Brand Access</th>
@@ -1980,25 +2049,111 @@
                       <tr class="trow"><td><strong>James Wu</strong></td><td class="td-muted">james@wayfair.com</td><td><span class="pill-gray">Editor</span></td><td>Wayfair Professional</td></tr>
                     </tbody>
                   </table>
+                  <!-- Add-User modal overlay -->
+                  <div class="sm1-modal" id="sm1-add-user-modal">
+                    <div class="sm1-modal-hdr">Add New User</div>
+                    <div class="sm1-modal-fld">
+                      <div class="sm1-modal-lbl">Full Name</div>
+                      <div class="sm1-modal-inp" id="sm1-modal-name"></div>
+                    </div>
+                    <div class="sm1-modal-fld">
+                      <div class="sm1-modal-lbl">Email Address</div>
+                      <div class="sm1-modal-inp" id="sm1-modal-email"></div>
+                    </div>
+                    <div class="sm1-modal-fld">
+                      <div class="sm1-modal-lbl">Role</div>
+                      <div class="sm1-modal-dd" id="sm1-modal-role">Select role&hellip;</div>
+                    </div>
+                    <div class="sm1-modal-fld">
+                      <div class="sm1-modal-lbl">Brand Access</div>
+                      <div class="sm1-modal-cb-grp">
+                        <div class="sm1-modal-cb-row"><span id="sm1-cb1">☐</span>&nbsp;Wayfair</div>
+                        <div class="sm1-modal-cb-row"><span id="sm1-cb2">☐</span>&nbsp;Joss &amp; Main</div>
+                        <div class="sm1-modal-cb-row"><span id="sm1-cb3">☐</span>&nbsp;AllModern</div>
+                      </div>
+                    </div>
+                    <button class="sm1-modal-submit" id="sm1-modal-submit-btn">Send Invite</button>
+                  </div>
                 </div>
 
-                <!-- STEP 3: Settings -->
+                <!-- STEP 3: Templates -->
                 <div class="step" id="sm1-step3">
-                  <div class="sc-header">Organization Settings</div>
-                  <div class="sc-subtitle">Configure security and access controls across all accounts</div>
-                  <div class="sm1-toggle-section">
-                    <div class="sm1-toggle-row">
-                      <span class="sm1-toggle-label">SSO Enabled</span>
-                      <div class="sm1-toggle" id="sm1-tog1"></div>
+                  <div class="sm1-step-top">
+                    <div>
+                      <div class="sc-header">Templates</div>
+                      <div class="sc-subtitle">Shared templates available to all brand accounts</div>
                     </div>
-                    <div class="sm1-toggle-row">
-                      <span class="sm1-toggle-label">Two-Factor Authentication</span>
-                      <div class="sm1-toggle" id="sm1-tog2"></div>
+                    <button class="sm1-action-btn" id="sm1-new-tmpl-btn">+ New Template</button>
+                  </div>
+                  <table class="demo-table" id="sm1-tmpl-table">
+                    <thead><tr>
+                      <th>Template Name</th><th>Type</th><th>Used By</th><th>Last Edited</th>
+                    </tr></thead>
+                    <tbody>
+                      <tr class="trow"><td>Summer Sale Hero</td><td><span class="pill-blue">Email</span></td><td>4 brands</td><td class="td-muted">Today</td></tr>
+                      <tr class="trow"><td>Win-Back Flow</td><td><span class="pill-blue">Email</span></td><td>6 brands</td><td class="td-muted">Yesterday</td></tr>
+                      <tr class="trow"><td>Welcome Series</td><td><span class="pill-blue">Email</span></td><td>6 brands</td><td class="td-muted">3 days ago</td></tr>
+                    </tbody>
+                  </table>
+                  <!-- New-template editor overlay -->
+                  <div class="sm1-tmpl-editor" id="sm1-tmpl-editor">
+                    <div class="sm1-step-top" style="margin-bottom:4px">
+                      <div class="sc-header" style="font-size:11px;margin:0">New Template &mdash; Summer Sale Hero</div>
+                      <span class="pill-blue">Draft</span>
                     </div>
-                    <div class="sm1-toggle-row">
-                      <span class="sm1-toggle-label">Brand-level access restrictions</span>
-                      <div class="sm1-toggle" id="sm1-tog3"></div>
+                    <div class="sm1-email-mock">
+                      <div class="sm1-email-mock-bar"><span>WAYFAIR ORG TEMPLATE</span></div>
+                      <div class="sm1-email-mock-body">
+                        <div class="sm1-email-ln" style="width:70%"></div>
+                        <div class="sm1-email-ln" style="width:50%"></div>
+                        <div class="sm1-email-ln" style="width:85%"></div>
+                        <div class="sm1-email-cta"></div>
+                      </div>
                     </div>
+                    <div class="sm1-deploy-hdr">Deploy to brands</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:4px">
+                      <span class="pill-green" id="sm1-dp1" style="opacity:0;transition:opacity 0.3s ease">Wayfair</span>
+                      <span class="pill-green" id="sm1-dp2" style="opacity:0;transition:opacity 0.3s ease">Joss &amp; Main</span>
+                      <span class="pill-green" id="sm1-dp3" style="opacity:0;transition:opacity 0.3s ease">AllModern</span>
+                      <span class="pill-green" id="sm1-dp4" style="opacity:0;transition:opacity 0.3s ease">Birch Lane</span>
+                      <span class="pill-green" id="sm1-dp5" style="opacity:0;transition:opacity 0.3s ease">Perigold</span>
+                      <span class="pill-green" id="sm1-dp6" style="opacity:0;transition:opacity 0.3s ease">Wayfair Professional</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- STEP 4: Campaign Send -->
+                <div class="step" id="sm1-step4">
+                  <div class="sc-header">Campaign Send</div>
+                  <div class="sc-subtitle" style="margin-bottom:8px">Send to multiple brands simultaneously</div>
+                  <div id="sm1-campaign-form">
+                    <div style="display:flex;flex-direction:column;gap:5px">
+                      <div class="sm1-modal-fld">
+                        <div class="sm1-modal-lbl">Campaign Name</div>
+                        <div class="sm1-modal-inp" id="sm1-camp-name"></div>
+                      </div>
+                      <div class="sm1-modal-fld">
+                        <div class="sm1-modal-lbl">Template</div>
+                        <div class="sm1-modal-dd sel" id="sm1-camp-tmpl">Summer Sale Hero</div>
+                      </div>
+                      <div class="sm1-modal-fld">
+                        <div class="sm1-modal-lbl">Send to</div>
+                        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:2px">
+                          <span class="pill-green" id="sm1-cbrand1" style="opacity:0;transition:opacity 0.25s ease">Wayfair</span>
+                          <span class="pill-green" id="sm1-cbrand2" style="opacity:0;transition:opacity 0.25s ease">Joss &amp; Main</span>
+                          <span class="pill-green" id="sm1-cbrand3" style="opacity:0;transition:opacity 0.25s ease">AllModern</span>
+                          <span class="pill-green" id="sm1-cbrand4" style="opacity:0;transition:opacity 0.25s ease">Birch Lane</span>
+                          <span class="pill-green" id="sm1-cbrand5" style="opacity:0;transition:opacity 0.25s ease">Perigold</span>
+                          <span class="pill-green" id="sm1-cbrand6" style="opacity:0;transition:opacity 0.25s ease">Wayfair Pro</span>
+                        </div>
+                      </div>
+                      <button class="sm1-modal-submit" id="sm1-camp-send-btn" style="margin-top:4px">Send to All Brands</button>
+                    </div>
+                  </div>
+                  <div id="sm1-campaign-success" style="display:none;flex-direction:column;align-items:center;gap:6px;padding-top:8px">
+                    <div style="font-size:24px">&#x2705;</div>
+                    <div style="font-size:12px;font-weight:800;color:#232122">Campaign Sent!</div>
+                    <div style="font-size:10px;color:#aaa;text-align:center">Summer Sale Hero delivered to 6 brands<br>each with its own sending domain</div>
                   </div>
                 </div>
 
@@ -2015,7 +2170,7 @@
             <div class="s5-scrub-fill" id="sm1-scrub-fill"></div>
             <div class="s5-scrub-thumb" id="sm1-scrub-thumb"></div>
           </div>
-          <span class="s5-time-display" id="sm1-time">0:00 / 0:12</span>
+          <span class="s5-time-display" id="sm1-time">0:00 / 0:28</span>
         </div>
       </div><!-- /s5-browser-col -->
 
@@ -2031,7 +2186,10 @@
             <span class="s5-chap-num">2</span><span class="s5-chap-label">User Management</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
           </button>
           <button class="s5-chap-btn" id="sm1-chap2" onclick="sm1JumpTo(2)">
-            <span class="s5-chap-num">3</span><span class="s5-chap-label">Settings</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+            <span class="s5-chap-num">3</span><span class="s5-chap-label">Templates</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
+          </button>
+          <button class="s5-chap-btn" id="sm1-chap3" onclick="sm1JumpTo(3)">
+            <span class="s5-chap-num">4</span><span class="s5-chap-label">Campaign Send</span><span class="s5-chap-play">&#9654;</span><span class="s5-chap-chevron">&#8250;</span>
           </button>
           <div class="s5-chap-divider"></div>
           <button class="s5-chap-replay" onclick="sm1JumpTo(0)">&#8635; Replay</button>
@@ -2562,12 +2720,12 @@
     if (Math.abs(dx) > 50) goTo(cur + (dx < 0 ? 1 : -1));
   }, { passive: true });
 
-  //  MINI-SLIDE 1 — Command Center (12s loop)
+  //  MINI-SLIDE 1 — Command Center (28s loop)
   // ─────────────────────────────────────────────
   var sm1Timers       = [];
   var sm1Gen          = 0;
-  var SM1_LOOP        = 12000;
-  var SM1_STEP_TIMES  = [0, 4000, 8000];
+  var SM1_LOOP        = 28000;
+  var SM1_STEP_TIMES  = [0, 6000, 12000, 20000];
   var sm1IsPaused     = false;
   var sm1PauseMs      = 0;
   var sm1TimeBase     = 0;
@@ -2649,7 +2807,7 @@
   }
 
   function sm1JumpTo(n) {
-    if (n < 0 || n > 2) return;
+    if (n < 0 || n > 3) return;
     sm1Stop();
     sm1IsPaused = false;
     sm1AutoPlay(sm1Gen, SM1_STEP_TIMES[n]);
@@ -2786,25 +2944,44 @@
       document.querySelectorAll('#sm1 .sb-sub').forEach(function(e) { e.classList.remove('active'); });
       document.querySelectorAll('#sm1-acct-tbody .trow').forEach(function(r) { r.classList.remove('loaded'); });
       document.querySelectorAll('#sm1-step2 .trow').forEach(function(r) { r.classList.remove('loaded'); });
-      ['sm1-tog1','sm1-tog2','sm1-tog3'].forEach(function(id) {
-        var el = document.getElementById(id); if (el) el.classList.remove('on');
-      });
+      document.querySelectorAll('#sm1-step3 .trow').forEach(function(r) { r.classList.remove('loaded'); });
+      // Reset modal
+      var modal = document.getElementById('sm1-add-user-modal'); if (modal) modal.classList.remove('open');
+      var mn = document.getElementById('sm1-modal-name'); if (mn) mn.textContent = '';
+      var me = document.getElementById('sm1-modal-email'); if (me) me.textContent = '';
+      var mr = document.getElementById('sm1-modal-role'); if (mr) { mr.textContent = 'Select role\u2026'; mr.classList.remove('sel'); }
+      ['sm1-cb1','sm1-cb2','sm1-cb3'].forEach(function(id) { var el = document.getElementById(id); if (el) el.textContent = '\u2610'; });
+      // Reset template editor
+      var te = document.getElementById('sm1-tmpl-editor'); if (te) te.classList.remove('open');
+      var tt = document.getElementById('sm1-tmpl-table'); if (tt) tt.style.display = '';
+      ['sm1-dp1','sm1-dp2','sm1-dp3','sm1-dp4','sm1-dp5','sm1-dp6'].forEach(function(id) { var el = document.getElementById(id); if (el) el.style.opacity = '0'; });
+      // Reset campaign form
+      var cn = document.getElementById('sm1-camp-name'); if (cn) cn.textContent = '';
+      ['sm1-cbrand1','sm1-cbrand2','sm1-cbrand3','sm1-cbrand4','sm1-cbrand5','sm1-cbrand6'].forEach(function(id) { var el = document.getElementById(id); if (el) el.style.opacity = '0'; });
+      var csb = document.getElementById('sm1-camp-send-btn'); if (csb) csb.style.display = '';
+      var cf = document.getElementById('sm1-campaign-form'); if (cf) cf.style.display = '';
+      var cs = document.getElementById('sm1-campaign-success'); if (cs) cs.style.display = 'none';
       var annEl = document.getElementById('sm1-annotation'); if (annEl) annEl.classList.remove('visible');
 
-      // If jumping mid-loop, pre-fill state for all chapters before the target
+      // If jumping mid-loop, pre-fill state for chapters before the target
       if (startOffset > 0) {
         var jIdx = 0;
         for (var k = 0; k < SM1_STEP_TIMES.length; k++) { if (SM1_STEP_TIMES[k] <= startOffset) jIdx = k; }
-        var stepIds = ['sm1-step1', 'sm1-step2', 'sm1-step3'];
-        var sbIds   = ['sm1-sb-accounts', 'sm1-sb-users', 'sm1-sb-settings'];
+        var stepIds = ['sm1-step1', 'sm1-step2', 'sm1-step3', 'sm1-step4'];
+        var sbIds   = ['sm1-sb-accounts', 'sm1-sb-users', 'sm1-sb-templates', 'sm1-sb-campaigns'];
         activateStep(stepIds[jIdx], sbIds[jIdx], jIdx);
         if (jIdx >= 1) { document.querySelectorAll('#sm1-acct-tbody .trow').forEach(function(r) { r.classList.add('loaded'); }); }
         if (jIdx >= 2) { document.querySelectorAll('#sm1-step2 .trow').forEach(function(r) { r.classList.add('loaded'); }); }
-        if (jIdx >= 3) { ['sm1-tog1','sm1-tog2','sm1-tog3'].forEach(function(id) { var el = document.getElementById(id); if (el) el.classList.add('on'); }); }
+        if (jIdx >= 3) {
+          document.querySelectorAll('#sm1-step3 .trow').forEach(function(r) { r.classList.add('loaded'); });
+          var te2 = document.getElementById('sm1-tmpl-editor'); if (te2) te2.classList.add('open');
+          var tt2 = document.getElementById('sm1-tmpl-table'); if (tt2) tt2.style.display = 'none';
+          ['sm1-dp1','sm1-dp2','sm1-dp3','sm1-dp4','sm1-dp5','sm1-dp6'].forEach(function(id) { var el = document.getElementById(id); if (el) el.style.opacity = '1'; });
+        }
       }
     }
 
-    // ── CHAPTER 1: Accounts (0–4000ms) ──
+    // ── CHAPTER 1: Accounts (0–6000ms) ──
     at(0, function() { activateStep('sm1-step1', 'sm1-sb-accounts', 0); });
     [0, 150, 300, 450, 600, 750].forEach(function(t, i) {
       at(t, function() {
@@ -2813,28 +2990,80 @@
       });
     });
     at(1600, function() { showAnn('\u2713 All 6 brands visible from one Organization account'); });
-    at(3400, function() { hideAnn(); });
-    at(3500, function() { moveCursor(document.getElementById('sm1-sb-users'), 380); });
+    at(4800, function() { hideAnn(); });
+    at(5200, function() { moveCursor(document.getElementById('sm1-sb-users'), 500); });
 
-    // ── CHAPTER 2: User Management (4000–8000ms) ──
-    at(4000, function() { activateStep('sm1-step2', 'sm1-sb-users', 1); });
+    // ── CHAPTER 2: User Management (6000–12000ms) ──
+    at(6000, function() { activateStep('sm1-step2', 'sm1-sb-users', 1); });
     [0, 180, 360, 540].forEach(function(t, i) {
-      at(4000 + t, function() {
+      at(6000 + t, function() {
         var rows = document.querySelectorAll('#sm1-step2 .trow');
         if (rows[i]) rows[i].classList.add('loaded');
       });
     });
-    at(5200, function() { showAnn('\u2713 Users and permissions managed once across all brands'); });
-    at(7300, function() { hideAnn(); });
-    at(7400, function() { moveCursor(document.getElementById('sm1-sb-settings'), 380); });
+    at(7400, function() { moveCursor(document.getElementById('sm1-add-user-btn'), 400); });
+    at(8100, function() {
+      var modal = document.getElementById('sm1-add-user-modal');
+      if (modal) modal.classList.add('open');
+    });
+    at(8500, function() {
+      var el = document.getElementById('sm1-modal-name'); if (el) el.textContent = 'Alex Rivera';
+    });
+    at(8800, function() {
+      var el = document.getElementById('sm1-modal-email'); if (el) el.textContent = 'alex@wayfair.com';
+    });
+    at(9100, function() {
+      var el = document.getElementById('sm1-modal-role'); if (el) { el.textContent = 'Editor'; el.classList.add('sel'); }
+    });
+    at(9400, function() { var el = document.getElementById('sm1-cb1'); if (el) el.textContent = '\u2611'; });
+    at(9600, function() { var el = document.getElementById('sm1-cb2'); if (el) el.textContent = '\u2611'; });
+    at(9800, function() { var el = document.getElementById('sm1-cb3'); if (el) el.textContent = '\u2611'; });
+    at(10400, function() { showAnn('\u2713 One invite covers all selected brand accounts'); });
+    at(11400, function() {
+      hideAnn();
+      var modal = document.getElementById('sm1-add-user-modal');
+      if (modal) modal.classList.remove('open');
+    });
+    at(11600, function() { moveCursor(document.getElementById('sm1-sb-templates'), 450); });
 
-    // ── CHAPTER 3: Settings (8000–12000ms) ──
-    at(8000, function() { activateStep('sm1-step3', 'sm1-sb-settings', 2); });
-    at(8600, function() { var el = document.getElementById('sm1-tog1'); if (el) el.classList.add('on'); });
-    at(9000, function() { var el = document.getElementById('sm1-tog2'); if (el) el.classList.add('on'); });
-    at(9400, function() { var el = document.getElementById('sm1-tog3'); if (el) el.classList.add('on'); });
-    at(10000, function() { showAnn('\u2713 Security configured once \u2014 applied across every brand'); });
-    at(11700, function() { hideAnn(); });
+    // ── CHAPTER 3: Templates (12000–20000ms) ──
+    at(12000, function() { activateStep('sm1-step3', 'sm1-sb-templates', 2); });
+    [0, 180, 360].forEach(function(t, i) {
+      at(12000 + t, function() {
+        var rows = document.querySelectorAll('#sm1-step3 .trow');
+        if (rows[i]) rows[i].classList.add('loaded');
+      });
+    });
+    at(13400, function() { moveCursor(document.getElementById('sm1-new-tmpl-btn'), 400); });
+    at(14100, function() {
+      var te = document.getElementById('sm1-tmpl-editor'); if (te) te.classList.add('open');
+      var tt = document.getElementById('sm1-tmpl-table'); if (tt) tt.style.display = 'none';
+    });
+    [0, 200, 400, 600, 800, 1000].forEach(function(t, i) {
+      at(14800 + t, function() {
+        var el = document.getElementById('sm1-dp' + (i + 1)); if (el) el.style.opacity = '1';
+      });
+    });
+    at(16400, function() { showAnn('\u2713 Build once \u2014 deployed to all 6 brands'); });
+    at(19100, function() { hideAnn(); });
+    at(19400, function() { moveCursor(document.getElementById('sm1-sb-campaigns'), 450); });
+
+    // ── CHAPTER 4: Campaign Send (20000–28000ms) ──
+    at(20000, function() { activateStep('sm1-step4', 'sm1-sb-campaigns', 3); });
+    at(20500, function() {
+      var el = document.getElementById('sm1-camp-name'); if (el) el.textContent = 'Summer Sale 2026';
+    });
+    [0, 200, 400, 600, 800, 1000].forEach(function(t, i) {
+      at(21200 + t, function() {
+        var el = document.getElementById('sm1-cbrand' + (i + 1)); if (el) el.style.opacity = '1';
+      });
+    });
+    at(22800, function() { showAnn('\u2713 One send \u2014 6 brands, each with its own sending domain'); });
+    at(24800, function() {
+      hideAnn();
+      var cf = document.getElementById('sm1-campaign-form'); if (cf) cf.style.display = 'none';
+      var cs = document.getElementById('sm1-campaign-success'); if (cs) cs.style.display = 'flex';
+    });
 
     // ── Loop ──
     at(SM1_LOOP, function() { sm1IsPaused = false; sm1AutoPlay(gen, 0); });
