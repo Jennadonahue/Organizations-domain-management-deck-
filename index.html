@@ -2124,9 +2124,26 @@
 
                 <!-- STEP 4: Campaign Send -->
                 <div class="step" id="sm1-step4">
-                  <div class="sc-header">Campaign Send</div>
-                  <div class="sc-subtitle" style="margin-bottom:8px">Send to multiple brands simultaneously</div>
-                  <div id="sm1-campaign-form">
+                  <div class="sm1-step-top">
+                    <div>
+                      <div class="sc-header">Campaigns</div>
+                      <div class="sc-subtitle">Create, manage, and send campaigns across all your brands from one place</div>
+                    </div>
+                    <button class="sm1-action-btn" id="sm1-new-camp-btn">+ New Campaign</button>
+                  </div>
+                  <!-- Campaign list view (shown for ~2s before form) -->
+                  <div id="sm1-campaign-list">
+                    <table class="demo-table">
+                      <thead><tr><th>Name</th><th>Brands</th><th>Status</th><th>Recipients</th></tr></thead>
+                      <tbody>
+                        <tr><td><strong>Summer Sale 2026</strong></td><td class="td-muted">Wayfair, AllModern, Joss &amp; Main</td><td><span class="pill-green">Sent</span></td><td>48,200</td></tr>
+                        <tr><td><strong>Welcome Series</strong></td><td class="td-muted">All 6 brands</td><td><span class="pill-blue">Active</span></td><td class="td-muted">Ongoing</td></tr>
+                        <tr><td><strong>Abandoned Cart Recovery</strong></td><td class="td-muted">Birch Lane, Perigold</td><td><span class="pill-gray">Paused</span></td><td class="td-muted">&mdash;</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- Campaign creation form (shown after cursor clicks + New Campaign) -->
+                  <div id="sm1-campaign-form" style="display:none">
                     <div style="display:flex;flex-direction:column;gap:5px">
                       <div class="sm1-modal-fld">
                         <div class="sm1-modal-lbl">Campaign Name</div>
@@ -2959,7 +2976,8 @@
       var cn = document.getElementById('sm1-camp-name'); if (cn) cn.textContent = '';
       ['sm1-cbrand1','sm1-cbrand2','sm1-cbrand3','sm1-cbrand4','sm1-cbrand5','sm1-cbrand6'].forEach(function(id) { var el = document.getElementById(id); if (el) el.style.opacity = '0'; });
       var csb = document.getElementById('sm1-camp-send-btn'); if (csb) csb.style.display = '';
-      var cf = document.getElementById('sm1-campaign-form'); if (cf) cf.style.display = '';
+      var cl = document.getElementById('sm1-campaign-list'); if (cl) cl.style.display = '';
+      var cf = document.getElementById('sm1-campaign-form'); if (cf) cf.style.display = 'none';
       var cs = document.getElementById('sm1-campaign-success'); if (cs) cs.style.display = 'none';
       var annEl = document.getElementById('sm1-annotation'); if (annEl) annEl.classList.remove('visible');
 
@@ -3049,17 +3067,23 @@
     at(19400, function() { moveCursor(document.getElementById('sm1-sb-campaigns'), 450); });
 
     // ── CHAPTER 4: Campaign Send (20000–28000ms) ──
+    // Show campaign list view for ~2s, then cursor clicks "+ New Campaign"
     at(20000, function() { activateStep('sm1-step4', 'sm1-sb-campaigns', 3); });
-    at(20500, function() {
+    at(21700, function() { moveCursor(document.getElementById('sm1-new-camp-btn'), 400); });
+    at(22200, function() {
+      var cl = document.getElementById('sm1-campaign-list'); if (cl) cl.style.display = 'none';
+      var cf = document.getElementById('sm1-campaign-form'); if (cf) cf.style.display = '';
+    });
+    at(22600, function() {
       var el = document.getElementById('sm1-camp-name'); if (el) el.textContent = 'Summer Sale 2026';
     });
     [0, 200, 400, 600, 800, 1000].forEach(function(t, i) {
-      at(21200 + t, function() {
+      at(23300 + t, function() {
         var el = document.getElementById('sm1-cbrand' + (i + 1)); if (el) el.style.opacity = '1';
       });
     });
-    at(22800, function() { showAnn('\u2713 One send \u2014 6 brands, each with its own sending domain'); });
-    at(24800, function() {
+    at(25000, function() { showAnn('\u2713 One send \u2014 6 brands, each with its own sending domain'); });
+    at(26700, function() {
       hideAnn();
       var cf = document.getElementById('sm1-campaign-form'); if (cf) cf.style.display = 'none';
       var cs = document.getElementById('sm1-campaign-success'); if (cs) cs.style.display = 'flex';
